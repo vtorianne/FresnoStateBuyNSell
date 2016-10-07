@@ -1,5 +1,5 @@
 # FresnoStateBuyNSell
 
-  Carlos Daccarett..
+  Carlos Daccarett
  <br> Brandon Rowe
 
