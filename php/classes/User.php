@@ -12,12 +12,14 @@
             $db = new DB();
             //check if user record already exists
             //generate sql for query
+            $sql = "$test"."hi".$var;
             $return = $db->query($sql);
             if(/*record already exists*/){
                 return false;
             }
             else{
                 //generate sql for insert statement
+                $sql = "";
                 $db->execute($sql);
                 return true;
             }
@@ -26,3 +28,4 @@
     }
     
  ?>
+ 
