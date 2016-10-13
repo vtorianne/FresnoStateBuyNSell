@@ -10,7 +10,17 @@
                 ;
                 break;
             case "register":
-                ;
+                if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password']){
+                    $regData = array(
+                                        'firstName' => $_POST['firstName'],
+                                        'lastName' => $_POST['lastName'],
+                                        'email' => $_POST['email'],
+                                        'password' => $_POST['password']
+                                    );
+                }
+                else{
+                    //display registration form
+                }
                 break;
             default:
                 echo "Forbidden Access";
