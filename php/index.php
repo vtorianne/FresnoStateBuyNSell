@@ -17,6 +17,14 @@
                                         'email' => $_POST['email'],
                                         'password' => $_POST['password']
                                     );
+                    $user = new User();
+                    if($user->register($regData)){
+                        //success creating user
+                        header('Location: index.php');  //this needs to be after the cookie/session variable has been set
+                    }
+                    else{
+                        //error creating user or user email already exists
+                    }
                 }
                 else{
                     //display registration form
