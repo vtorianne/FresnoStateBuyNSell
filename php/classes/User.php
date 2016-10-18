@@ -28,14 +28,29 @@
                 //generate sql for insert statement
                 $sql = "";  //create user record in database with insert sql statement
                 $db->execute($sql);
-                $this->login();
+                //$this->login();
                 return true;
             }
         }
         
-        public function login(){
-            session_start();
-            $_SESSION["Current_User"] = $this;
+        public function login($loginData){
+            //if($loginData){ //not coming from registration
+            $this->email = $loginData['email'];
+            $this->password = $loginData['password'];
+            //}
+            $db = new DB();
+            $sql = "";  //query User record where email and password match those given
+            //if using password encryption, make sure given password is encrypted before comparison
+            $return = $db->query($sql);
+            if(/*existing not record found*/){
+                //wrong username and or password
+            }
+            else{ ///
+                session_start();
+                $_SESSION["Current_User"] = $this;
+                $_SESSION["Logged_In"] = true;  //keep this?
+            }
+            
         }
     
     }

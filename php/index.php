@@ -7,7 +7,19 @@
                 echo "Home page (for users not logged in)";
                 break;
             case "login":
-                ;
+                if(isset($_POST['email']) && isset($_POST['password']){
+                    $loginData = array(
+                                         'email' => $_POST['email'],
+                                         'password' => $_POST['password']
+                                       );
+                    $user = new User();
+                    $user->login($loginData);
+                    //what if error?
+                    header('Location: index.php'); //redirect to home page if success
+                }
+                else{
+                    //display login form
+                }
                 break;
             case "register":
                 if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password']){
@@ -20,7 +32,8 @@
                     $user = new User();
                     if($user->register($regData)){
                         //success creating user
-                        header('Location: index.php');  //this needs to be after the cookie/session variable has been set
+                        //header('Location: index.php');  //this needs to be after the cookie/session variable has been set
+                        //maybe go to log in form next?
                     }
                     else{
                         //error creating user or user email already exists
