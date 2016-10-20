@@ -9,7 +9,7 @@
 
         public function __construct(){
             $this->host = "localhost";
-            $this->dbname = "name"; //will replace this w/ actual name of the database
+            $this->dbname = "FresnoStateBuyNSell"; //will replace this w/ actual name of the database
             $this->username = "root";
             $password = "";
             if($password == "")

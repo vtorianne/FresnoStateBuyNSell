@@ -1,13 +1,16 @@
 <?php
+    session_start();
     require_once "classes/User.php";
     $option = (isset($_GET['option']) ? $_GET['option'] : null);
-    if(!$logged_in){
+    if(!(isset($_SESSION["Current_User"]) && $_SESSION["Logged_In"])){
         switch($option){
             case null:
-                echo "Home page (for users not logged in)";
+                //Home page (for users not logged in)
+                echo "Home, not logged in";
+                ///include "";
                 break;
             case "login":
-                if(isset($_POST['email']) && isset($_POST['password']){
+                if(isset($_POST['email']) && isset($_POST['password'])){
                     $loginData = array(
                                          'email' => $_POST['email'],
                                          'password' => $_POST['password']
@@ -19,10 +22,11 @@
                 }
                 else{
                     //display login form
+                    ///include "";
                 }
                 break;
             case "register":
-                if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password']){
+                if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password'])){
                     $regData = array(
                                         'firstName' => $_POST['firstName'],
                                         'lastName' => $_POST['lastName'],
@@ -41,6 +45,7 @@
                 }
                 else{
                     //display registration form
+                    ///include "";
                 }
                 break;
             default:
@@ -52,6 +57,11 @@
         switch($option){
             case null:
                 echo "Home page/default posts view (for users logged in)";
+                break;
+            case "logout":
+                $user = new User();
+                $user->logout();
+                header('Location: index.php');
                 break;
             case "e.g. create post":
                 ;
