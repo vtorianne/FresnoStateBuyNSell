@@ -19,14 +19,14 @@
             $db = new DB();
             //generate sql for query
             ////$sql = "$test"."hi".$var; //sample example of string in php
-            $sql = "";  //count query for number of records with matching email
+            $sql = "SELECT Email FROM users WHERE Email = $this->email";  //count query for number of records with matching email
             $return = $db->query($sql);
             if(true/*record already exists*/){ //will specify this when the query is done
                 return false;
             }
             else{
                 //generate sql for insert statement
-                $sql = "";  //create user record in database with insert sql statement
+                $sql = "INSERT INTO users(Email, Password, FirstName, LastName) VALUES($this->email, $this->password, $this->firstname, $this->lastname)";  //create user record in database with insert sql statement
                 $db->execute($sql);
                 //$this->login();
                 return true;
@@ -39,7 +39,7 @@
             $this->password = $loginData['password'];
             //}
             $db = new DB();
-            $sql = "";  //query User record where email and password match those given
+            $sql = "SELECT Email, Password FROM users WHERE  $this->email = Email AND $this->password = Password";  //query User record where email and password match those given
             //if using password encryption, make sure given password is encrypted before comparison
             $return = $db->query($sql);
             if(/*existing not record found*/){
