@@ -16,9 +16,12 @@
                                          'password' => $_POST['password']
                                        );
                     $user = new User();
-                    $user->login($loginData);
-                    //what if error?
-                    header('Location: index.php'); //redirect to home page if success
+                    if($user->login($loginData)){
+                        header('Location: index.php'); //redirect to home page if success
+                    }
+                    else{
+                        //include "";  //display login form with wrong username/password message
+                    }
                 }
                 else{
                     //display login form
