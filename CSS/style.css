@@ -1,0 +1,16 @@
+html {
+	height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: #0099F7;
+    background-repeat:no-repeat;
+    background: -webkit-linear-gradient( to left top, #0099F7, #F11712);
+    background: -moz-linear-gradient( to left top, #0099F7, #F11712);
+    background: -ms-linear-gradient( to left top, #0099F7, #F11712);
+    background: -o-linear-gradient( to left top, #0099F7, #F11712);
+    background: linear-gradient( to left top, #0099F7, #F11712);
+}
+
+.modal-footer {   border-top: 0px; }
