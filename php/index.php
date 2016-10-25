@@ -16,13 +16,17 @@
                                          'password' => $_POST['password']
                                        );
                     $user = new User();
-                    $user->login($loginData);
-                    //what if error?
-                    header('Location: index.php'); //redirect to home page if success
+                    if($user->login($loginData)){
+                        header('Location: index.php'); //redirect to home page if success
+                    }
+                    else{
+                        echo "wrong username/password. try to login again";
+                        //include "";  //display login form with wrong username/password message
+                    }
                 }
                 else{
                     //display login form
-                    ///include "";
+                    include "../html/signin.html";
                 }
                 break;
             case "register":
@@ -38,14 +42,16 @@
                         //success creating user
                         //header('Location: index.php');  //this needs to be after the cookie/session variable has been set
                         //maybe go to log in form next?
+                        echo "Registered!";
                     }
                     else{
                         //error creating user or user email already exists
+                        echo "error registering";
                     }
                 }
                 else{
                     //display registration form
-                    ///include "";
+                    include "../html/register.html";
                 }
                 break;
             default:
