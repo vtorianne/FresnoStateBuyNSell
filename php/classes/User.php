@@ -17,14 +17,14 @@
             
             //check if user record already exists
             $db = new DB();
-            $sql = "SELECT Email FROM test WHERE Email = '$this->email';";  //count query for number of records with matching email
+            $sql = "SELECT Email FROM users WHERE Email = '$this->email';";  //count query for number of records with matching email
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             if($return){  //record with email already exists in database
                 return false;
             }
             else{
                 //generate sql for insert statement
-                $sql = "INSERT INTO test (Email, Password, FirstName, LastName) VALUES ('$this->email', '$this->password', '$this->firstName', '$this->lastName');";  //create user record in database with insert sql statement
+                $sql = "INSERT INTO users (Email, Password, FirstName, LastName) VALUES ('$this->email', DB5(’$this->password’), '$this->firstName', '$this->lastName');";  //create user record in database with insert sql statement
                 $db->execute($sql);
                 return true;  //add to logic so that this won't return if there is an error in db execution
             }
@@ -37,7 +37,7 @@
             $this->password = $loginData['password'];
             //}
             $db = new DB();
-            $sql = "SELECT * FROM test WHERE Email = '$this->email' AND Password = '$this->password';";  //query User record where email and password match those given
+            $sql = "SELECT * FROM users WHERE Email = '$this->email' AND DB5(Password) = DB5(’$this->password’);”;  //query User record where email and password match those given
             //if using password encryption, make sure given password is encrypted before comparison
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             if(!$return){
