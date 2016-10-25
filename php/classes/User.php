@@ -24,7 +24,7 @@
             }
             else{
                 //generate sql for insert statement
-                $sql = "INSERT INTO users (Email, Password, FirstName, LastName) VALUES ('$this->email', DB5(’$this->password’), '$this->firstName', '$this->lastName');";  //create user record in database with insert sql statement
+                $sql = "INSERT INTO users (Email, Password, FirstName, LastName) VALUES ('$this->email', MD5('$this->password'), '$this->firstName', '$this->lastName');";  //create user record in database with insert sql statement
                 $db->execute($sql);
                 return true;  //add to logic so that this won't return if there is an error in db execution
             }
@@ -32,12 +32,12 @@
         
         public function login($loginData){
             session_start();
-            /*if($loginData){ //not coming from registration
+            //if($loginData){ //not coming from registration
             $this->email = $loginData['email'];
             $this->password = $loginData['password'];
-            }*/
+            //}
             $db = new DB();
-            $sql = "SELECT * FROM users WHERE Email = '$this->email' AND Password = DB5(’$this->password’);”;  //query User record where email and password match those given
+            $sql = "SELECT * FROM users WHERE Email = '$this->email' AND Password = MD5('$this->password');";  //query User record where email and password match those given
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             if(!$return){
                 //wrong username and or password
