@@ -32,13 +32,12 @@
         
         public function login($loginData){
             session_start();
-            //if($loginData){ //not coming from registration
+            /*if($loginData){ //not coming from registration
             $this->email = $loginData['email'];
             $this->password = $loginData['password'];
-            //}
+            }*/
             $db = new DB();
-            $sql = "SELECT * FROM users WHERE Email = '$this->email' AND DB5(Password) = DB5(’$this->password’);”;  //query User record where email and password match those given
-            //if using password encryption, make sure given password is encrypted before comparison
+            $sql = "SELECT * FROM users WHERE Email = '$this->email' AND Password = DB5(’$this->password’);”;  //query User record where email and password match those given
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             if(!$return){
                 //wrong username and or password
@@ -48,6 +47,8 @@
                 $this->userID = $return["UserID"];
                 $this->firstName = $return["FirstName"];
                 $this->lastName = $return["LastName"];
+                $this->email = $return["Email"];
+                $this->password = $return["Password"];
                 $_SESSION["Current_User"] = $this;
                 $_SESSION["Logged_In"] = true;  //keep this?
                 return true;
