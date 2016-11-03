@@ -26,6 +26,11 @@
                 //generate sql for insert statement
                 $sql = "INSERT INTO users (Email, Password, FirstName, LastName) VALUES ('$this->email', MD5('$this->password'), '$this->firstName', '$this->lastName');";  //create user record in database with insert sql statement
                 $db->execute($sql);
+                $loginData = array(
+                    'email' => $this->email,
+                    'password' => $this->password
+                );
+                $this->login($loginData);
                 return true;  //add to logic so that this won't return if there is an error in db execution
             }
         }
