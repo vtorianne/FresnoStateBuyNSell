@@ -7,6 +7,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 
+CREATE TABLE `products` (
+  `ProductID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `ProductName` varchar(50) NOT NULL,
+  `Price` int(11) NOT NULL,
+  `PostTime` int(11) NOT NULL,
+  `Description` varchar(150) NOT NULL,
+  `PicturePath` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE `users` (
   `UserID` int(11) NOT NULL,
   `FirstName` varchar(50) NOT NULL,
@@ -16,12 +26,16 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`ProductID`),
+  ADD UNIQUE KEY `ProductID` (`ProductID`);
+
 ALTER TABLE `users`
   ADD PRIMARY KEY (`UserID`);
 
 
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
