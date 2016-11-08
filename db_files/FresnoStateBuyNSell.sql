@@ -27,7 +27,8 @@ CREATE TABLE `products` (
   `Price` int(11) NOT NULL,
   `PostTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Description` varchar(500) DEFAULT NULL,
-  `PicturePath` varchar(200) NOT NULL
+  `PicturePath` varchar(200) NOT NULL,
+  `Sold` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `users` (
