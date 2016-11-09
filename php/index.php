@@ -78,16 +78,25 @@
                 $user->logout();
                 header('Location: index.php');
                 break;
-            case "createPost":
+            case "create-post":
                 ;
                 break;
-            case "markSold":
+            case "mark-sold":
                 //get post data
                 $post = new Post();
                 
                 break;
-            case "addComment":
+            case "add-comment":
                 //get post data
+                break;
+            case "user-profile":
+                $user = new User();
+                //header
+                $user->getUserProfile($_GET["userID"]);
+                //footer
+                break;
+            case "review":
+                //
                 break;
             default:
                 echo "Forbidden Access/Already Logged In.";

@@ -64,6 +64,14 @@
         public function logout(){
             session_unset();
         }
+        
+        public function getUserProfile($userID){
+            
+        }
+        
+        public function review($reviewData){
+            
+        }
     
     }
     

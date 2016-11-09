@@ -6,14 +6,31 @@
         
         public function getPosts(){
             $db = new DB();
-            $sql = "";
+            $sql = "";  
             $return = $db->query($sql);
             while($row = $return->fetch(PDO::FETCH_ASSOC)){
                 //display post html
                 //if sold, show sold icon
-                //else if userID = current user, show mark as sold form
-                //else just show post
+                if($return["Sold"] == 1){
+                    //display Sold icon/text
+                }
             }
+        }
+        
+        public function getPostDetails($postID){ 
+            $db = new DB();
+            $sql = ""; //get all post fields
+            $postReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+            $userID = $return["UserID"];
+            $sql = ""; //get User details (probably just name fields and id)
+            $userReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+            //display logic here
+                if($postReturn["Sold"] == 1){
+                    //display Sold icon
+                }
+                else if($userID = ($_SESSION["Current_User"])->userID){
+                    //display mark as sold form
+                }
         }
         
         public function createPost($postData){
@@ -40,7 +57,10 @@
         }
         
         public function addComment($postID, $commentData){
-            
+            $db = new DB();
+            $currUserID = ($_SESSION["Current_User"])->userID;
+            $sql = ""; 
+            $db->execute($sql);
         }
         
     }
