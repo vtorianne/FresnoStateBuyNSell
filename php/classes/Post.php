@@ -63,4 +63,12 @@
             $db->execute($sql);
         }
         
+        public function getComments($postID){
+            $db = new DB();
+            $sql = ""; //get all comments for a post
+            $return = $sql->query($sql);
+            while($row = $return->fetch(PDO::FETCH_ASSOC)){
+            }
+        }
+        
     }

@@ -70,9 +70,22 @@
                 echo "Home page/default posts view (for users logged in)";
                 $post = new Post();
                 //include ""; //header
-                //$post->getPosts();
+                if(isset($_POST['searchSubmit'])){
+                    
+                }
+                else{
+                    //$post->getPosts();
+                }
                 //include ""; //footer
                 break;
+            case "listing":
+                $postID = $GET["postID"];
+                $post = new Post();
+                //header?
+                $post->getPostDetails($postID);
+               //$post->getComments($postID);  //either here or as helper function for the above
+                //footer?
+            break;
             case "logout":
                 $user = new User();
                 $user->logout();
