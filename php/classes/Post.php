@@ -4,9 +4,16 @@
     require_once "DB.php";
     class Post{
         
-        public function getPosts(){
+        public function getPosts($filters){
             $db = new DB();
-            $sql = "";  
+            if($filters = NULL){
+                $sql = "";  
+            }
+            else{
+                //bool for sort by price, text for keywords, categoryID for category
+                $sql .= "";
+            }
+            $sql .= ";";
             $return = $db->query($sql);
             while($row = $return->fetch(PDO::FETCH_ASSOC)){
                 //display post html
