@@ -4,9 +4,27 @@
     require_once "DB.php";
     class Post{
         
-        public function getPosts(){
+        public function getPosts($filters){
             $db = new DB();
-            $sql = "SELECT * FROM products";
+            if($filters = NULL){
+                $sql = "SELECT * FROM products SORT BY ";
+            }
+            else{
+                //bool for sort by price, text for keywords, categoryID for category
+                $sql = "SELECT * FROM products";
+                if(array_key_exists("keywords", $filters)){
+                $keywords = explode(" ", filters["keywords"]);
+                $search_term = "%";
+                    foreach($keywords as $keyword){
+                        $search_term .= $keyword."%";
+                    }
+                $sql .= "WHERE '$search_term' LIKE ProductName OR '$search_term' LIKE Description;
+                if{array_key_exists("categoryID", $filters))
+                $sql .= "WHERE '$categoryID' = CategoryID";}
+                if(array_key_exists("price", $filters)){
+                $sql .= "ORDER BY Price ASC, PostTime DESC";}
+            }
+            $sql .= ";";
             $return = $db->query($sql);
             while($row = $return->fetch(PDO::FETCH_ASSOC)){
                 //display post html
