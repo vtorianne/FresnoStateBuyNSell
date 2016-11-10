@@ -35,10 +35,13 @@
         
         public function createPost($postData){
             $db = new DB();
-            //need to handle non required fields
-            //for each in postData
-                //append to sql
-             $sql = ""; //insert new posts
+            $userID;
+            $productname;
+            $categoryID;
+            $price;
+            $description;
+            $picturepath;
+            $sql = "INSERT INTO products (UserID, ProductName, CategoryID, Price, Description, PicturePath) VALUES ($userID, '$productname', $categoryID, $price, '$description','$picturepath'; "; //insert new posts
         }
         
         public function markSold($postID){
