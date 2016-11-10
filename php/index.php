@@ -73,7 +73,7 @@
                 if(isset($_POST['searchSubmit'])){
                     //get filters
                     $filters = array();
-                    $filters[];
+                    $filters["price"]; 
                 }
                 else{
                     $post->getPosts();
@@ -99,7 +99,7 @@
             case "mark-sold":
                 //get post data
                 $post = new Post();
-                
+                $post->();
                 break;
             case "add-comment":
                 //get post data

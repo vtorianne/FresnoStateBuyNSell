@@ -67,11 +67,13 @@
         
         public function getUserProfile($userID){
             $db  = new DB();
-            $sql = "";
+            $sql = ""; //getting user data from userID
         }
         
         public function review($reviewData){
-            
+            $db = new DB();
+            $commenterID = ($_SESSION["Current_User"])->userID;
+            $sql = ""; //inserting review record
         }
     
     }
