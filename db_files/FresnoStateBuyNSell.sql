@@ -32,6 +32,14 @@ CREATE TABLE `products` (
   `Sold` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `reviews` (
+  `ReviewID` int(11) NOT NULL,
+  `CommenterID` int(11) NOT NULL,
+  `ProfileID` int(11) NOT NULL,
+  `StarRating` int(11) NOT NULL,
+  `ReviewText` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE `users` (
   `UserID` int(11) NOT NULL,
   `FirstName` varchar(50) NOT NULL,
@@ -53,10 +61,22 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`ProductID`),
   ADD UNIQUE KEY `ProductID` (`ProductID`);
 
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`ReviewID`),
+  ADD UNIQUE KEY `ReviewID` (`ReviewID`);
+
 ALTER TABLE `users`
   ADD PRIMARY KEY (`UserID`);
 
 
+ALTER TABLE `categories`
+  MODIFY `CategoryID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `comments`
+  MODIFY `CommentID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `products`
+  MODIFY `ProductID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `reviews`
+  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `users`
   MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
