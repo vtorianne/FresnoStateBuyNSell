@@ -71,10 +71,12 @@
                 $post = new Post();
                 //include ""; //header
                 if(isset($_POST['searchSubmit'])){
-                    
+                    //get filters
+                    $filters = array();
+                    $filters[];
                 }
                 else{
-                    //$post->getPosts();
+                    $post->getPosts();
                 }
                 //include ""; //footer
                 break;

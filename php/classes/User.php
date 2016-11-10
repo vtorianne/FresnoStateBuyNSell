@@ -66,7 +66,8 @@
         }
         
         public function getUserProfile($userID){
-            
+            $db  = new DB();
+            $sql = "";
         }
         
         public function review($reviewData){
