@@ -16,7 +16,8 @@ CREATE TABLE `comments` (
   `ProductID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
   `CommentID` int(11) NOT NULL,
-  `Comment` varchar(500) NOT NULL
+  `Comment` varchar(500) NOT NULL,
+  `CommentTimeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `products` (
@@ -24,7 +25,7 @@ CREATE TABLE `products` (
   `UserID` int(11) NOT NULL,
   `ProductName` varchar(50) NOT NULL,
   `CategoryID` int(11) NOT NULL,
-  `Price` int(11) NOT NULL,
+  `Price` decimal(11,0) NOT NULL,
   `PostTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Description` varchar(500) DEFAULT NULL,
   `PicturePath` varchar(200) NOT NULL,
