@@ -124,7 +124,8 @@
             case "user-profile":
                 $user = new User();
                 //header
-                $user->getUserProfile($_GET["userID"]);
+                $profileID = (isset($_GET["userID"]) ? : ($_SESSION["Current_User"])->userID);
+                $user->getUserProfile($profileID);
                 //footer
                 break;
             case "review":
