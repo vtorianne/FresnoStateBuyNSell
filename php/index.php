@@ -73,7 +73,14 @@
                 if(isset($_POST['searchSubmit'])){
                     //get filters
                     $filters = array();
-                    $filters["price"]; 
+                    if(isset($_POST["priceSort"]))
+                        $filters["priceSort"] = $_POST["priceSort"];
+                    if(isset($_POST["keywords"]))
+                        $filters["keywords"] = $_POST["keywords"];
+                    if(isset($_POST["category"]))
+                        $filters["categoryID"] = $_POST["category"];
+                    
+                    $post->getPosts($filters);
                 }
                 else{
                     $post->getPosts();
@@ -99,10 +106,20 @@
             case "mark-sold":
                 //get post data
                 $post = new Post();
-                $post->();
+                $postID = $_POST["postID"];  //or from GET?
+                if($post->markSold($postID))
+                    header("Location: index.php?option=listing&postID=$postID"); //redirect back to same page
+                else
+                    header("Location: index.php?option=forbidden");
                 break;
             case "add-comment":
-                //get post data
+                $post = new Post();
+                $postID = $_POST["postID"];  //or from GET?
+                $commentData = array(
+                                                "comment" => $POST["comment"]
+                                            );
+                $post->addComment($postID, $commentData);
+                 header("Location: index.php?option=listing&postID=$postID"); //redirect back to same page
                 break;
             case "user-profile":
                 $user = new User();
@@ -111,10 +128,17 @@
                 //footer
                 break;
             case "review":
-                //
+                $user = newUser();
+                $profileID = $_POST["profileID"]; //or from GET?
+                $reviewData = array(
+                                            "comment" => $POST["comment"],
+                                            "rating" => $POST["numStars"]
+                                        );
+                $user->review($reviewData);
                 break;
             default:
                 echo "Forbidden Access/Already Logged In.";
+                //^- replace with message page?
                 break;
         }
         

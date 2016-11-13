@@ -70,7 +70,7 @@
             $sql = ""; //getting user data from userID
         }
         
-        public function review($reviewData){
+        public function review($profileID, $reviewData){
             $db = new DB();
             $commenterID = ($_SESSION["Current_User"])->userID;
             $sql = ""; //inserting review record
