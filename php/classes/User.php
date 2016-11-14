@@ -81,7 +81,7 @@
             $db = new DB();
             $sql = "GET ROUND(AVG(StarRating),2) AS StarRatingAverage FROM reviews WHERE $userID = ProfileID";  //get average review (star rating)
             //
-            $sql = "GET * from reviews WHERE $userID = ProfileID;"; //get all reviews for specified userID
+            $sql = "GET * FROM reviews WHERE $userID = ProfileID;"; //get all reviews for specified userID
             $return = $db->query($return);
             while($row = $row = $return->fetch(PDO::FETCH_ASSOC)){
                 $commenterID = $return["CommenterID"];
