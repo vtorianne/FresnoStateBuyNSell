@@ -75,6 +75,8 @@
             $sql = ""; //get all comments for a post
             $return = $sql->query($sql);
             while($row = $return->fetch(PDO::FETCH_ASSOC)){
+                $commenterID = $return["UserID"];
+                $sql = ""; //get name of commenter
             }
         }
         

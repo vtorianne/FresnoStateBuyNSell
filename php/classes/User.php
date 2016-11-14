@@ -76,6 +76,18 @@
             $commenterID = ($_SESSION["Current_User"])->userID;
             $sql = ""; //inserting review record
         }
+        
+        public function getReviews($userID){
+            $db = new DB();
+            $sql = "";  //get average review (star rating)
+            //
+            $sql = ""; //get all reviews for specified userID
+            $return = $db->query($return);
+            while($row = $row = $return->fetch(PDO::FETCH_ASSOC)){
+                $commenterID = $return["CommenterID"];
+                $sql = ""; //get name of reviewer
+            }
+        }
     
     }
     
