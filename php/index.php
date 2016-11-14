@@ -9,8 +9,7 @@
         switch($option){
             case null:
                 //Home page (for users not logged in)
-                echo "Home, not logged in";
-                ///include "";
+                include "../html/index.html";
                 break;
             case "login":
                 var_dump($_POST);
@@ -24,8 +23,7 @@
                         header('Location: index.php'); //redirect to home page if success
                     }
                     else{
-                        echo "wrong username/password. try to login again";
-                        //include "";  //display login form with wrong username/password message
+                        include "../html/signinerror.html";  //display login form with wrong username/password message
                     }
                 }
                 else{
@@ -45,13 +43,11 @@
                     if($user->register($regData)){
                         //success creating user
                         //display splash page for registration
-                        echo "Registered!";
-                        echo "<a href=index.php>Go</a>";
+                        include "../html/regisitered.html";
                     }
                     else{
                         //error creating user or user email already exists
-                        echo "error registering";
-                        //include "";  //display registration form w/ existing username/email/error message
+                        include "../html/registererror.html";  //display registration form w/ existing username/email/error message
                     }
                 }
                 else{
@@ -124,7 +120,7 @@
             case "user-profile":
                 $user = new User();
                 //header
-                $profileID = (isset($_GET["userID"]) ? : ($_SESSION["Current_User"])->userID);
+                //$profileID = (isset($_GET["userID"]) ? : ($_SESSION["Current_User"])->userID);
                 $user->getUserProfile($profileID);
                 //footer
                 break;

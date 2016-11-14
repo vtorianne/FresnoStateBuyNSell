@@ -67,13 +67,13 @@
             $db  = new DB();
             $sql = ""; //getting user data from userID
             
-            if($userID !=  ($_SESSION["Current_User"])->userID)
+            ///if($userID !=  ($_SESSION["Current_User"])->userID)
                 //show review form
         }
         
         public function review($profileID, $reviewData){
             $db = new DB();
-            $commenterID = ($_SESSION["Current_User"])->userID;
+            //$commenterID = ($_SESSION["Current_User"])->userID;
             $sql = ""; //inserting review record
         }
         

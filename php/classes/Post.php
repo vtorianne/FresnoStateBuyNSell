@@ -35,9 +35,9 @@
                 if($postReturn["Sold"] == 1){
                     //display Sold icon
                 }
-                else if($userID = ($_SESSION["Current_User"])->userID){
+               // else if($userID = ($_SESSION["Current_User"])->userID){
                     //display mark as sold form
-                }
+               //}
         }
         
         public function createPost($postData){
@@ -49,7 +49,7 @@
         }
         
         public function markSold($postID){
-            $currUserID = ($_SESSION["Current_User"])->userID; //get userID of current logged in user
+            //$currUserID = ($_SESSION["Current_User"])->userID; //get userID of current logged in user
             $db = new DB();
             $sql = ""; //get Post's userID
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
@@ -65,7 +65,7 @@
         
         public function addComment($postID, $commentData){
             $db = new DB();
-            $currUserID = ($_SESSION["Current_User"])->userID;
+            //$currUserID = ($_SESSION["Current_User"])->userID;
             $sql = ""; 
             $db->execute($sql);
         }
