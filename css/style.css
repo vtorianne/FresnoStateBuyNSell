@@ -1,0 +1,53 @@
+.modal-footer {   border-top: 0px; }
+
+.bgcolor {
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: #0099F7;
+    background-repeat:no-repeat;
+    background: -webkit-linear-gradient( to left top, #0099F7, #F11712);
+    background: -moz-linear-gradient( to left top, #0099F7, #F11712);
+    background: -ms-linear-gradient( to left top, #0099F7, #F11712);
+    background: -o-linear-gradient( to left top, #0099F7, #F11712);
+    background: linear-gradient( to left top, #0099F7, #F11712);
+}
+
+.form {
+    margin:0;
+}
+
+.form li {
+    list-style:none;
+}
+
+.hide {
+    display:none;
+}
+
+.rating input[type="radio"] {
+    position:absolute;
+    filter:alpha(opacity=0);
+    -moz-opacity:0;
+    -khtml-opacity:0;
+    opacity:0;
+    cursor:pointer;
+    width:17px;
+}
+
+.rating span {
+    width:24px;
+    height:16px;
+    line-height:16px;
+    padding:1px 22px 1px 0; /* 1px FireFox fix */
+    background:url(stars.png) no-repeat -22px 0;
+}
+
+.rating input[type="radio"]:checked + span {
+    background-position:-22px 0;
+}
+
+.rating input[type="radio"]:checked + span ~ span {
+    background-position:0 0;
+}
