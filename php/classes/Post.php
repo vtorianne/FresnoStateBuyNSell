@@ -6,24 +6,34 @@
         
         public function getPosts($filters){
             $db = new DB();
-            if($filters = NULL){
-                $sql = "SELECT * FROM products SORT BY ";
+                $sql = "SELECT * FROM products WHERE ";
             }
-            else{
+            if($filters != NULL){
                 //bool for sort by price, text for keywords, categoryID for category
-                $sql = "SELECT * FROM products";
+                $searchfilterscount =0;
                 if(array_key_exists("keywords", $filters)){
-                $keywords = explode(" ", filters["keywords"]);
-                $search_term = "%";
+                    $keywords = explode(" ", filters["keywords"]);
+                    $search_term = "%";
                     foreach($keywords as $keyword){
-                        $search_term .= $keyword."%";
-                    }
-                $sql .= "WHERE '$search_term' LIKE ProductName OR '$search_term' LIKE Description;
-                if{array_key_exists("categoryID", $filters))
-                $sql .= "WHERE '$categoryID' = CategoryID";}
+                            $search_term .= $keyword."%";}
+                    if ($searchfilterscount==0){
+                        $sql .= "'$search_term' LIKE ProductName OR '$search_term' LIKE Description";}
+                    else{
+                        $sql .= "AND'$search_term' LIKE ProductName OR '$search_term' LIKE Description";}
+                        $searchfilterscount++;}
+                
+                if(array_key_exists("categoryID", $filters)){
+                    if ($searchfilterscount==0){
+                    $sql .= "'$categoryID' = CategoryID";}
+                    else {$sql .= "AND '$categoryID' = CategoryID"};
+                    $searchfilterscount++;}
+                
                 if(array_key_exists("price", $filters)){
-                $sql .= "ORDER BY Price ASC, PostTime DESC";}
+                    $sql .= " ORDER BY Price ASC, PostTime DESC";}
+                else {$sql .= "PostTime DESC";}
             }
+            
+            else { $sql.="1";}
             $sql .= ";";
             $return = $db->query($sql);
             while($row = $return->fetch(PDO::FETCH_ASSOC)){

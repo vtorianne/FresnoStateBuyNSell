@@ -26,16 +26,19 @@
                 //generate sql for insert statement
                 $sql = "INSERT INTO users (Email, Password, FirstName, LastName) VALUES ('$this->email', MD5('$this->password'), '$this->firstName', '$this->lastName');";  //create user record in database with insert sql statement
                 $db->execute($sql);
+                $loginData = array(
+                    'email' => $this->email,
+                    'password' => $this->password
+                );
+                $this->login($loginData);
                 return true;  //add to logic so that this won't return if there is an error in db execution
             }
         }
         
         public function login($loginData){
             session_start();
-            //if($loginData){ //not coming from registration
             $this->email = $loginData['email'];
             $this->password = $loginData['password'];
-            //}
             $db = new DB();
             $sql = "SELECT * FROM users WHERE Email = '$this->email' AND Password = MD5('$this->password');";  //query User record where email and password match those given
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
@@ -59,8 +62,33 @@
         public function logout(){
             session_unset();
         }
+        
+        public function getUserProfile($userID){
+            $db  = new DB();
+            $sql = "GET * FROM users WHERE '$userID' = UserID"; //getting user data from userID
+            
+            if($userID !=  ($_SESSION["Current_User"])->userID)
+                //show review form
+        }
+        
+        public function review($profileID, $reviewData){
+            $db = new DB();
+            $commenterID = ($_SESSION["Current_User"])->userID;
+            $sql = "INSERT INTO reviews (CommenterID, ProfileID, StarRating, ReviewText) VALUES ('$commenterID', '$profileID', '$starrating', '$reviewdata');"; //inserting review record
+        }
+        
+    public function getReviews($userID){
+            $db = new DB();
+            $sql = "GET ROUND(AVG(StarRating),2) AS StarRatingAverage FROM reviews WHERE $userID = ProfileID";  //get average review (star rating)
+            //
+            $sql = "GET * from reviews WHERE $userID = ProfileID;"; //get all reviews for specified userID
+            $return = $db->query($return);
+            while($row = $row = $return->fetch(PDO::FETCH_ASSOC)){
+                $commenterID = $return["CommenterID"];
+                $sql = "GET FirstName, LastName FROM users WHERE $commenterID = UserID"; //get name of reviewer
+            }
+        }
     
     }
     
  ?>
- 
