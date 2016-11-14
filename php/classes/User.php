@@ -88,6 +88,19 @@
                 $sql = "GET FirstName, LastName FROM users WHERE $commenterID = UserID"; //get name of reviewer
             }
         }
+        
+        public function StarRatingFinder($starratingaverage){
+            $possibleratings = array(1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5);
+            $currMin=50;
+            $displayedRating=0;
+        foreach($possibleratings as $element){
+            if ($currMin > ($element - $starratingaverage) && ($element-$starratingaverage) > 0){
+                $currMin = $element - $starratingaverage;
+                $displayedRating=$element;}}
+                return $displayedRating;
+                }
+
+	
     
     }
     
