@@ -37,10 +37,8 @@
         
         public function login($loginData){
             session_start();
-            //if($loginData){ //not coming from registration
             $this->email = $loginData['email'];
             $this->password = $loginData['password'];
-            //}
             $db = new DB();
             $sql = "SELECT * FROM users WHERE Email = '$this->email' AND Password = MD5('$this->password');";  //query User record where email and password match those given
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
