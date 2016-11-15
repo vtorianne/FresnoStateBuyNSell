@@ -7,8 +7,8 @@
         public function getPosts($filters){
             $db = new DB();
             $sql = "SELECT * FROM products WHERE ";
+            $searchfilterscount=0;
             if($filters != NULL){
-                $searchfilterscount=0;
                 if(array_key_exists("keywords", $filters)){
                     $keywords = explode(" ", $filters["keywords"]);
                     $search_term = "%";
@@ -44,6 +44,10 @@
                 $sql.=" 1";
             $sql .= ";";
             $return = $db->query($sql);
+
+            echo <<<EOD
+            
+EOD;
             while($row = $return->fetch(PDO::FETCH_ASSOC)){
                 //display post html
                 //if sold, show sold icon

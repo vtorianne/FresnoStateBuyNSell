@@ -63,7 +63,6 @@
         switch($option){
             case null:
                 echo "Home page/default posts view (for users logged in)";
-                var_dump($_SESSION);
                 $post = new Post();
                 //include ""; //header
                 if(isset($_POST['searchSubmit'])){
@@ -97,7 +96,14 @@
                 header('Location: index.php');
                 break;
             case "create-post":
-                ;
+                /*if(){
+
+                }
+                else{
+                    //header
+                    include "/FresnoStateBuyNSell/html/createpost.html";
+                    //footer
+                }*/
                 break;
             case "mark-sold":
                 //get post data
