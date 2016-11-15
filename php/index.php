@@ -43,7 +43,7 @@
                     if($user->register($regData)){
                         //success creating user
                         //display splash page for registration
-                        include "../html/regisitered.html";
+                        include "../html/registered.html";
                     }
                     else{
                         //error creating user or user email already exists
@@ -84,7 +84,7 @@
                 //include ""; //footer
                 break;
             case "listing":
-                $postID = $GET["postID"];
+                $postID = $_GET["postID"];
                 $post = new Post();
                 //header?
                 $post->getPostDetails($postID);
@@ -125,7 +125,7 @@
                 //footer
                 break;
             case "review":
-                $user = newUser();
+                $user = new User();
                 $profileID = $_POST["profileID"]; //or from GET?
                 $reviewData = array(
                                             "comment" => $POST["comment"],

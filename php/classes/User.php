@@ -64,8 +64,8 @@
         }
         
         public function getUserProfile($userID){
-            $db  = new DB();
-            $sql = ""; //getting user data from userID
+            $db = new DB();
+            $sql = "SELECT * FROM users WHERE '$userID' = UserID"; //getting user data from userID
             
             ///if($userID !=  ($_SESSION["Current_User"])->userID)
                 //show review form
@@ -74,19 +74,36 @@
         public function review($profileID, $reviewData){
             $db = new DB();
             //$commenterID = ($_SESSION["Current_User"])->userID;
-            $sql = ""; //inserting review record
+            $sql = "INSERT INTO reviews (CommenterID, ProfileID, StarRating, ReviewText) VALUES ('$commenterID', '$profileID', '$starrating', '$reviewdata');"; //inserting review record
+            $db->execute($sql);
         }
         
         public function getReviews($userID){
             $db = new DB();
-            $sql = "";  //get average review (star rating)
+            $sql = "SELECT ROUND(AVG(StarRating),2) AS StarRatingAverage FROM reviews WHERE $userID = ProfileID";  //get average review (star rating)
+            $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             //
-            $sql = ""; //get all reviews for specified userID
-            $return = $db->query($return);
+            $sql = "SELECT * FROM reviews WHERE $userID = ProfileID"; //get all reviews for specified userID
+            $return = $db->query($sql);
             while($row = $row = $return->fetch(PDO::FETCH_ASSOC)){
                 $commenterID = $return["CommenterID"];
-                $sql = ""; //get name of reviewer
+                $sql = "SELECT FirstName, LastName FROM users WHERE $commenterID = UserID"; //get name of reviewer
+                $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             }
+        }
+
+        //helper function for display logic for how many stars to display
+        public function StarRatingFinder($starratingaverage){
+            $possibleratings = array(1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5);
+            $currMin=50;
+            $displayedRating=0;
+            foreach($possibleratings as $element){
+                if ($currMin > ($element - $starratingaverage) && ($element-$starratingaverage) > 0){
+                    $currMin = $element - $starratingaverage;
+                    $displayedRating=$element;
+                }
+            }
+            return $displayedRating;
         }
     
     }
