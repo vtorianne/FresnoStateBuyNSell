@@ -12,7 +12,6 @@
                 include "../html/index.html";
                 break;
             case "login":
-                var_dump($_POST);
                 if(isset($_POST['email']) && isset($_POST['password'])){
                     $loginData = array(
                                          'email' => $_POST['email'],
@@ -64,6 +63,7 @@
         switch($option){
             case null:
                 echo "Home page/default posts view (for users logged in)";
+                var_dump($_SESSION);
                 $post = new Post();
                 //include ""; //header
                 if(isset($_POST['searchSubmit'])){
@@ -84,7 +84,7 @@
                 //include ""; //footer
                 break;
             case "listing":
-                $postID = $_GET["postID"];
+                $postID = $_GET["post-id"];
                 $post = new Post();
                 //header?
                 $post->getPostDetails($postID);
@@ -102,36 +102,37 @@
             case "mark-sold":
                 //get post data
                 $post = new Post();
-                $postID = $_POST["postID"];  //or from GET?
+                $postID = $_GET["post-id"];  //or from GET?
                 if($post->markSold($postID))
-                    header("Location: index.php?option=listing&postID=$postID"); //redirect back to same page
+                    header("Location: index.php?option=listing&post-id=$postID"); //redirect back to same page
                 else
                     header("Location: index.php?option=forbidden");
                 break;
             case "add-comment":
                 $post = new Post();
-                $postID = $_POST["postID"];  //or from GET?
+                $postID = $_GET["post-id"];
                 $commentData = array(
-                                                "comment" => $POST["comment"]
-                                            );
+                                    "comment" => $_POST["comment"]
+                                );
                 $post->addComment($postID, $commentData);
-                 header("Location: index.php?option=listing&postID=$postID"); //redirect back to same page
+                header("Location: index.php?option=listing&post-id=$postID"); //redirect back to same page
                 break;
             case "user-profile":
                 $user = new User();
                 //header
-                //$profileID = (isset($_GET["userID"]) ? : ($_SESSION["Current_User"])->userID);
+                $profileID = (isset($_GET["user-id"]) ? $_GET["user-id"] : ($_SESSION["Current_User"]));
                 $user->getUserProfile($profileID);
                 //footer
                 break;
-            case "review":
+            case "add-review":
                 $user = new User();
-                $profileID = $_POST["profileID"]; //or from GET?
+                $profileID = $_GET["user-id"];
                 $reviewData = array(
-                                            "comment" => $POST["comment"],
-                                            "rating" => $POST["numStars"]
-                                        );
-                $user->review($reviewData);
+                                    "comment" => $_POST["comment"],
+                                    "rating" => $_POST["rating"]
+                                );
+                $user->review($profileID, $reviewData);
+                header("Location: index.php?option=user-profile&user-id=$profileID");
                 break;
             default:
                 echo "Forbidden Access/Already Logged In.";
