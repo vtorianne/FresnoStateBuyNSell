@@ -62,12 +62,12 @@
     else{
         switch($option){
             case null:
-                echo "Home page/default posts view (for users logged in)";
                 $post = new Post();
-                //include ""; //header
+                include "../html/header_style2.html"; //header
                 if(isset($_POST['searchSubmit'])){
                     //get filters
                     $filters = array();
+                    var_dump($_POST);
                     if(isset($_POST["priceSort"]))
                         $filters["priceSort"] = $_POST["priceSort"];
                     if(isset($_POST["keywords"]))
@@ -80,15 +80,15 @@
                 else{
                     $post->getPosts(null);
                 }
-                //include ""; //footer
+                include "../html/footer.html"; //footer
                 break;
             case "listing":
                 $postID = $_GET["post-id"];
                 $post = new Post();
-                //header?
+                include "../html/header_style2.html"; //header
                 $post->getPostDetails($postID);
                //$post->getComments($postID);  //either here or as helper function for the above
-                //footer?
+                include "../html/footer.html"; //footer
             break;
             case "logout":
                 $user = new User();
@@ -96,14 +96,24 @@
                 header('Location: index.php');
                 break;
             case "create-post":
-                /*if(){
-
+                if(isset($_POST["createSubmit"])){
+                    $target_file = "/FresnoStateBuyNSell/uploads/listing_pics/".basename($_FILES["pic"]["name"]);
+                    $target_dir =  $_SERVER['DOCUMENT_ROOT'].$target_file;
+                    move_uploaded_file($_FILES["pic"]["tmp_name"], $target_dir);
+                    $postData = array(
+                       "title" => $_POST["title"],
+                       "desc" => (isset($_POST["desc"]) ? $_POST["desc"] : ""),
+                       "category" => $_POST["category"],
+                       "price" => $_POST["price"],
+                       "pic" => $target_file
+                    );
+                    $post = new Post();
+                    $post->createPost($postData);
+                    header("Location: index.php");
                 }
                 else{
-                    //header
-                    include "/FresnoStateBuyNSell/html/createpost.html";
-                    //footer
-                }*/
+                    header("Location: createpost.php");
+                }
                 break;
             case "mark-sold":
                 //get post data
@@ -125,10 +135,10 @@
                 break;
             case "user-profile":
                 $user = new User();
-                //header
+                include "../html/header_style1.html"; //header
                 $profileID = (isset($_GET["user-id"]) ? $_GET["user-id"] : ($_SESSION["Current_User"]));
                 $user->getUserProfile($profileID);
-                //footer
+                include "../html/footer.html"; //footer
                 break;
             case "add-review":
                 $user = new User();
@@ -140,9 +150,16 @@
                 $user->review($profileID, $reviewData);
                 header("Location: index.php?option=user-profile&user-id=$profileID");
                 break;
+            case "add-profile-pic":
+                $target_file = "/FresnoStateBuyNSell/uploads/profile_pics/".basename($_FILES["pic"]["name"]);
+                $target_dir =  $_SERVER['DOCUMENT_ROOT'].$target_file;
+                move_uploaded_file($_FILES["pic"]["tmp_name"], $target_dir);
+                $user = new User();
+                $user->addProfilePic($target_file);
+                header("Location: index.php?option=user-profile");
+                break;
             default:
                 echo "Forbidden Access/Already Logged In.";
-                //^- replace with message page?
                 break;
         }
         

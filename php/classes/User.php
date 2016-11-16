@@ -61,10 +61,11 @@
             $reviewReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             $reviewedYet = ($reviewReturn ? true : false);
             $averageRating = ($reviewedYet ? $this->getAverageRating($userID) : "No Reviews Yet");
+            $userImg = ($return["PicturePath"] != null ? $return["PicturePath"] : "/FresnoStateBuyNSell/img/default_user.png");
             echo <<<EOD
             <div class="container">
                 <div class="row product">
-                    <div class="col-md-5 col-md-offset-0"><img class="img-responsive" src="../img/suit_jacket.jpg"></div>
+                    <div class="col-md-5 col-md-offset-0"><img class="img-responsive" src="{$userImg}"></div>
                     <div class="col-md-7">
                         <div class="row">
                             <div class="col-md-4 col-sm-6">
@@ -76,7 +77,7 @@ EOD;
             if($userID == $_SESSION["Current_User"]) {
                 echo <<<EOD
                         <p>Add/Update Profile Picture:</p> 
-                        <form method="post" action="">
+                        <form method="post" action="/FresnoStateBuyNSell/php/index.php?option=add-profile-pic" enctype="multipart/form-data">
                         <input type="file" name="pic" accept="image/*">
                         <button style="margin-top: 10px;" type="submit" class="btn btn-primary btn-sm">Upload</button>
                         </form>
@@ -197,6 +198,14 @@ EOD;
                 }
             }
             return $displayedRating;
+        }
+
+        public function addProfilePic($imagePath){
+            $db = new DB();
+            $userID = $_SESSION["Current_User"];
+            $sql = "UPDATE users SET PicturePath = '$imagePath' where UserID = $userID;";
+            echo $sql;
+            $db->execute($sql);
         }
     
     }

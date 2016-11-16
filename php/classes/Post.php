@@ -6,10 +6,13 @@
         
         public function getPosts($filters){
             $db = new DB();
-            $sql = "SELECT * FROM products WHERE ";
-            $searchfilterscount=0;
-            if($filters != NULL){
-                if(array_key_exists("keywords", $filters)){
+            if($filters == NULL) {
+                $sql = "SELECT * FROM products ORDER BY PostTime DESC;";
+            }
+            else{
+                    $sql = "SELECT * FROM products WHERE ";
+                $searchfilterscount=0;
+                if(array_key_exists("keywords", $filters) && $filters["keywords"] != ""){
                     $keywords = explode(" ", $filters["keywords"]);
                     $search_term = "%";
                     foreach($keywords as $keyword){
@@ -19,20 +22,23 @@
                         $sql .= "'$search_term' LIKE ProductName OR '$search_term' LIKE Description";
                     }
                     else{
-                        $sql .= "AND'$search_term' LIKE ProductName OR '$search_term' LIKE Description";
+                        $sql .= " AND '$search_term' LIKE ProductName OR '$search_term' LIKE Description";
                     }
                     $searchfilterscount++;
                 }
-                if(array_key_exists("categoryID", $filters)){
+                if(array_key_exists("categoryID", $filters) && $filters["categoryID"] != ""){
                     $categoryID = $filters["categoryID"];
                     if ($searchfilterscount==0){
                         $sql .= "'$categoryID' = CategoryID";
                     }
                     else {
-                        $sql .= "AND '$categoryID' = CategoryID";
+                        $sql .= " AND '$categoryID' = CategoryID";
                     }
                     $searchfilterscount++;
                 }
+
+                if($searchfilterscount == 0)
+                    $sql.= " 1";
 
                 if(array_key_exists("priceSort", $filters)){
                     $sql .= " ORDER BY Price ASC, PostTime DESC";
@@ -40,13 +46,75 @@
                 else {
                     $sql .= " ORDER BY PostTime DESC";
                 }
+                $sql .= ";";
             }
-            if($searchfilterscount == 0)
-                $sql.=" 1";
-            $sql .= ";";
-            $return = $db->query($sql);
 
+            $return = $db->query($sql);
             echo <<<EOD
+             <div class="container">
+            <div style="float:right; margin-top: 20px;" class="row">
+                <div class="col-md-12">
+                    <div class="input-group" id="adv-search">
+                        <input type="disabled" class="form-control" placeholder="Search for listings"/>
+                        <div class="input-group-btn">
+                            <div class="btn-group" role="group">
+                                <div class="dropdown dropdown-lg">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                     <form class="form-horizontal" role="form" action="/FresnoStateBuyNSell/php/index.php" method="post">
+                                          
+                                     <!------START FILTER BY FORM GROUP----->
+                                     
+                                     <!------START CATEGORY GROUP----->
+                                        <div class="form-group">
+                                            <label for="Categories">Categories</label>
+                                                    <select class="form-control" name="category">
+                                                    <optgroup label="Categories">
+                                                    <option value="">All Categories</option>
+EOD;
+                                                    $sql = "SELECT * FROM categories;";
+                                                    $catReturn = $db->execute($sql);
+                                                    while($row = $catReturn->fetch(PDO::FETCH_ASSOC)){
+                                                        echo "<option value='".$row["CategoryID"]."'>".$row["CategoryName"]."</option>'";
+                                                    }
+                                                    echo <<<EOD
+                                                    </optgroup>
+                                            </select>
+                                        </div>
+                                    <!------END CATEGORY FORM GROUP----->
+                                     
+                                        <input type="checkbox" name="priceSort" value="lowtohigh">  Sort by price low to high
+                                        
+                                        </br>
+                                        </br>
+                                    <!------END PRICE LOW TO HIGH FORM GROUP----->
+                
+                
+                                    <!-------START CONTAINS WORDS FORM GROUP---->
+                                          <div class="form-group">
+                                            <label for="contain">Contains the words</label>
+                                            <input class="form-control" type="text" name="keywords"/>
+                                          </div> 
+                                    <!-------END CONTAINS WORDS FORM GROUP----->
+                                          
+                                          <button type="submit" class="btn btn-primary" name="searchSubmit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                       
+                                        </form>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            </div>
+                           <!-----------DIV ABOVE THIS LINE ENDS CLASS BTN GROUP role="group"---------------->
+                        </div>
+                    <!-----------DIV ABOVE THIS LINE ENDS CLASS "input-group-btn"---------------->
+                    </div>
+                    <!-------------------DIV ABOVE THIS LINE ENDS "input-group adv-search"---------------->
+                  </div>
+                <!-----------DIV ABOVE THIS LINE ENDS "col-md-12"---------------->
+                </div>
+            <!-------------------DIV ABOVE THIS LINE ENDS THE CLASS "row"-------------------->
+            </div>
+            <!---------------------DIV ENDS THE CLASS CONTAINER--------------------------->
              <!-- Page Content -->
             <div class="container">
         
@@ -168,13 +236,13 @@ EOD;
         
         public function createPost($postData){
             $db = new DB();
-            $userID;
-            $productname;
-            $categoryID;
-            $price;
-            $description;
-            $picturepath;
-            $sql = "INSERT INTO products (UserID, ProductName, CategoryID, Price, Description, PicturePath) VALUES ($userID, '$productname', $categoryID, $price, '$description','$picturepath'; "; //insert new posts
+            $userID = $_SESSION["Current_User"];
+            $productname = $postData["title"];
+            $categoryID = $postData["category"];
+            $price = $postData["price"];
+            $description = $postData["desc"];
+            $picturepath = $postData["pic"];
+            $sql = "INSERT INTO products (UserID, ProductName, CategoryID, Price, Description, PicturePath) VALUES ($userID, '$productname', $categoryID, $price, '$description', '$picturepath'); "; //insert new posts
             $db->execute($sql);
         }
         
