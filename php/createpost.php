@@ -41,16 +41,16 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="listings.html">Home</a>
+                    <a href="/FresnoStateBuyNSell/php/index.php">Home</a>
                 </li>
                 <li>
-                    <a href="profile.html">My Profile</a>
+                    <a href="/FresnoStateBuyNSell/php/index.php?option=user-profile">My Profile</a>
                 </li>
                 <li>
-                    <a href="createpost.html">Create Post</a>
+                    <a href="/FresnoStateBuyNSell/php/index.php?option=create-post">Create Post</a>
                 </li>
                 <li>
-                    <a href="">Log Out</a>
+                    <a href="/FresnoStateBuyNSell/php/index.php?option=logout">Log Out</a>
                 </li>
             </ul>
         </div>
@@ -69,30 +69,36 @@
           <h1 class="text-center">Create a Listing</h1>
       </div>
       <div class="modal-body">
-          <form class="form col-md-12 center-block" action="" method="post">
+          <form class="form col-md-12 center-block" action="index.php?option=create-post" method="post" enctype="multipart/form-data">
             <div class="form-group">
-              <input class="form-control" type="text" placeholder="Title" required>
+              <input class="form-control" type="text" placeholder="Title" name="title" required>
             </div>
             <div class="form-group">
-              <select required>
+              <select name="category" required>
                   <option value="">Select Category</option>
-                  <option value="#">Books</option>
-                  <option value="#">Electronic</option>
-                  <option value="#">Rent House/Apartment</option>
+                  <?php
+                    require_once("classes/DB.php");
+                    $db = new DB();
+                    $sql = "SELECT * FROM categories;";
+                    $return = $db->execute($sql);
+                    while($row = $return->fetch(PDO::FETCH_ASSOC)){
+                        echo "<option value='".$row["CategoryID"]."'>".$row["CategoryName"]."</option>'";
+                    }
+                  ?>
                 </optgroup>
               </select>
             </div>
             <div class="form-group">
-              <textarea class="form-control" placeholder="Description"></textarea>
+              <textarea class="form-control" placeholder="Description" name="desc"></textarea>
             </div>
             <div class="form-group">
-              <input class="form-control" type="number" min="0.00" placeholder="Price $0.00">
+              <input class="form-control" type="number" min="0.00" name="price" placeholder="Price $0.00">
             </div>
             <div class="form-group">
              <input type="file" name="pic" accept="image/*">
             </div>
             <div class="form-group">
-              <button class="btn btn-primary" type="submit">Submit</button>
+              <button class="btn btn-primary" type="submit" name="createSubmit">Submit</button>
             </div>
           </form>
       </div>
@@ -112,19 +118,19 @@
           <div class="col-lg-12">
             <ul class="list-inline">
               <li>
-                 <a href="listings.html">Home</a>
+                 <a href="/FresnoStateBuyNSell/php/index.php">Home</a>
               </li>
               <li class="footer-menu-divider">⋅</li>
               <li>
-                <a href="profile.html">My Profile</a>
+                <a href="/FresnoStateBuyNSell/php/index.php?option=user-profile">My Profile</a>
               </li>
               <li class="footer-menu-divider">⋅</li>
               <li>
-                <a href="createpost.html">Create Post</a>
+                <a href="/FresnoStateBuyNSell/php/index.php?option=create-post">Create Post</a>
               </li>
               <li class="footer-menu-divider">⋅</li>
               <li>
-                <a href="">Log Out</a>
+                <a href="/FresnoStateBuyNSell/php/index.php?option=logout">Log Out</a>
               </li>
             </ul>
             <p class="copyright text-muted small">Copyright © Fresno State Buy N' Sell 2016. All Rights Reserved</p>
