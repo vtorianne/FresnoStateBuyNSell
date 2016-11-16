@@ -10,7 +10,7 @@
                 $sql = "SELECT * FROM products ORDER BY PostTime DESC;";
             }
             else{
-                    $sql = "SELECT * FROM products WHERE ";
+                $sql = "SELECT * FROM products WHERE ";
                 $searchfilterscount=0;
                 if(array_key_exists("keywords", $filters) && $filters["keywords"] != ""){
                     $keywords = explode(" ", $filters["keywords"]);
@@ -171,6 +171,8 @@ EOD;
             $userReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             //display logic here
             echo <<<EOD
+            <!-- Page Content -->
+            <div class="container">
             <!-- Portfolio Item Heading -->
             <div class="row">
                 <div class="col-lg-12">
@@ -271,7 +273,7 @@ EOD;
         
         public function getComments($postID){
             $db = new DB();
-            $sql = "SELECT * FROM comments WHERE ProductID = $postID;"; //get all comments for a post
+            $sql = "SELECT * FROM comments WHERE ProductID = $postID ORDER BY CommentTimeStamp ASC;"; //get all comments for a post
             $return = $db->query($sql);
             echo "<h4><u>Comments</u></h4>";
             while($row = $return->fetch(PDO::FETCH_ASSOC)){

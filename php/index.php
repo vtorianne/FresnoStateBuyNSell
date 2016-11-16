@@ -67,7 +67,6 @@
                 if(isset($_POST['searchSubmit'])){
                     //get filters
                     $filters = array();
-                    var_dump($_POST);
                     if(isset($_POST["priceSort"]))
                         $filters["priceSort"] = $_POST["priceSort"];
                     if(isset($_POST["keywords"]))
@@ -87,7 +86,6 @@
                 $post = new Post();
                 include "../html/header_style2.html"; //header
                 $post->getPostDetails($postID);
-               //$post->getComments($postID);  //either here or as helper function for the above
                 include "../html/footer.html"; //footer
             break;
             case "logout":
@@ -135,7 +133,7 @@
                 break;
             case "user-profile":
                 $user = new User();
-                include "../html/header_style1.html"; //header
+                include "../html/header_style2.html"; //header
                 $profileID = (isset($_GET["user-id"]) ? $_GET["user-id"] : ($_SESSION["Current_User"]));
                 $user->getUserProfile($profileID);
                 include "../html/footer.html"; //footer

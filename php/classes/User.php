@@ -140,7 +140,7 @@ EOD;
 EOD;
 
             }
-            echo "<hr></div></br>";
+            echo "<hr></div></br></div><!-- /.container -->";
         }
         
         public function review($profileID, $reviewData){
