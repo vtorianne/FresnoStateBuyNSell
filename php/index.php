@@ -78,7 +78,7 @@
                     $post->getPosts($filters);
                 }
                 else{
-                    $post->getPosts();
+                    $post->getPosts(null);
                 }
                 //include ""; //footer
                 break;

@@ -24,6 +24,7 @@
                     $searchfilterscount++;
                 }
                 if(array_key_exists("categoryID", $filters)){
+                    $categoryID = $filters["categoryID"];
                     if ($searchfilterscount==0){
                         $sql .= "'$categoryID' = CategoryID";
                     }
@@ -33,7 +34,7 @@
                     $searchfilterscount++;
                 }
 
-                if(array_key_exists("price", $filters)){
+                if(array_key_exists("priceSort", $filters)){
                     $sql .= " ORDER BY Price ASC, PostTime DESC";
                 }
                 else {
@@ -46,15 +47,51 @@
             $return = $db->query($sql);
 
             echo <<<EOD
-            
+             <!-- Page Content -->
+            <div class="container">
+        
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Listings
+                        </h1>
+                    </div>
+                </div>
 EOD;
+            $count = 0;
             while($row = $return->fetch(PDO::FETCH_ASSOC)){
                 //display post html
                 //if sold, show sold icon
-                if($return["Sold"] == 1){
+                //if($row["Sold"] == 1){
                     //display Sold icon/text
+                //}
+                if($count%4 == 0)
+                    echo '<div class="row">';
+                if($count%4 != 3){//not last one in row
+                    echo <<<EOD
+                    <div style="border-right: 1px solid #aaa;" class="col-md-3 portfolio-item">
+                        <a href="/FresnoStateBuyNSell/php/index.php?option=listing&post-id={$row["ProductID"]}">
+                            <img style="padding-top: 10px;" class="img-responsive" src="{$row["PicturePath"]}" alt="">
+                        </a>
+                        <h4>{$row["ProductName"]}<small> - Random Item Stuff</small></h4>
+                    </div>
+EOD;
                 }
+                else{
+                    echo <<<EOD
+                    <div class="col-md-3 portfolio-item">
+                        <a href="/FresnoStateBuyNSell/php/index.php?option=listing&post-id={$row["ProductID"]}">
+                            <img style="padding-top: 10px;" class="img-responsive" src="{$row["PicturePath"]}" alt="">
+                        </a>
+                        <h4>{$row["ProductName"]}<small> - Random Item Stuff</small></h4>
+                    </div>
+                    </div>
+EOD;
+                }
+                $count++;
             }
+            if($count%4 != 0)
+                echo "</div>";
         }
         
         public function getPostDetails($postID){ 
