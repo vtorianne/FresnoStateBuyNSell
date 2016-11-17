@@ -25,7 +25,7 @@ CREATE TABLE `products` (
   `UserID` int(11) NOT NULL,
   `ProductName` varchar(50) NOT NULL,
   `CategoryID` int(11) NOT NULL,
-  `Price` decimal(11,0) NOT NULL,
+  `Price` decimal(11,2) NOT NULL,
   `PostTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Description` varchar(500) DEFAULT NULL,
   `PicturePath` varchar(200) NOT NULL,
