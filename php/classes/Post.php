@@ -128,11 +128,12 @@ EOD;
 EOD;
             $count = 0;
             while($row = $return->fetch(PDO::FETCH_ASSOC)){
-                //display post html
-                //if sold, show sold icon
-                //if($row["Sold"] == 1){
-                    //display Sold icon/text
-                //}
+                if($row["Sold"] == 1){
+                    $sold = '<div style="white-space: nowrap;"><strong class="text-success">SOLD </strong><small> </small><i class="glyphicon glyphicon-check"></i></div>';
+                }
+                else{
+                    $sold = '';
+                }
                 if($count%4 == 0)
                     echo '<div class="row">';
                 if($count%4 != 3){//not last one in row
@@ -141,7 +142,7 @@ EOD;
                         <a href="/FresnoStateBuyNSell/php/index.php?option=listing&post-id={$row["ProductID"]}">
                             <img style="padding-top: 10px;" class="img-responsive" src="{$row["PicturePath"]}" alt="">
                         </a>
-                        <h4>{$row["ProductName"]}<small> - Random Item Stuff</small></h4>
+                        <h4>{$row["ProductName"]}<small> - \${$row["Price"]}    {$sold}</small></h4>
                     </div>
 EOD;
                 }
@@ -151,7 +152,7 @@ EOD;
                         <a href="/FresnoStateBuyNSell/php/index.php?option=listing&post-id={$row["ProductID"]}">
                             <img style="padding-top: 10px;" class="img-responsive" src="{$row["PicturePath"]}" alt="">
                         </a>
-                        <h4>{$row["ProductName"]}<small> - Random Item Stuff</small></h4>
+                        <h4>{$row["ProductName"]}<small> - \${$row["Price"]}    {$sold}</small></h4>
                     </div>
                     </div>
 EOD;
@@ -287,7 +288,7 @@ EOD;
                 <div class="media">
                     <div class="media-body">
                         <p>{$row["Comment"]}</p>
-                        <p><span class="reviewer-name"><strong>{$userReturn["FirstName"]} {$userReturn["LastName"]}</strong></span><span class="review-date">{$row["CommentTimeStamp"]}</span></p>
+                        <p><span class="reviewer-name"><strong>{$userReturn["FirstName"]} {$userReturn["LastName"]}   </strong></span><span class="review-date">   {$row["CommentTimeStamp"]}</span></p>
                     </div>
                 </hr>
                 </div>

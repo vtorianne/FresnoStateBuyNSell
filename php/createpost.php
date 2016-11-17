@@ -104,7 +104,7 @@
       </div>
       <div class="modal-footer">
           <div class="col-md-12">
-              <a href="listings.html" class="btn btn-default">Cancel</a>
+              <a href="/FresnoStateBuyNSell/php/index.php" class="btn btn-default">Cancel</a>
           </div>
       </div>
   </div>
