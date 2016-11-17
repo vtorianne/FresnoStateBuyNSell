@@ -171,6 +171,7 @@ EOD;
             $userReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             //display logic here
             echo <<<EOD
+            <div id="wrap">
             <!-- Page Content -->
             <div class="container">
             <!-- Portfolio Item Heading -->
@@ -232,6 +233,7 @@ EOD;
             </div>
             </br>
             <hr>
+            </div>
             </div>
 EOD;
 
