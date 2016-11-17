@@ -94,13 +94,12 @@ EOD;
                         <div> <span style="padding-right: 10px;">Average {$averageRating}</span>  
 EOD;
             if($reviewedYet){
-                $roundedRating = $this->StarRatingFinder($averageRating);
-                $numWholeStars = $roundedRating/1;
-                $halfStar = ($roundedRating%1 != 0 ? true : false);
+                $numWholeStars = floor($averageRating);
+                $halfStar = $averageRating-$numWholeStars;
                 for($i=0; $i<$numWholeStars; ++$i){
                     echo "<i class=\"fa fa-star\"></i>";
                 }
-                if($halfStar)
+                if($halfStar >= 0.5)
                     echo "<i class=\"fa fa-star-half\"></i>";
             }
             echo <<<EOD
@@ -172,7 +171,7 @@ EOD;
                 echo <<<EOD
                         </div>
                         <p>{$row["ReviewText"]}</p>
-                        <p><span class="reviewer-name"><strong>{$userReturn["FirstName"]} {$userReturn["LastName"]}</strong></span><span class="review-date">{$row["ReviewTimeStamp"]}</span></p>
+                        <p><span class="reviewer-name"><strong>{$userReturn["FirstName"]} {$userReturn["LastName"]}   </strong></span><span class="review-date">   {$row["ReviewTimeStamp"]}</span></p>
                     </div>
                 </div>
 EOD;
@@ -185,20 +184,6 @@ EOD;
             $sql = "SELECT ROUND(AVG(StarRating),2) AS StarRatingAverage FROM reviews WHERE $userID = ProfileID";  //get average review (star rating)
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             return $return["StarRatingAverage"];
-        }
-
-        //helper function for display logic for how many stars to display
-        public function StarRatingFinder($starratingaverage){
-            $possibleratings = array(1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5);
-            $currMin=50;
-            $displayedRating=0;
-            foreach($possibleratings as $element){
-                if ($currMin > ($element - $starratingaverage) && ($element-$starratingaverage) > 0){
-                    $currMin = $element - $starratingaverage;
-                    $displayedRating=$element;
-                }
-            }
-            return $displayedRating;
         }
 
         public function addProfilePic($imagePath){
