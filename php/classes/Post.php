@@ -232,6 +232,7 @@ EOD;
             </div>
             </br>
             <hr>
+            </div>
 EOD;
 
         }
