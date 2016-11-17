@@ -63,6 +63,7 @@
             $averageRating = ($reviewedYet ? $this->getAverageRating($userID) : "No Reviews Yet");
             $userImg = ($return["PicturePath"] != null ? $return["PicturePath"] : "/FresnoStateBuyNSell/img/default_user.png");
             echo <<<EOD
+            <div id="wrap">
             <div class="container">
                 <div class="row product">
                     <div class="col-md-5 col-md-offset-0"><img class="img-responsive" src="{$userImg}"></div>
@@ -140,7 +141,7 @@ EOD;
 EOD;
 
             }
-            echo "<hr></div></br></div><!-- /.container -->";
+            echo "<hr></div></br></div><!-- /.container --></div>";
         }
         
         public function review($profileID, $reviewData){
