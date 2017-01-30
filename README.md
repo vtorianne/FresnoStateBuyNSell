@@ -1,5 +1,7 @@
 # FresnoStateBuyNSell
 
   Carlos Daccarett
-  Brandon Rowe
+ <br> Brandon Rowe
+ <br> Victoria Fall
+ <br> Johnathan Hill
 

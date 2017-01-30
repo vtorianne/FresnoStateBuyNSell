@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 
 <head>
     <meta charset="utf-8">
+=======
+  <head>
+
+		<meta charset="utf-8">
+>>>>>>> master
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+<<<<<<< HEAD
     <title></title>
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -19,6 +26,24 @@
 </head>
 
 <body>
+=======
+
+    <title></title>
+
+
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+
+    <!-- Custom CSS -->
+    <link href="../css/landing-page.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+>>>>>>> master
 
     <!-- Navigation -->
     <nav style="z-index: 9999;" class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
@@ -37,6 +62,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
+<<<<<<< HEAD
                         <a href="index.html">Home</a>
                     </li>
                     <li>
@@ -44,6 +70,15 @@
                     </li>
                     <li>
                         <a href="signin.html">Log In</a>
+=======
+                        <a href="/FresnoStateBuyNSell/php/index.php">Home</a>
+                    </li>
+                    <li>
+                        <a href="/FresnoStateBuyNSell/php/index.php?option=register">Register</a>
+                    </li>
+                    <li>
+                        <a href="/FresnoStateBuyNSell/php/index.php?option=login">Log In</a>
+>>>>>>> master
                     </li>
                 </ul>
             </div>
@@ -52,6 +87,7 @@
         <!-- /.container -->
     </nav>
 
+<<<<<<< HEAD
 
     <!--login modal-->
     <div style="top: 50px; left: 0px; right: 0px; bottom: 0px;" id="loginModal" class="modal show bgcolor" tabindex="-1" role="dialog" aria-hidden="true">
@@ -98,4 +134,60 @@
     <script src="../js/bootstrap.min.js"></script>
 </body>
 
+=======
+    <script type="text/javascript">
+        function validateEmail() {
+            var email = document.forms["registration"]["email"].value;
+            if (email == null || email.substring(email.indexOf("@")) != "@mail.fresnostate.edu") {
+                alert("This system requires the use of a Fresno State email domain.");
+                return false;
+            }
+        }
+    </script>
+
+    <!--login modal-->
+<div style="top: 50px; left: 0px; right: 0px; bottom: 0px;"  id="loginModal" class="modal show bgcolor" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h1 class="text-center">Register</h1>
+      </div>
+      <div class="modal-body">
+          <form name="registration" onsubmit="return validateEmail()" class="form col-md-12 center-block" action="index.php?option=register" method="post">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" name="firstName" placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" name="lastName" placeholder="Last Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control input-lg" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control input-lg" name="password" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+              <span class="pull-right"><a href="/FresnoStateBuyNSell/php/index.php?option=login">Sign In</a></span>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+          <div class="col-md-12">
+              <a href="/FresnoStateBuyNSell/php/index.php" class="btn btn-default">Cancel</a>
+          </div>
+      </div>
+  </div>
+  </div>
+</div>
+
+ <!-- jQuery -->
+    <script src="../js/jquery.js"></script>
+
+
+  <!-- script references -->
+    <script src="../js/bootstrap.min.js"></script>
+  </body>
+>>>>>>> master
 </html>
