@@ -11,8 +11,17 @@ body {
     background:rgba(0,0,0,0.1);
 }
 
+<<<<<<< HEAD
 /*footer container {*/
     /*margin: 50px 0;*/
     /*position: relative;*/
     /**/
 /*}*/
+=======
+ #wrap{
+     min-height: 100%;
+     height: auto;
+     margin: 0 auto -60px;
+     padding: 0 0 60px;
+ }
+>>>>>>> 8398cf3bd6a277523f13bd6b67cecafff1edb34f

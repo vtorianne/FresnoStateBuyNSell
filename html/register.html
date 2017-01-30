@@ -37,13 +37,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="/FresnoStateBuyNSell/php/index.php">Home</a>
                     </li>
                     <li>
-                        <a href="register.html">Register</a>
+                        <a href="/FresnoStateBuyNSell/php/index.php?option=register">Register</a>
                     </li>
                     <li>
-                        <a href="signin.html">Log In</a>
+                        <a href="/FresnoStateBuyNSell/php/index.php?option=login">Log In</a>
                     </li>
                 </ul>
             </div>
@@ -52,8 +52,18 @@
         <!-- /.container -->
     </nav>
 
+    <script type="text/javascript">
+        function validateEmail() {
+            var email = document.forms["registration"]["email"].value;
+            if (email == null || email.substring(email.indexOf("@")) != "@mail.fresnostate.edu") {
+                alert("This system requires the use of a Fresno State email domain.");
+                return false;
+            }
+        }
+    </script>
 
     <!--login modal-->
+<<<<<<< HEAD
     <div style="top: 50px; left: 0px; right: 0px; bottom: 0px;" id="loginModal" class="modal show bgcolor" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -89,6 +99,43 @@
             </div>
         </div>
     </div>
+=======
+<div style="top: 50px; left: 0px; right: 0px; bottom: 0px;"  id="loginModal" class="modal show bgcolor" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h1 class="text-center">Register</h1>
+      </div>
+      <div class="modal-body">
+          <form name="registration" onsubmit="return validateEmail()" class="form col-md-12 center-block" action="index.php?option=register" method="post">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" name="firstName" placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" name="lastName" placeholder="Last Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control input-lg" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control input-lg" name="password" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+              <span class="pull-right"><a href="/FresnoStateBuyNSell/php/index.php?option=login">Sign In</a></span>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+          <div class="col-md-12">
+              <a href="/FresnoStateBuyNSell/php/index.php" class="btn btn-default">Cancel</a>
+          </div>
+      </div>
+  </div>
+  </div>
+</div>
+>>>>>>> 8398cf3bd6a277523f13bd6b67cecafff1edb34f
 
     <!-- jQuery -->
     <script src="../js/jquery.js"></script>
