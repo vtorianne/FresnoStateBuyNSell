@@ -1,58 +1,40 @@
 <!DOCTYPE html>
 <html>
+  <head>
 
-<head>
-    <meta charset="utf-8">
+		<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+
     <title></title>
-    <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
+
+
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+
+    <!-- Custom CSS -->
     <link href="../css/landing-page.css" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-</head>
+  </head>
+  <body>
 
-<body>
-
-    <!-- Navigation -->
-    <nav style="z-index: 9999" class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-        <div class="container topnav">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+<!-- Navigation -->
+<nav style="z-index: 9999" class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-<<<<<<< HEAD:html/createpost.html
-                <span class="navbar-brand topnav">Fresno State Buy N' Sell</span>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="listings.html">Home</a>
-                    </li>
-                    <li>
-                        <a href="profile.html">My Profile</a>
-                    </li>
-                    <li>
-                        <a href="createpost.html">Create Post</a>
-                    </li>
-                    <li>
-                        <a href="">Log Out</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-=======
             <span class="navbar-brand topnav">Fresno State Buy N' Sell</span>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -71,29 +53,14 @@
                     <a href="/FresnoStateBuyNSell/php/index.php?option=logout">Log Out</a>
                 </li>
             </ul>
->>>>>>> 8398cf3bd6a277523f13bd6b67cecafff1edb34f:php/createpost.php
         </div>
-        <!-- /.container -->
-    </nav>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
 
 
     <!--login modal-->
-<<<<<<< HEAD:html/createpost.html
-    <div style="top: 50px; left: 0px; right: 0px; bottom: 0px;" id="loginModal" class="modal show bgcolor" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h1 class="text-center">Create a Listing</h1>
-                </div>
-                <div class="modal-body">
-                    <form class="form col-md-12 center-block" action="" method="post">
-                        <div class="form-group">
-                            <input class="form-control" type="text" placeholder="Title" required>
-                        </div>
-                        <div class="form-group">
-                            <select required>
-=======
 <div style="top: 50px; left: 0px; right: 0px; bottom: 0px;"  id="loginModal" class="modal show bgcolor" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
   <div class="modal-content">
@@ -108,7 +75,6 @@
             </div>
             <div class="form-group">
               <select name="category" required>
->>>>>>> 8398cf3bd6a277523f13bd6b67cecafff1edb34f:php/createpost.php
                   <option value="">Select Category</option>
                   <?php
                     require_once("classes/DB.php");
@@ -121,57 +87,7 @@
                   ?>
                 </optgroup>
               </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" placeholder="Description"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" type="number" min="0.00" placeholder="Price $0.00">
-                        </div>
-                        <div class="form-group">
-                            <input type="file" name="pic" accept="image/*">
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Submit</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <div class="col-md-12">
-                        <a href="listings.html" class="btn btn-default">Cancel</a>
-                    </div>
-                </div>
             </div>
-<<<<<<< HEAD:html/createpost.html
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer style="z-index: 9999;" class="navbar navbar-fixed-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="list-inline">
-                        <li>
-                            <a href="listings.html">Home</a>
-                        </li>
-                        <li class="footer-menu-divider">⋅</li>
-                        <li>
-                            <a href="profile.html">My Profile</a>
-                        </li>
-                        <li class="footer-menu-divider">⋅</li>
-                        <li>
-                            <a href="createpost.html">Create Post</a>
-                        </li>
-                        <li class="footer-menu-divider">⋅</li>
-                        <li>
-                            <a href="">Log Out</a>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted small">Copyright © Fresno State Buy N' Sell 2016. All Rights Reserved</p>
-                </div>
-            </div>
-=======
             <div class="form-group">
               <textarea class="form-control" placeholder="Description" name="desc"></textarea>
             </div>
@@ -219,17 +135,16 @@
             </ul>
             <p class="copyright text-muted small">Copyright © Fresno State Buy N' Sell 2016. All Rights Reserved</p>
           </div>
->>>>>>> 8398cf3bd6a277523f13bd6b67cecafff1edb34f:php/createpost.php
         </div>
+      </div>
     </footer>
 
 
-    <!-- jQuery -->
+ <!-- jQuery -->
     <script src="../js/jquery.js"></script>
 
 
-    <!-- script references -->
+  <!-- script references -->
     <script src="../js/bootstrap.min.js"></script>
-</body>
-
+  </body>
 </html>
