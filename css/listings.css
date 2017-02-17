@@ -1,5 +1,4 @@
 
-
 body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
@@ -12,12 +11,9 @@ body {
     background:rgba(0,0,0,0.1);
 }
 
-<<<<<<< HEAD
 /*footer {*/
     /*margin: 10px 0;*/
 /*}*/
-=======
->>>>>>> 8398cf3bd6a277523f13bd6b67cecafff1edb34f
 
 form {
                 margin-top: 20px;
