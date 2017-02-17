@@ -95,7 +95,7 @@
               <input class="form-control" type="number" min="0.00" name="price" placeholder="Price $0.00">
             </div>
             <div class="form-group">
-             <input type="file" name="pic" accept="image/*">
+             <input type="file" name="pic" accept="image/*" required>
             </div>
             <div class="form-group">
               <button class="btn btn-primary" type="submit" name="createSubmit">Submit</button>

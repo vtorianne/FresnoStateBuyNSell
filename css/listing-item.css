@@ -11,6 +11,11 @@ body {
     background:rgba(0,0,0,0.1);
 }
 
+/*footer container {*/
+    /*margin: 50px 0;*/
+    /*position: relative;*/
+    /**/
+/*}*/
  #wrap{
      min-height: 100%;
      height: auto;
