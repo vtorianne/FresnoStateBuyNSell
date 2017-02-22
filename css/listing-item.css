@@ -7,18 +7,18 @@ body {
     margin-bottom: 25px;
 }
 
- div.portfolio-item:hover{
-    background:rgba(0,0,0,0.1);
+div.portfolio-item:hover {
+    background: rgba(0, 0, 0, 0.1);
 }
 
 /*footer container {*/
-    /*margin: 50px 0;*/
-    /*position: relative;*/
-    /**/
+/*margin: 50px 0;*/
+/*position: relative;*/
+/**/
 /*}*/
- #wrap{
-     min-height: 100%;
-     height: auto;
-     margin: 0 auto -60px;
-     padding: 0 0 60px;
- }
+#wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
