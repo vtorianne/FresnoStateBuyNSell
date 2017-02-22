@@ -1,5 +1,6 @@
 <?php
 echo <<<EOD
+            <div id="wrap">
             <div class="container">
             <div style="float:right; margin-top: 20px;" class="row">
                 <div class="col-md-12">
@@ -108,3 +109,4 @@ EOD;
             }
             if($count%4 != 0)
                 echo "</div>";
+echo "</div></div>";

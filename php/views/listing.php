@@ -1,6 +1,6 @@
 <?php
 echo <<<EOD
-<div id="wrap">
+  <div id="wrap">
     <!-- Page Content -->
     <div class="container">
         <!-- Portfolio Item Heading -->
@@ -77,5 +77,5 @@ EOD;
             </br>
             <hr>
         </div>
-    </div>
+  </div>
 EOD;
