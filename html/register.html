@@ -42,6 +42,7 @@
             <a class="navbar-brand topnav" href="index.html">Fresno State Buy N'
                 Sell</a>
         </div>
+<<<<<<< HEAD
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -111,6 +112,73 @@
                     <div class="form-group">
                         <input type="email" class="form-control input-lg"
                                name="email" placeholder="Email" required>
+=======
+        <!-- /.container -->
+    </nav>
+
+    <script type="text/javascript">
+        function validateEmail() {
+            var email = document.forms["registration"]["email"].value;
+            if (email == null || email.substring(email.indexOf("@")) != "@mail.fresnostate.edu") {
+                alert("This system requires the use of a Fresno State email domain.");
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+
+        function Validate() {
+            var password = document.forms["registration"]["password"];
+            var password_confirmation = document.forms["registration"]["password_confirmation"];
+            if (password.value != password_confirmation.value) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            else{
+                return true;
+            }
+
+        }
+    </script>
+
+    <!--login modal-->
+    <div style="top: 50px; left: 0px; right: 0px; bottom: 0px;" id="loginModal"
+         class="modal show bgpicture" tabindex="-1" role="dialog"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h1 class="text-center">Register</h1>
+                </div>
+                <div class="modal-body">
+                    <form name="registration" onsubmit="return !!(validateEmail() && Validate())" class="form col-md-12 center-block" action="index.php?option=register" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg" name="firstName" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg" name="lastName" placeholder="Last Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control input-lg" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control input-lg" name="password" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control input-lg" name="password_confirmation" placeholder="Verify Password" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+                            <span class="pull-right"><a href="/FresnoStateBuyNSell/php/index.php?option=login">Sign In</a></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <a href="/FresnoStateBuyNSell/php/index.php" class="btn btn-default">Cancel</a>
+>>>>>>> 1ee50caee75007348546e4f1c31d58944c1373e8
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control input-lg"
