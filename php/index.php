@@ -13,12 +13,8 @@
                 break;
             case "login":
                 if(isset($_POST['email']) && isset($_POST['password'])){
-                    $loginData = array(
-                                         'email' => $_POST['email'],
-                                         'password' => $_POST['password']
-                                       );
                     $user = new User();
-                    if($user->login($loginData)){
+                    if($user->login()){
                         header('Location: index.php'); //redirect to home page if success
                     }
                     else{
@@ -32,15 +28,8 @@
                 break;
             case "register":
                 if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password'])){
-                    $regData = array(
-                                        'firstName' => $_POST['firstName'],
-                                        'lastName' => $_POST['lastName'],
-                                        'email' => $_POST['email'],
-                                        'password' => $_POST['password']
-                                    );
                     $user = new User();
-                    if($user->register($regData)){
-                        //success creating user
+                    if($user->register()){ //if success creating user
                         //display splash page for registration
                         include "../html/registered.html";
                     }
@@ -63,30 +52,11 @@
         switch($option){
             case null:
                 $post = new Post();
-                include "../html/header_style2.html"; //header
-                if(isset($_POST['searchSubmit'])){
-                    //get filters
-                    $filters = array();
-                    if(isset($_POST["priceSort"]))
-                        $filters["priceSort"] = $_POST["priceSort"];
-                    if(isset($_POST["keywords"]))
-                        $filters["keywords"] = $_POST["keywords"];
-                    if(isset($_POST["category"]))
-                        $filters["categoryID"] = $_POST["category"];
-                    
-                    $post->getPosts($filters);
-                }
-                else{
-                    $post->getPosts(null);
-                }
-                include "../html/footer.html"; //footer
+                $post->getPosts();
                 break;
             case "listing":
-                $postID = $_GET["post-id"];
                 $post = new Post();
-                include "../html/header_style2.html"; //header
-                $post->getPostDetails($postID);
-                include "../html/footer.html"; //footer
+                $post->getPostDetails();
             break;
             case "logout":
                 $user = new User();
@@ -95,18 +65,8 @@
                 break;
             case "create-post":
                 if(isset($_POST["createSubmit"])){
-                    $target_file = "/FresnoStateBuyNSell/uploads/listing_pics/".basename($_FILES["pic"]["name"]);
-                    $target_dir =  $_SERVER['DOCUMENT_ROOT'].$target_file;
-                    move_uploaded_file($_FILES["pic"]["tmp_name"], $target_dir);
-                    $postData = array(
-                       "title" => $_POST["title"],
-                       "desc" => (isset($_POST["desc"]) ? $_POST["desc"] : ""),
-                       "category" => $_POST["category"],
-                       "price" => $_POST["price"],
-                       "pic" => $target_file
-                    );
                     $post = new Post();
-                    $post->createPost($postData);
+                    $post->createPost();
                     header("Location: index.php");
                 }
                 else{
@@ -116,7 +76,7 @@
             case "mark-sold":
                 //get post data
                 $post = new Post();
-                $postID = $_GET["post-id"];  //or from GET?
+                $postID = $_GET["post-id"];
                 if($post->markSold($postID))
                     header("Location: index.php?option=listing&post-id=$postID"); //redirect back to same page
                 else
@@ -125,35 +85,22 @@
             case "add-comment":
                 $post = new Post();
                 $postID = $_GET["post-id"];
-                $commentData = array(
-                                    "comment" => $_POST["comment"]
-                                );
-                $post->addComment($postID, $commentData);
+                $post->addComment();
                 header("Location: index.php?option=listing&post-id=$postID"); //redirect back to same page
                 break;
             case "user-profile":
                 $user = new User();
-                include "../html/header_style2.html"; //header
-                $profileID = (isset($_GET["user-id"]) ? $_GET["user-id"] : ($_SESSION["Current_User"]));
-                $user->getUserProfile($profileID);
-                include "../html/footer.html"; //footer
+                $user->getUserProfile();
                 break;
             case "add-review":
                 $user = new User();
+                $user->review();
                 $profileID = $_GET["user-id"];
-                $reviewData = array(
-                                    "comment" => $_POST["comment"],
-                                    "rating" => $_POST["rating"]
-                                );
-                $user->review($profileID, $reviewData);
                 header("Location: index.php?option=user-profile&user-id=$profileID");
                 break;
             case "add-profile-pic":
-                $target_file = "/FresnoStateBuyNSell/uploads/profile_pics/".basename($_FILES["pic"]["name"]);
-                $target_dir =  $_SERVER['DOCUMENT_ROOT'].$target_file;
-                move_uploaded_file($_FILES["pic"]["tmp_name"], $target_dir);
                 $user = new User();
-                $user->addProfilePic($target_file);
+                $user->addProfilePic();
                 header("Location: index.php?option=user-profile");
                 break;
             default:
