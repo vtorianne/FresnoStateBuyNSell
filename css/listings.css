@@ -100,3 +100,10 @@ body {
     background-color: #777;
     border-color: #555;
 }
+
+#wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
