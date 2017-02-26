@@ -4,6 +4,8 @@
     session_start();
     require_once "classes/User.php";
     require_once "classes/Post.php";
+    $user = new User();
+    $post = new Post();
     $option = (isset($_GET['option']) ? $_GET['option'] : null);
     if(!(isset($_SESSION["Current_User"]) && $_SESSION["Logged_In"])){
         switch($option){
@@ -13,7 +15,6 @@
                 break;
             case "login":
                 if(isset($_POST['email']) && isset($_POST['password'])){
-                    $user = new User();
                     if($user->login()){
                         header('Location: index.php'); //redirect to home page if success
                     }
@@ -28,7 +29,6 @@
                 break;
             case "register":
                 if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password'])){
-                    $user = new User();
                     if($user->register()){ //if success creating user
                         //display splash page for registration
                         include "../html/registered.html";
@@ -51,21 +51,17 @@
     else{
         switch($option){
             case null:
-                $post = new Post();
                 $post->getPosts();
                 break;
             case "listing":
-                $post = new Post();
                 $post->getPostDetails();
             break;
             case "logout":
-                $user = new User();
                 $user->logout();
                 header('Location: index.php');
                 break;
             case "create-post":
                 if(isset($_POST["createSubmit"])){
-                    $post = new Post();
                     $post->createPost();
                     header("Location: index.php");
                 }
@@ -74,8 +70,6 @@
                 }
                 break;
             case "mark-sold":
-                //get post data
-                $post = new Post();
                 $postID = $_GET["post-id"];
                 if($post->markSold($postID))
                     header("Location: index.php?option=listing&post-id=$postID"); //redirect back to same page
@@ -83,23 +77,19 @@
                     header("Location: index.php?option=forbidden");
                 break;
             case "add-comment":
-                $post = new Post();
                 $postID = $_GET["post-id"];
                 $post->addComment();
                 header("Location: index.php?option=listing&post-id=$postID"); //redirect back to same page
                 break;
             case "user-profile":
-                $user = new User();
                 $user->getUserProfile();
                 break;
             case "add-review":
-                $user = new User();
                 $user->review();
                 $profileID = $_GET["user-id"];
                 header("Location: index.php?option=user-profile&user-id=$profileID");
                 break;
             case "add-profile-pic":
-                $user = new User();
                 $user->addProfilePic();
                 header("Location: index.php?option=user-profile");
                 break;
