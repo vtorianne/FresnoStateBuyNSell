@@ -32,7 +32,7 @@
             $email = $_POST['email'];
             $password = $_POST['password'];
             $db = new DB();
-            $sql = "SELECT UserID FROM users WHERE Email = '$email' AND Password = MD5('$password');";  //query User record where email and password match those given
+            $sql = "SELECT UserID, EmailValidated FROM users WHERE Email = '$email' AND Password = MD5('$password');";  //query User record where email and password match those given
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             if(!$return){
                 //wrong username and or password
@@ -41,6 +41,7 @@
             else{
                 $_SESSION["Current_User"] = $return["UserID"];
                 $_SESSION["Logged_In"] = true;
+                $_SESSION["Email_Validated"] = $return["EmailValidated"];
                 return true;
             }
             
@@ -48,6 +49,49 @@
         
         public function logout(){
             session_unset();
+        }
+
+        public function sendValidationEmail(){
+            $db = new DB();
+            if(isset($_SESSION["user-id"])){
+                $userID = $_SESSION["user-id"];
+            }
+            elseif(isset($_GET["user-id"])){
+                $userID = $_GET["user-id"];
+            }
+            else{
+                return false;
+            }
+            $sql = "SELECT Email, EmailValidated from users WHERE UserID = '$userID';";
+            $return = $db->query($sql);
+            if(!$return || $return["EmailValidated"]){ //if no matching user or user email already validated
+                return false;
+            }
+            else{
+                $recipientEmail = $return["Email"];
+                //create hash token
+                //store in database
+                //$emailBody = getEmailBody(userID, hashtoken)
+                //sendEmail(recipientEmail, EmailBody);
+                return true; //change this later to if email was able to be sent
+            }
+        }
+
+        public function validateEmail(){
+            $db = new DB();
+            //get user ID and hash token from GET
+            //search for match in the db -> $sql
+            $sql = "";
+            $return = $db->query($sql);
+            if(!$return){
+                //no match found (either userID dne or hash token is wrong
+                return false;
+            }
+            else{
+                //update emailValidated bit in db
+                $_SESSION["Email_Validated"] = true;
+                return true;
+            }
         }
         
         public function getUserProfile(){
@@ -112,7 +156,7 @@
 
         public function addProfilePic(){
             $db = new DB();
-            $target_file = "/FresnoStateBuyNSell/uploads/profile_pics/".basename($_FILES["pic"]["name"]);
+            $target_file = "/uploads/profile_pics/".basename($_FILES["pic"]["name"]);
             $target_dir =  $_SERVER['DOCUMENT_ROOT'].$target_file;
             move_uploaded_file($_FILES["pic"]["tmp_name"], $target_dir);
             $userID = $_SESSION["Current_User"];
