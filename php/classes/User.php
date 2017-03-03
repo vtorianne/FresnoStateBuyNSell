@@ -70,7 +70,10 @@
             else{
                 $recipientEmail = $return["Email"];
                 //create hash token
+                $hashToken = 'Testing123456';
                 //store in database
+                //$sql = "insert into user (HashToken) values ($hashToken) where UserID = $userID;";
+                //$db->execute($sql);
                 //$emailBody = getEmailBody(userID, hashtoken)
                 //sendEmail(recipientEmail, EmailBody);
                 return true; //change this later to if email was able to be sent

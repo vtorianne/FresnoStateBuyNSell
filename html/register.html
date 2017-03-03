@@ -57,13 +57,19 @@
 </nav>
 
 <script type="text/javascript">
+    addEventListener('keyup',Validate, false);
+    addEventListener('keyup',validateEmail, false);
+
     function validateEmail() {
         var email = document.forms["registration"]["email"].value;
         if (email == null || email.substring(email.indexOf("@")) != "@mail.fresnostate.edu") {
-            alert("This system requires the use of a Fresno State email domain.");
+            $("#divcheckemail").html("Invalid email: must be a Fresno State email.");
+            document.getElementById("divcheckemail").style.color = "red";
             return false;
         }
         else{
+            $("#divcheckemail").html("Email is valid.");
+            document.getElementById("divcheckemail").style.color = "green";
             return true;
         }
     }
@@ -72,14 +78,17 @@
         var password = document.forms["registration"]["password"];
         var password_confirmation = document.forms["registration"]["password_confirmation"];
         if (password.value != password_confirmation.value) {
-            alert("Passwords do not match!");
-            return false;
+            $("#divCheckPasswordMatch").html("Passwords do not match!");
+            document.getElementById("divCheckPasswordMatch").style.color = "red";
+//            return false;
         }
-        else{
-            return true;
+        if(password.value != "" && password.value == password_confirmation.value) {
+            $("#divCheckPasswordMatch").html("Passwords match.");
+            document.getElementById("divCheckPasswordMatch").style.color = "green";
+//            return true;
         }
-
     }
+
 </script>
 
 <!--login modal-->
@@ -93,7 +102,7 @@
                 <h1 class="text-center">Register</h1>
             </div>
             <div class="modal-body">
-                <form name="registration" onsubmit="return !!(validateEmail() && Validate())" class="form col-md-12 center-block" action="index.php?option=register" method="post">
+                <form name="registration" class="form col-md-12 center-block" action="index.php?option=register" method="post">
                     <div class="form-group">
                         <input type="text" class="form-control input-lg" name="firstName" placeholder="First Name" required>
                     </div>
@@ -101,14 +110,16 @@
                         <input type="text" class="form-control input-lg" name="lastName" placeholder="Last Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control input-lg" name="email" placeholder="Email" required>
+                        <input type="email" class="form-control input-lg" name="email" placeholder="Email" onChange="validateEmail();" required>
+                        <div id="divcheckemail"></div>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control input-lg" name="password" placeholder="Password" required>
+                        <input type="password" id="txtNewPassword" class="form-control input-lg" name="password" placeholder="Password" required>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control input-lg" name="password_confirmation" placeholder="Verify Password" required>
+                        <input type="password" id="txtConfirmPassword" class="form-control input-lg" name="password_confirmation" placeholder="Verify Password" onChange="Validate();" required>
                     </div>
+                    <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
                         <span class="pull-right"><a href="/FresnoStateBuyNSell/php/index.php?option=login">Sign In</a></span>
@@ -130,6 +141,7 @@
 
 <!-- script references -->
 <script src="../js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
