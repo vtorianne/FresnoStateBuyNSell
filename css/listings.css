@@ -1,5 +1,4 @@
 
-
 body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
@@ -13,10 +12,16 @@ body {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*footer {*/
     /*margin: 10px 0;*/
 /*}*/
 =======
+>>>>>>> master
+=======
+/*footer {*/
+    /*margin: 10px 0;*/
+/*}*/
 >>>>>>> master
 
 form {
@@ -103,4 +108,11 @@ body {
 .btn-primary:hover {
     background-color: #777;
     border-color: #555;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
 }
