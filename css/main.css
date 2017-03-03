@@ -130,3 +130,48 @@ footer {
         padding-bottom: 50px;*/
     text-align: center;
 }
+
+/* Strength Bar For Register Page */
+
+.commonWidth {
+            left: 50%;
+            width: 400px;
+            padding-top: 10px;
+            margin-left: 0px;
+            margin-top: 5px;
+        }
+        
+        #passwordBox{
+            padding: 5px 5px;
+            max-width: 390px;
+        }
+        
+        #passwordStrengthContainer {
+            padding: 0px;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            //width: 402px;
+            height: 14px;
+            //background: #BEBEBE;
+            background: #d9d9d9;
+            width: 100%;
+        }
+        #passwordStrength {
+            height: 12px;
+            padding: 0px;
+            border-radius: 10px;
+            background: white;
+            position: relative;
+            left: 0px;
+            top: 0px;
+            width: 0%;
+        }
+        #passwordStrength2 {
+            height: 12px;
+            padding: 0px;
+            background: white;
+            position: relative;
+            left: 0px;
+            top: 0px;
+            width: 0%;
+        }
