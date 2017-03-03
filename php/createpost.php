@@ -12,11 +12,9 @@
 
 
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-
 
     <!-- Custom CSS -->
-    <link href="../css/landing-page.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
 
     <!-- Custom Fonts -->
     <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -61,7 +59,7 @@
 
 
     <!--login modal-->
-<div style="top: 50px; left: 0px; right: 0px; bottom: 0px;"  id="loginModal" class="modal show bgcolor" tabindex="-1" role="dialog" aria-hidden="true">
+<div style="top: 50px; left: 0px; right: 0px; bottom: 0px;"  id="loginModal" class="modal show bgpicture" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
   <div class="modal-content">
       <div class="modal-header">
@@ -95,7 +93,7 @@
               <input class="form-control" type="number" min="0.00" name="price" placeholder="Price $0.00">
             </div>
             <div class="form-group">
-             <input type="file" name="pic" accept="image/*">
+             <input type="file" name="pic" accept="image/*" required>
             </div>
             <div class="form-group">
               <button class="btn btn-primary" type="submit" name="createSubmit">Submit</button>

@@ -1,5 +1,4 @@
 
-
 body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
@@ -12,6 +11,9 @@ body {
     background:rgba(0,0,0,0.1);
 }
 
+/*footer {*/
+    /*margin: 10px 0;*/
+/*}*/
 
 form {
                 margin-top: 20px;
@@ -97,4 +99,11 @@ body {
 .btn-primary:hover {
     background-color: #777;
     border-color: #555;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
 }
