@@ -50,6 +50,10 @@
             session_unset();
         }
 
+        public function sendEmail($recipient, $emailBody){
+            
+        }
+
         public function sendValidationEmail(){
             $db = new DB();
             if(isset($_SESSION["user-id"])){
@@ -61,7 +65,7 @@
             else{
                 return false;
             }
-            $sql = "SELECT Email, EmailValidated from users WHERE UserID = '$userID';";
+            $sql = "SELECT Email, EmailValidated FROM users WHERE UserID = $userID;";
             $return = $db->query($sql);
             if(!$return || $return["EmailValidated"]){ //if no matching user or user email already validated
                 return false;
