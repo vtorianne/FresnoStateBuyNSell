@@ -3,7 +3,6 @@
     error_reporting(E_ALL);
     require_once "DB.php";
     class User{
-
         public function register(){
             $firstName = $_POST['firstName'];
             $lastName = $_POST['lastName'];
