@@ -26,6 +26,7 @@
                 $this->login();
                 return true;  //add to logic so that this won't return if there is an error in db execution
             }
+            
         }
         
         public function login(){
@@ -52,47 +53,27 @@
             session_unset();
         }
 
-        public function sendEmail($recipient, $emailBody){
-        $mail             = new PHPMailer();
-
-$body             = "Hello, this is a programatically sent email.";
-$body             = eregi_replace("[\]",'',$body);
-
-$mail->IsSMTP(); // telling the class to use SMTP
-$mail->Host       = "smtp.gmail.com"; // SMTP server
-$mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
-                                           // 1 = errors and messages
-                                           // 2 = messages only
-$mail->SMTPAuth   = true;                  // enable SMTP authentication
-$mail->SMTPSecure = "tls";                 // sets the prefix to the servier
-$mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
-$mail->Port       = 587;                   // set the SMTP port for the GMAIL server
-$mail->Username   = "fresnostatebuynsell@gmail.com";  // GMAIL username
-$mail->Password   = "iliketobuybooks";            // GMAIL password
-
-$mail->SetFrom('name@yourdomain.com', 'Fresno State Buy N Sell');
-
-$mail->AddReplyTo("name@yourdomain.com","First Last");
-
-$mail->Subject    = "PHPMailer Test Subject via smtp (Gmail), basic";
-
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
-
-$mail->MsgHTML($body);
-
-$address = "browe1485@gmail.com";
-$mail->AddAddress("cdaccarett@mail.fresnostate.edu", "Carlos Daccarett");
-$mail->AddAddress("johnathanbhill9@mail.fresnostate.edu", "Johnathan Hill");
-$mail->AddAddress("vtorianne@mail.fresnostate.edu", "Victoria Fall");
-$mail->AddAddress($address, "Brandon Rowe");
-
-if(!$mail->Send()) {
-  echo "Mailer Error: " . $mail->ErrorInfo;
-} else {
-  echo "Message sent!";
-}
-            
-        }
+        public function sendEmail($recipient, $emailBody, $emailsubject){
+            $mail             = new PHPMailer();
+            $body             = "Hello, this is a programatically sent email.";
+            $body             = eregi_replace("[\]",'',$body);
+            $mail->IsSMTP(); // telling the class to use SMTP
+            $mail->Host       = "smtp.gmail.com"; // SMTP server
+            $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+            $mail->SMTPAuth   = true;                  // enable SMTP authentication
+            $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
+            $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+            $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
+            $mail->Username   = "fresnostatebuynsell@gmail.com";  // GMAIL username
+            $mail->Password   = "iliketobuybooks";            // GMAIL password
+            $mail->SetFrom('fresnostatebuynsell@gmail.com', 'Fresno State Buy N Sell');
+            $mail->Subject    = $emailsubject;
+            $mail->MsgHTML($body);
+            $mail->AddAddress($recipient);
+            if(!$mail->Send()) {
+                echo "Mailer Error: " . $mail->ErrorInfo;}
+            else {echo "Message sent!";}
+            }
 
         public function sendValidationEmail(){
             $db = new DB();
@@ -115,7 +96,7 @@ if(!$mail->Send()) {
                 //create hash token
                 //store in database
                 //$emailBody = getEmailBody(userID, hashtoken)
-                //sendEmail(recipientEmail, EmailBody);
+                //sendEmail(recipientEmail, EmailBody, Emailsubject);
                 return true; //change this later to if email was able to be sent
             }
         }
