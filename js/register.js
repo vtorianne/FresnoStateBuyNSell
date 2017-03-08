@@ -82,7 +82,7 @@
     }
     
     function check_score(x){
-        
+         
          var total = 0;
 
         //Give score 3 points if password is bigger than 6 characters
@@ -121,6 +121,5 @@
         if (x.length >= 25){
             total = total + 5;
         }
-        
         return total;
     }
