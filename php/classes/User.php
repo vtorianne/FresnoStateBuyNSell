@@ -3,6 +3,7 @@
     error_reporting(E_ALL);
     require_once "DB.php";
     require_once '../../PHPMailer-master/PHPMailerAutoload.php';
+    require_once '../../EmailPassword.php';
     class User{
 
         public function register(){
@@ -65,7 +66,7 @@
             $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
             $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
             $mail->Username   = "fresnostatebuynsell@gmail.com";  // GMAIL username
-            $mail->Password   = "iliketobuybooks";            // GMAIL password
+            $mail->Password   = GetEmailPassword();            // GMAIL password
             $mail->SetFrom('fresnostatebuynsell@gmail.com', 'Fresno State Buy N Sell');
             $mail->Subject    = $emailsubject;
             $mail->MsgHTML($body);
