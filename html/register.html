@@ -65,6 +65,7 @@
         if (email == null || email.substring(email.indexOf("@")) != "@mail.fresnostate.edu") {
             $("#divcheckemail").html("Invalid email: must be a Fresno State email.");
             document.getElementById("divcheckemail").style.color = "red";
+            alert("invalid email");
             return false;
         }
         else{
@@ -102,7 +103,7 @@
                 <h1 class="text-center">Register</h1>
             </div>
             <div class="modal-body">
-                <form name="registration" class="form col-md-12 center-block" action="index.php?option=register" method="post">
+                <form name="registration" class="form col-md-12 center-block" action="index.php?option=register" method="post" onsubmit="return validateEmail()">
                     <div class="form-group">
                         <input type="text" class="form-control input-lg" name="firstName" placeholder="First Name" required>
                     </div>
