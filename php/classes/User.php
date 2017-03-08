@@ -2,6 +2,8 @@
     ini_set('display_errors',1); 
     error_reporting(E_ALL);
     require_once "DB.php";
+    require_once '../../PHPMailer-master/PHPMailerAutoload.php';
+    require_once '../../EmailPassword.php';
     class User{
         public function register(){
             $firstName = $_POST['firstName'];
@@ -24,6 +26,7 @@
                 $this->login();
                 return true;  //add to logic so that this won't return if there is an error in db execution
             }
+            
         }
         
         public function login(){
@@ -49,9 +52,35 @@
         public function logout(){
             session_unset();
         }
+<<<<<<< HEAD
         public function sendEmail($recipient, $emailBody){
             
         }
+=======
+
+        public function sendEmail($recipient, $emailBody, $emailsubject){
+            $mail             = new PHPMailer();
+            $body             = "Hello, this is a programatically sent email.";
+            $body             = eregi_replace("[\]",'',$body);
+            $mail->IsSMTP(); // telling the class to use SMTP
+            $mail->Host       = "smtp.gmail.com"; // SMTP server
+            $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+            $mail->SMTPAuth   = true;                  // enable SMTP authentication
+            $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
+            $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+            $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
+            $mail->Username   = "fresnostatebuynsell@gmail.com";  // GMAIL username
+            $mail->Password   = GetEmailPassword();            // GMAIL password
+            $mail->SetFrom('fresnostatebuynsell@gmail.com', 'Fresno State Buy N Sell');
+            $mail->Subject    = $emailsubject;
+            $mail->MsgHTML($body);
+            $mail->AddAddress($recipient);
+            if(!$mail->Send()) {
+                echo "Mailer Error: " . $mail->ErrorInfo;}
+            else {echo "Message sent!";}
+            }
+
+>>>>>>> origin/master
         public function sendValidationEmail(){
             $db = new DB();
             if(isset($_SESSION["user-id"])){
@@ -76,7 +105,7 @@
                 //$sql = "insert into user (HashToken) values ($hashToken) where UserID = $userID;";
                 //$db->execute($sql);
                 //$emailBody = getEmailBody(userID, hashtoken)
-                //sendEmail(recipientEmail, EmailBody);
+                //sendEmail(recipientEmail, EmailBody, Emailsubject);
                 return true; //change this later to if email was able to be sent
             }
         }
