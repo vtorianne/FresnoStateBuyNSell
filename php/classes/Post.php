@@ -50,7 +50,6 @@
             require_once "views/listing.php";
             require_once "../html/footer.html"; //footer
         }
-
         public function getFilteredQuery($filters){
             if($filters == NULL) {
                 $sql = "SELECT * FROM products ORDER BY PostTime DESC;";
@@ -82,10 +81,8 @@
                     }
                     $searchfilterscount++;
                 }
-
                 if($searchfilterscount == 0)
                     $sql.= " 1";
-
                 if(array_key_exists("priceSort", $filters)){
                     $sql .= " ORDER BY Price ASC, PostTime DESC";
                 }
@@ -96,7 +93,6 @@
             }
             return $sql;
         }
-
         public function getPostCategories(){
             $db = new DB();
             $sql = "SELECT * FROM categories;";

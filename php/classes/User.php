@@ -3,7 +3,6 @@
     error_reporting(E_ALL);
     require_once "DB.php";
     class User{
-
         public function register(){
             $firstName = $_POST['firstName'];
             $lastName = $_POST['lastName'];
@@ -50,11 +49,9 @@
         public function logout(){
             session_unset();
         }
-
         public function sendEmail($recipient, $emailBody){
             
         }
-
         public function sendValidationEmail(){
             $db = new DB();
             if(isset($_SESSION["user-id"])){
@@ -74,13 +71,15 @@
             else{
                 $recipientEmail = $return["Email"];
                 //create hash token
+                $hashToken = 'Testing123456';
                 //store in database
+                //$sql = "insert into user (HashToken) values ($hashToken) where UserID = $userID;";
+                //$db->execute($sql);
                 //$emailBody = getEmailBody(userID, hashtoken)
                 //sendEmail(recipientEmail, EmailBody);
                 return true; //change this later to if email was able to be sent
             }
         }
-
         public function validateEmail(){
             $db = new DB();
             //get user ID and hash token from GET
@@ -113,7 +112,6 @@
                 $reviews = $this->getReviews($userID);
             }
             $userImg = ($return["PicturePath"] != null ? $return["PicturePath"] : "/FresnoStateBuyNSell/img/default_user.png");
-
             require_once "../html/header_style2.html"; //header
             require_once "views/userprofile.php";
             require_once "../html/footer.html"; //footer
@@ -150,14 +148,12 @@
             }
             return $reviews;
         }
-
         public function getAverageRating($userID){
             $db = new DB();
             $sql = "SELECT ROUND(AVG(StarRating),2) AS StarRatingAverage FROM reviews WHERE $userID = ProfileID";  //get average review (star rating)
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             return $return["StarRatingAverage"];
         }
-
         public function addProfilePic(){
             $db = new DB();
             $target_file = "/uploads/profile_pics/".basename($_FILES["pic"]["name"]);
@@ -172,4 +168,3 @@
     }
     
  ?>
- 
