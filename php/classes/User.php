@@ -31,7 +31,6 @@
         }
 
         public function login(){
-            session_start();
             $email = $_POST['email'];
             $password = $_POST['password'];
             $db = new DB();
@@ -51,12 +50,12 @@
         }
 
         public function logout(){
-            session_unset();
+            session_destroy();
         }
 
-        public function sendEmail($recipient, $emailBody, $emailsubject){
+        public function sendEmail($recipient, $emailbody, $emailsubject){
             $mail             = new PHPMailer();
-            $body             = eregi_replace("[\]",'',$emailBody); //replace use of deprecated function
+            $body             = eregi_replace("[\]",'',$emailbody); //replace use of deprecated function
             $mail->IsSMTP(); // telling the class to use SMTP
             $mail->Host       = "smtp.gmail.com"; // SMTP server
             $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
@@ -72,34 +71,39 @@
             $mail->AddAddress($recipient);
             if(!$mail->Send()) {
                 echo "Mailer Error: " . $mail->ErrorInfo;}
-            else {echo "Message sent!";}
+            else {
+                echo "Message sent!";
+            }
             //later update to return a boolean to whether sent or not
         }
 
         public function sendValidationEmail(){
             $db = new DB();
-            if(isset($_SESSION["user-id"])){
-                $userID = $_SESSION["user-id"];
+            if(isset($_SESSION["Current_User"])){
+                $UserID = $_SESSION["Current_User"];
             }
             elseif(isset($_GET["user-id"])){
-                $userID = $_GET["user-id"];
+                $UserID = $_GET["user-id"];
             }
             else{
                 return false;
             }
-            $sql = "SELECT Email, EmailValidated FROM users WHERE UserID = $userID;";
-            $return = $db->query($sql);
-            if(!$return || $return["EmailValidated"]){ //if no matching user or user email already validated
+            $sql = "SELECT Email, EmailValidated FROM users WHERE UserID = $UserID;";
+            $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+            if(!$return || $return["EmailValidated"]){ //user email does not exist or is already validated
                 return false;
             }
             else{
                 $recipientEmail = $return["Email"];
                 //create hash token
-                $hashtoken= 123;
+                $HashToken= 123;
                 //store in database
-                $sql = "";
-                $emailBody = "<h1>hi</h1>";  //getEmailBody($userID, $hashtoken)
-                $this->sendEmail($recipientEmail, $emailBody, "Validate Email");
+                $sql = "UPDATE users SET HashToken=$HashToken WHERE UserID = $UserID;";
+                $db->execute($sql);
+                //$emailBody = getEmailBody($userID, $hashtoken);
+                $emailBody =   "<html> Please validate your email.<a href='http://localhost/FresnoStateBuyNSell/php/index.php?option=validate-email&user-id=$UserID&hash-token=$HashToken'>Click here.</a></html>";
+                echo $emailBody;
+                //$this->sendEmail($recipientEmail, $emailBody, "Validate Email");
                 return true; //change this later to if email was able to be sent
             }
         }
@@ -107,15 +111,19 @@
         public function validateEmail(){
             $db = new DB();
             //get user ID and hash token from GET
+            $userID = $_GET["user-id"];
+            $hashToken = $_GET["hash-token"];
             //search for match in the db -> $sql
-            $sql = "";
-            $return = $db->query($sql);
+            $sql = "SELECT * FROM users WHERE UserID = $userID and HashToken = $hashToken;";
+            $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             if(!$return){
-                //no match found (either userID dne or hash token is wrong
+                //no match found, either userID dne or hash token is wrong
                 return false;
             }
             else{
                 //update emailValidated bit in db
+                $sql = "UPDATE users SET EmailValidated=1 WHERE UserID = $userID;";
+                $db->execute($sql);
                 $_SESSION["Email_Validated"] = true;
                 return true;
             }
