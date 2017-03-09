@@ -1,21 +1,20 @@
 <?php /*this section will be moved elsewhere later on,
         I just have it here to help for making/testing this. */
-   /* $message = "Hello World";
     $buttonText = "Buy/Sell";
     $buttonLink = "#";
-    $buttonIcon = "fa fa-fw fa-money";*/
+    $buttonIcon = "fa fa-fw fa-money";
 
 ?>
 <html>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
-    <link href="../css/main.css" rel="stylesheet">
+    <link href="../../css/main.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
 <body>
 <!-- Navigation -->
@@ -36,16 +35,16 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="listings.html">Home</a>
+                        <a href="/FresnoStateBuyNSell/php/index.php">Home</a>
                     </li>
                     <li>
-                        <a href="profile.html">My Profile</a>
+                        <a href="/FresnoStateBuyNSell/php/index.php?option=user-profile">My Profile</a>
                     </li>
                     <li>
-                        <a href="createpost.html">Create Post</a>
+                        <a href="/FresnoStateBuyNSell/php/index.php?option=create-post">Create Post</a>
                     </li>
                     <li>
-                        <a href="">Log Out</a>
+                        <a href="/FresnoStateBuyNSell/php/index.php?option=logout">Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -60,9 +59,11 @@
                 <div class="col-lg-12">
                     <div class="intro-message">
                         <h1>
-                              <img style=" width: 50%; " ;="" src="../img/buynsell.png">
+                              <img style=" width: 50%; " ;="" src="../../img/buynsell.png">
                             </h1>
-                        <h1><?php echo $message; ?></h1>
+                        <h1>Email has been verified:
+                          <div>Start Buying/Selling</div>
+                        </h1>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <center>
