@@ -11,7 +11,12 @@
         switch($option) {
             case 'send-validation-email':
                 if($user->sendValidationEmail()){
-                    echo "validation email sent";
+                    //echo "validation email sent";
+                    $message = "A validation email has been sent.";
+                    $buttonText = "Resend Email";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
+                    $buttonIcon = "";
+                    include "views/splash_page.php";
                 }
                 else{
                     echo "Forbidden Access";
@@ -25,11 +30,21 @@
                     //splash page saying "email validated" w/ button for "continue to site"
                     //if logged in, button link is to index
                     //else button link is to login
-                    echo "email validated";
+                    //echo "email validated";
+                    $message = "Email has been validated. ";
+                    $buttonText = "Buy/Sell";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php";
+                    $buttonIcon = "";
+                    include "views/splash_page.php";
                 }
                 else{
                     //splash page with error message, should button be displayed?
-                    echo "email not validated";
+                    //echo "email not validated";
+                    $message = "Error validating email.";
+                    $buttonText = "Resend Email";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
+                    $buttonIcon = "";
+                    include "views/splash_page.php";
                 }
                 break;
         }
@@ -58,7 +73,12 @@
                 if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password'])){
                     if($user->register()){ //if success creating user
                         //display splash page for registration
-                        echo "registered, email needs to be validated";
+                        $message = "Account has been created and a validation email has been sent.";
+                        $buttonText = "Resend Email";
+                        $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
+                        $buttonIcon = "";
+                        include "views/splash_page.php";
+                        //echo "registered, email needs to be validated";
                         //include "../html/registered.html";
                         //splash page with "account created and email has been sent message", button will say "resend email"
                     }
