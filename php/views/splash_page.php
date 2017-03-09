@@ -17,16 +17,6 @@
     <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     
-    
-    <h1><?php echo $message; ?></h1>
-    <a href="<?php echo $buttonLink;?>">
-        <?php echo $buttonText; ?>
-        <i class="<?php echo $buttonIcon; ?>"></i>
-    </a>
-    <h2>more stuff can go here</h2>
-    <h3>etc. etc. etc.</h3>
-
-    
 <body>
 <!-- Navigation -->
 <nav style="z-index: 9999" class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
@@ -70,13 +60,13 @@
                 <div class="col-lg-12">
                     <div class="intro-message">
                         <h1>
-                                <img style=" width: 50%; " ;="" src="../img/buynsell.png">
+                                <img style=" width: 50%; " ;="" src="../../img/buynsell.png">
                             </h1>
-                        <h1>Account Created:<div>Start Buying/Selling</div></h1>
+                        <h1>Email has been verified:<div>Start Buying/Selling</div></h1>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
-                            <li>
-                                <center> <a href="listings.html" class="btn btn-default btn-lg"><i class="fa fa-fw fa-money"></i>Buy/Sell</a></li>
+                            <center> 
+        <li><a href="<?php echo $buttonLink;?>" class="btn btn-default btn-lg"><i class="<?php echo $buttonIcon;?>"</i><?php echo $buttonText;?></a></li>
                             </center>
 
                         </ul>
