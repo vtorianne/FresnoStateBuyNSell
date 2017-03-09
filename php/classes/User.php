@@ -24,6 +24,7 @@
                 $_POST['email'] = $email;
                 $_POST['password'] = $password;
                 $this->login();
+                $this->sendValidationEmail();
                 return true;  //add to logic so that this won't return if there is an error in db execution
             }
 
@@ -55,8 +56,7 @@
 
         public function sendEmail($recipient, $emailBody, $emailsubject){
             $mail             = new PHPMailer();
-            $body             = "Hello, this is a programatically sent email.";
-            $body             = eregi_replace("[\]",'',$body);
+            $body             = eregi_replace("[\]",'',$emailBody); //replace use of deprecated function
             $mail->IsSMTP(); // telling the class to use SMTP
             $mail->Host       = "smtp.gmail.com"; // SMTP server
             $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
@@ -73,7 +73,8 @@
             if(!$mail->Send()) {
                 echo "Mailer Error: " . $mail->ErrorInfo;}
             else {echo "Message sent!";}
-            }
+            //later update to return a boolean to whether sent or not
+        }
 
         public function sendValidationEmail(){
             $db = new DB();
@@ -94,9 +95,11 @@
             else{
                 $recipientEmail = $return["Email"];
                 //create hash token
+                $hashtoken= 123;
                 //store in database
-                //$emailBody = getEmailBody(userID, hashtoken)
-                //sendEmail(recipientEmail, EmailBody, Emailsubject);
+                $sql = "";
+                $emailBody = "<h1>hi</h1>";  //getEmailBody($userID, $hashtoken)
+                $this->sendEmail($recipientEmail, $emailBody, "Validate Email");
                 return true; //change this later to if email was able to be sent
             }
         }
