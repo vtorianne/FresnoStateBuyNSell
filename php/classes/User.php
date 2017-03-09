@@ -1,7 +1,9 @@
 <?php
-    ini_set('display_errors',1); 
+    ini_set('display_errors',1);
     error_reporting(E_ALL);
     require_once "DB.php";
+    require_once "../../PHPMailer-master/PHPMailerAutoload.php";
+   // require_once "../../EmailPassword.php";
     class User{
         public function register(){
             $firstName = $_POST['firstName'];
@@ -24,8 +26,9 @@
                 $this->login();
                 return true;  //add to logic so that this won't return if there is an error in db execution
             }
+
         }
-        
+
         public function login(){
             session_start();
             $email = $_POST['email'];
@@ -43,16 +46,34 @@
                 $_SESSION["Email_Validated"] = $return["EmailValidated"];
                 return true;
             }
-            
+
         }
-        
+
         public function logout(){
             session_unset();
         }
 
-        public function sendEmail($recipient, $emailBody){
-            
-        }
+        public function sendEmail($recipient, $emailBody, $emailsubject){
+            $mail             = new PHPMailer();
+            $body             = "Hello, this is a programatically sent email.";
+            $body             = eregi_replace("[\]",'',$body);
+            $mail->IsSMTP(); // telling the class to use SMTP
+            $mail->Host       = "smtp.gmail.com"; // SMTP server
+            $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+            $mail->SMTPAuth   = true;                  // enable SMTP authentication
+            $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
+            $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+            $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
+            $mail->Username   = "fresnostatebuynsell@gmail.com";  // GMAIL username
+            $mail->Password   = GetEmailPassword();            // GMAIL password
+            $mail->SetFrom('fresnostatebuynsell@gmail.com', 'Fresno State Buy N Sell');
+            $mail->Subject    = $emailsubject;
+            $mail->MsgHTML($body);
+            $mail->AddAddress($recipient);
+            if(!$mail->Send()) {
+                echo "Mailer Error: " . $mail->ErrorInfo;}
+            else {echo "Message sent!";}
+            }
 
         public function sendValidationEmail(){
             $db = new DB();
@@ -75,7 +96,7 @@
                 //create hash token
                 //store in database
                 //$emailBody = getEmailBody(userID, hashtoken)
-                //sendEmail(recipientEmail, EmailBody);
+                //sendEmail(recipientEmail, EmailBody, Emailsubject);
                 return true; //change this later to if email was able to be sent
             }
         }
@@ -96,7 +117,7 @@
                 return true;
             }
         }
-        
+
         public function getUserProfile(){
             $db = new DB();
             $userID = (isset($_GET["user-id"]) ? $_GET["user-id"] : ($_SESSION["Current_User"]));
@@ -117,7 +138,7 @@
             require_once "views/userprofile.php";
             require_once "../html/footer.html"; //footer
         }
-        
+
         public function review(){
             $db = new DB();
             $profileID = $_GET["user-id"];
@@ -127,7 +148,7 @@
             $sql = "INSERT INTO reviews (CommenterID, ProfileID, StarRating, ReviewText) VALUES ($commenterID, $profileID, $starRating, '$reviewText');"; //inserting review record
             $db->execute($sql);
         }
-        
+
         public function getReviews($userID){
             $db = new DB();
             //updated query to for reviews to be sorted by time?
@@ -167,8 +188,7 @@
             echo $sql;
             $db->execute($sql);
         }
-    
+
     }
-    
+
  ?>
- 

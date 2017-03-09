@@ -11,8 +11,9 @@
 
     <title></title>
 
-
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <!-- Custom Javascript -->
+    <script type="text/javascript" src="../js/register.js"></script>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="../css/main.css">
@@ -24,112 +25,94 @@
 
 <body>
 
-    <!-- Navigation -->
-    <nav style="z-index: 9999;" class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-        <div class="container topnav">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand topnav" href="index.html">Fresno State Buy N' Sell</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/FresnoStateBuyNSell/php/index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="/FresnoStateBuyNSell/php/index.php?option=register">Register</a>
-                    </li>
-                    <li>
-                        <a href="/FresnoStateBuyNSell/php/index.php?option=login">Log In</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+<!-- Navigation -->
+<nav style="z-index: 9999;" class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand topnav" href="index.html">Fresno State Buy N' Sell</a>
         </div>
-        <!-- /.container -->
-    </nav>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/FresnoStateBuyNSell/php/index.php">Home</a>
+                </li>
+                <li>
+                    <a href="/FresnoStateBuyNSell/php/index.php?option=register">Register</a>
+                </li>
+                <li>
+                    <a href="/FresnoStateBuyNSell/php/index.php?option=login">Log In</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
 
-    <script type="text/javascript">
-        function validateEmail() {
-            var email = document.forms["registration"]["email"].value;
-            if (email == null || email.substring(email.indexOf("@")) != "@mail.fresnostate.edu") {
-                alert("This system requires the use of a Fresno State email domain.");
-                return false;
-            }
-            else{
-                return true;
-            }
-        }
 
-        function Validate() {
-            var password = document.forms["registration"]["password"];
-            var password_confirmation = document.forms["registration"]["password_confirmation"];
-            if (password.value != password_confirmation.value) {
-                alert("Passwords do not match!");
-                return false;
-            }
-            else{
-                return true;
-            }
 
-        }
-    </script>
-
-    <!--login modal-->
-    <div style="top: 50px; left: 0px; right: 0px; bottom: 0px;" id="loginModal"
-         class="modal show bgpicture" tabindex="-1" role="dialog"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h1 class="text-center">Register</h1>
-                </div>
-                <div class="modal-body">
-                    <form name="registration" onsubmit="return !!(validateEmail() && Validate())" class="form col-md-12 center-block" action="index.php?option=register" method="post">
-                        <div class="form-group">
-                            <input type="text" class="form-control input-lg" name="firstName" placeholder="First Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control input-lg" name="lastName" placeholder="Last Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control input-lg" name="email" placeholder="Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control input-lg" name="password" placeholder="Password" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control input-lg" name="password_confirmation" placeholder="Verify Password" required>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
-                            <span class="pull-right"><a href="/FresnoStateBuyNSell/php/index.php?option=login">Sign In</a></span>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <div class="col-md-12">
-                        <a href="/FresnoStateBuyNSell/php/index.php" class="btn btn-default">Cancel</a>
+<!--login modal-->
+<div style="top: 50px; left: 0px; right: 0px; bottom: 0px;" id="loginModal"
+     class="modal show bgpicture" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h1 class="text-center">Register</h1>
+            </div>
+            <div class="modal-body">
+                <form name="registration" onsubmit="return !!(validateEmail() && Validate())" class="form col-md-12 center-block" action="index.php?option=register" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="firstName" placeholder="First Name" required>
                     </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="lastName" placeholder="Last Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control input-lg" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="pass1" class="form-control input-lg" name="password" onpaste="main(this.value)" onkeyup="main(this.value)" placeholder="Password" required>
+                        <div class="commonWidth" id="passwordStrengthContainer">
+                            <div id="passwordStrength"></div>
+                        </div>
+                        <div class="commondWidth" style="padding: 5px 0px;">
+                            <span id="status">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control input-lg" name="password_confirmation" placeholder="Verify Password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+                        <span class="pull-right"><a href="/FresnoStateBuyNSell/php/index.php?option=login">Sign In</a></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <a href="/FresnoStateBuyNSell/php/index.php" class="btn btn-default">Cancel</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- jQuery -->
-    <script src="../js/jquery.js"></script>
+<!-- jQuery -->
+<script src="../js/jquery.js"></script>
 
 
-    <!-- script references -->
-    <script src="../js/bootstrap.min.js"></script>
+<!-- script references -->
+<script src="../js/bootstrap.min.js"></script>
 </body>
 
 </html>

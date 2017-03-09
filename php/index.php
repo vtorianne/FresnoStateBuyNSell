@@ -28,8 +28,6 @@
                 }
                 break;
         }
-
-
     }
     else if(!(isset($_SESSION["Current_User"]) && $_SESSION["Logged_In"])){
         switch($option){
