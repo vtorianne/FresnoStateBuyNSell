@@ -1,10 +1,11 @@
 <?php
-    ini_set('display_errors',1); 
+    ini_set('display_errors',1);
     error_reporting(E_ALL);
     require_once "DB.php";
-    require_once '../../PHPMailer-master/PHPMailerAutoload.php';
-    require_once '../../EmailPassword.php';
+    require_once "../../PHPMailer-master/PHPMailerAutoload.php";
+   // require_once "../../EmailPassword.php";
     class User{
+
         public function register(){
             $firstName = $_POST['firstName'];
             $lastName = $_POST['lastName'];
@@ -26,9 +27,9 @@
                 $this->login();
                 return true;  //add to logic so that this won't return if there is an error in db execution
             }
-            
+
         }
-        
+
         public function login(){
             session_start();
             $email = $_POST['email'];
@@ -46,17 +47,12 @@
                 $_SESSION["Email_Validated"] = $return["EmailValidated"];
                 return true;
             }
-            
+
         }
-        
+
         public function logout(){
             session_unset();
         }
-<<<<<<< HEAD
-        public function sendEmail($recipient, $emailBody){
-            
-        }
-=======
 
         public function sendEmail($recipient, $emailBody, $emailsubject){
             $mail             = new PHPMailer();
@@ -80,7 +76,6 @@
             else {echo "Message sent!";}
             }
 
->>>>>>> origin/master
         public function sendValidationEmail(){
             $db = new DB();
             if(isset($_SESSION["user-id"])){
@@ -100,15 +95,13 @@
             else{
                 $recipientEmail = $return["Email"];
                 //create hash token
-                $hashToken = 'Testing123456';
                 //store in database
-                //$sql = "insert into user (HashToken) values ($hashToken) where UserID = $userID;";
-                //$db->execute($sql);
                 //$emailBody = getEmailBody(userID, hashtoken)
                 //sendEmail(recipientEmail, EmailBody, Emailsubject);
                 return true; //change this later to if email was able to be sent
             }
         }
+
         public function validateEmail(){
             $db = new DB();
             //get user ID and hash token from GET
@@ -125,7 +118,7 @@
                 return true;
             }
         }
-        
+
         public function getUserProfile(){
             $db = new DB();
             $userID = (isset($_GET["user-id"]) ? $_GET["user-id"] : ($_SESSION["Current_User"]));
@@ -141,11 +134,12 @@
                 $reviews = $this->getReviews($userID);
             }
             $userImg = ($return["PicturePath"] != null ? $return["PicturePath"] : "/FresnoStateBuyNSell/img/default_user.png");
+
             require_once "../html/header_style2.html"; //header
             require_once "views/userprofile.php";
             require_once "../html/footer.html"; //footer
         }
-        
+
         public function review(){
             $db = new DB();
             $profileID = $_GET["user-id"];
@@ -155,7 +149,7 @@
             $sql = "INSERT INTO reviews (CommenterID, ProfileID, StarRating, ReviewText) VALUES ($commenterID, $profileID, $starRating, '$reviewText');"; //inserting review record
             $db->execute($sql);
         }
-        
+
         public function getReviews($userID){
             $db = new DB();
             //updated query to for reviews to be sorted by time?
@@ -177,12 +171,14 @@
             }
             return $reviews;
         }
+
         public function getAverageRating($userID){
             $db = new DB();
             $sql = "SELECT ROUND(AVG(StarRating),2) AS StarRatingAverage FROM reviews WHERE $userID = ProfileID";  //get average review (star rating)
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             return $return["StarRatingAverage"];
         }
+
         public function addProfilePic(){
             $db = new DB();
             $target_file = "/uploads/profile_pics/".basename($_FILES["pic"]["name"]);
@@ -193,7 +189,7 @@
             echo $sql;
             $db->execute($sql);
         }
-    
+
     }
-    
+
  ?>
