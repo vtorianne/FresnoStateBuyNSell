@@ -21,6 +21,39 @@
             }
 
         }
+
+
+    addEventListener('keyup', validateEmailDisplay, false);
+    addEventListener('keyup', passwordMatchDisplay, false);
+
+        function validateEmailDisplay() {
+        var email = document.forms["registration"]["email"].value;
+        if (email == null || email.substring(email.indexOf("@")) != "@mail.fresnostate.edu") {
+            $("#divcheckemail").html("Invalid email: must be a Fresno State email.");
+            document.getElementById("divcheckemail").style.color = "red";
+            return false;
+        }
+        else{
+            $("#divcheckemail").html("Email is valid.");
+            document.getElementById("divcheckemail").style.color = "green";
+            return true;
+        }
+        }
+
+        function passwordMatchDisplay() {
+        var password = document.forms["registration"]["password"];
+        var password_confirmation = document.forms["registration"]["password_confirmation"];
+        if (password.value != password_confirmation.value) {
+            $("#divCheckPasswordMatch").html("Passwords do not match!");
+            document.getElementById("divCheckPasswordMatch").style.color = "red";
+            return false;
+        }
+        if(password.value != "" && password.value == password_confirmation.value) {
+            $("#divCheckPasswordMatch").html("Passwords match.");
+            document.getElementById("divCheckPasswordMatch").style.color = "green";
+            return true;
+        }
+        }
         
         
 //-----------------PASSWORD STRENGTH STARTS HERE------------------------//
