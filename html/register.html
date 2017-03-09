@@ -78,19 +78,19 @@
                         <input type="text" class="form-control input-lg" name="lastName" placeholder="Last Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control input-lg" name="email" placeholder="Email" required>
+                        <input type="email" class="form-control input-lg" name="email" placeholder="Email" onpaste="validateEmailDisplay()" onChange="validateEmailDisplay()" required>
+                        <div id="divcheckemail"></div>
                     </div>
                     <div class="form-group">
                         <input type="password" id="pass1" class="form-control input-lg" name="password" onpaste="main(this.value)" onkeyup="main(this.value)" placeholder="Password" required>
                         <div class="commonWidth" id="passwordStrengthContainer">
                             <div id="passwordStrength"></div>
-                        </div>
-                        <div class="commondWidth" style="padding: 5px 0px;">
                             <span id="status">&nbsp;</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control input-lg" name="password_confirmation" placeholder="Verify Password" required>
+                        <input type="password" class="form-control input-lg" name="password_confirmation" placeholder="Verify Password" onpaste="passwordMatchDisplay()" onChange="passwordMatchDisplay()" required>
+                        <div id="divCheckPasswordMatch"></div>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
