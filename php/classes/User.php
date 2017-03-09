@@ -3,7 +3,8 @@
     error_reporting(E_ALL);
     require_once "DB.php";
     require_once "../../PHPMailer-master/PHPMailerAutoload.php";
-   // require_once "../../EmailPassword.php";
+    require_once "../../EmailPassword.php";
+    require_once "views/email.php";
     class User{
         public function register(){
             $firstName = $_POST['firstName'];
@@ -96,7 +97,7 @@
             else{
                 $recipientEmail = $return["Email"];
                 //create hash token
-                $HashToken= 123;
+                $HashToken=  md5( rand(0,1000) );
                 //store in database
                 $sql = "UPDATE users SET HashToken=$HashToken WHERE UserID = $UserID;";
                 $db->execute($sql);
