@@ -11,25 +11,43 @@
         switch($option) {
             case 'send-validation-email':
                 if($user->sendValidationEmail()){
-                    echo "validation email sent";
+                    //echo "validation email sent";
+                    $message = "A validation email has been sent.";
+                    $buttonText = "Resend Email";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
+                    $buttonIcon = "";
+                    include "views/splash_page.php";
                 }
                 else{
                     echo "Forbidden Access";
                 }
                 break;
             case 'validate-email':
-                if($user->validateEmail()){
-                    //splash page
-                    echo "email validated";
+                if(isset($_SESSION["Email_Validated"]) && $_SESSION["Email_Validated"] == true){
+                    echo "Forbidden access. Email already validated";
+                }
+                else if($user->validateEmail()){
+                    //splash page saying "email validated" w/ button for "continue to site"
+                    //if logged in, button link is to index
+                    //else button link is to login
+                    //echo "email validated";
+                    $message = "Email has been validated. ";
+                    $buttonText = "Buy/Sell";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php";
+                    $buttonIcon = "";
+                    include "views/splash_page.php";
                 }
                 else{
-                    //splash page
-                    echo "email not validated";
+                    //splash page with error message, should button be displayed?
+                    //echo "email not validated";
+                    $message = "Error validating email.";
+                    $buttonText = "Resend Email";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
+                    $buttonIcon = "";
+                    include "views/splash_page.php";
                 }
                 break;
         }
-
-
     }
     else if(!(isset($_SESSION["Current_User"]) && $_SESSION["Logged_In"])){
         switch($option){
@@ -55,7 +73,14 @@
                 if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password'])){
                     if($user->register()){ //if success creating user
                         //display splash page for registration
-                        include "../html/registered.html";
+                        $message = "Account has been created and a validation email has been sent.";
+                        $buttonText = "Resend Email";
+                        $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
+                        $buttonIcon = "";
+                        include "views/splash_page.php";
+                        //echo "registered, email needs to be validated";
+                        //include "../html/registered.html";
+                        //splash page with "account created and email has been sent message", button will say "resend email"
                     }
                     else{
                         //error creating user or user email already exists
@@ -73,9 +98,14 @@
         }
     }
     else{
-        if((!isset($_SESSION["Email_Validated"]) || $_SESSION["Email_Validated"] == false) && $option != "logout"){
+        if($option == "logout"){
+            $user->logout();
+            header('Location: index.php');
+        }
+        else if((!isset($_SESSION["Email_Validated"]) || $_SESSION["Email_Validated"] == false)){
             //header('Location: ');  //redirect to splash page saying user needs to validate email w/ button for resend
             echo "Email needs to be validated.";
+            //splash page saying "email needs to be validated", with button for "resend" email
         }
         else{
             switch($option){
@@ -84,10 +114,6 @@
                     break;
                 case "listing":
                     $post->getPostDetails();
-                    break;
-                case "logout":
-                    $user->logout();
-                    header('Location: index.php');
                     break;
                 case "create-post":
                     if(isset($_POST["createSubmit"])){
