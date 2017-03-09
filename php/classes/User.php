@@ -71,11 +71,11 @@
             $mail->Subject    = $emailsubject;
             $mail->MsgHTML($body);
             $mail->AddAddress($recipient);
-            if(!$mail->Send()) {
+            /*if(!$mail->Send()) {
                 echo "Mailer Error: " . $mail->ErrorInfo;}
             else {
                 echo "Message sent!";
-            }
+            }*/
             //later update to return a boolean to whether sent or not
         }
 
@@ -197,7 +197,6 @@
             move_uploaded_file($_FILES["pic"]["tmp_name"], $target_dir);
             $userID = $_SESSION["Current_User"];
             $sql = "UPDATE users SET PicturePath = '$target_file' where UserID = $userID;";
-            echo $sql;
             $db->execute($sql);
         }
 
