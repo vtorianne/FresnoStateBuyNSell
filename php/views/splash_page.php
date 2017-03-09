@@ -36,16 +36,16 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="listings.html">Home</a>
+                        <a href="/FresnoStateBuyNSell/php/index.php">Home</a>
                     </li>
                     <li>
-                        <a href="profile.html">My Profile</a>
+                        <a href="/FresnoStateBuyNSell/php/index.php?option=user-profile">My Profile</a>
                     </li>
                     <li>
-                        <a href="createpost.html">Create Post</a>
+                        <a href="/FresnoStateBuyNSell/php/index.php?option=create-post">Create Post</a>
                     </li>
                     <li>
-                        <a href="">Log Out</a>
+                        <a href="/FresnoStateBuyNSell/php/index.php?option=logout">Log Out</a>
                     </li>
                 </ul>
             </div>
