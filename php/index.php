@@ -73,7 +73,11 @@
         }
     }
     else{
-        if((!isset($_SESSION["Email_Validated"]) || $_SESSION["Email_Validated"] == false) && $option != "logout"){
+        if($option == "logout"){
+            $user->logout();
+            header('Location: index.php');
+        }
+        else if((!isset($_SESSION["Email_Validated"]) || $_SESSION["Email_Validated"] == false)){
             //header('Location: ');  //redirect to splash page saying user needs to validate email w/ button for resend
             echo "Email needs to be validated.";
         }
@@ -84,10 +88,6 @@
                     break;
                 case "listing":
                     $post->getPostDetails();
-                    break;
-                case "logout":
-                    $user->logout();
-                    header('Location: index.php');
                     break;
                 case "create-post":
                     if(isset($_POST["createSubmit"])){
