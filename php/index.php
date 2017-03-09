@@ -18,12 +18,17 @@
                 }
                 break;
             case 'validate-email':
-                if($user->validateEmail()){
-                    //splash page
+                if(isset($_SESSION["Email_Validated"]) && $_SESSION["Email_Validated"] == true){
+                    echo "Forbidden access. Email already validated";
+                }
+                else if($user->validateEmail()){
+                    //splash page saying "email validated" w/ button for "continue to site"
+                    //if logged in, button link is to index
+                    //else button link is to login
                     echo "email validated";
                 }
                 else{
-                    //splash page
+                    //splash page with error message, should button be displayed?
                     echo "email not validated";
                 }
                 break;
@@ -53,7 +58,9 @@
                 if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password'])){
                     if($user->register()){ //if success creating user
                         //display splash page for registration
-                        include "../html/registered.html";
+                        echo "registered";
+                        //include "../html/registered.html";
+                        //splash page with "account created and email has been sent message", button will say "resend email"
                     }
                     else{
                         //error creating user or user email already exists
@@ -71,9 +78,14 @@
         }
     }
     else{
-        if((!isset($_SESSION["Email_Validated"]) || $_SESSION["Email_Validated"] == false) && $option != "logout"){
+        if($option == "logout"){
+            $user->logout();
+            header('Location: index.php');
+        }
+        else if((!isset($_SESSION["Email_Validated"]) || $_SESSION["Email_Validated"] == false)){
             //header('Location: ');  //redirect to splash page saying user needs to validate email w/ button for resend
             echo "Email needs to be validated.";
+            //splash page saying "email needs to be validated", with button for "resend" email
         }
         else{
             switch($option){
@@ -82,10 +94,6 @@
                     break;
                 case "listing":
                     $post->getPostDetails();
-                    break;
-                case "logout":
-                    $user->logout();
-                    header('Location: index.php');
                     break;
                 case "create-post":
                     if(isset($_POST["createSubmit"])){
