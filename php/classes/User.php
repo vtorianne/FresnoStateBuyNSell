@@ -71,6 +71,7 @@
             $mail->Subject    = $emailsubject;
             $mail->MsgHTML($body);
             $mail->AddAddress($recipient);
+            $mail->Send();
             /*if(!$mail->Send()) {
                 echo "Mailer Error: " . $mail->ErrorInfo;}
             else {

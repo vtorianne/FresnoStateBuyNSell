@@ -1,10 +1,3 @@
-<?php /*this section will be moved elsewhere later on,
-        I just have it here to help for making/testing this. */
-    $buttonText = "Buy/Sell";
-    $buttonLink = "/FresnoStateBuyNSell/php/index.php";
-    $buttonIcon = "fa fa-fw fa-money";
-
-?>
 <html>
 
     <!-- Bootstrap Core CSS -->
@@ -61,9 +54,7 @@
                         <h1>
                               <img style=" width: 50%; " ;="" src="../img/buynsell.png">
                             </h1>
-                        <h1>Email has been verified:
-                          <div>Start Buying/Selling</div>
-                        </h1>
+                        <h1><?php echo $message; ?></h1>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <center>
