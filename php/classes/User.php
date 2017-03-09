@@ -89,7 +89,7 @@
             else{
                 return false;
             }
-            $sql = "SELECT Email, EmailValidated FROM users WHERE UserID = $UserID;";
+            $sql = "SELECT Email, EmailValidated, FirstName, LastName FROM users WHERE UserID = $UserID;";
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             if(!$return || $return["EmailValidated"]){ //user email does not exist or is already validated
                 return false;
@@ -99,12 +99,11 @@
                 //create hash token
                 $HashToken=  md5( rand(0,1000) );
                 //store in database
-                $sql = "UPDATE users SET HashToken=$HashToken WHERE UserID = $UserID;";
+                $sql = "UPDATE users SET HashToken='$HashToken' WHERE UserID = $UserID;";
                 $db->execute($sql);
-                //$emailBody = getEmailBody($userID, $hashtoken);
-                $emailBody =   "<html> Please validate your email.<a href='http://localhost/FresnoStateBuyNSell/php/index.php?option=validate-email&user-id=$UserID&hash-token=$HashToken'>Click here.</a></html>";
-                echo $emailBody;
-                //$this->sendEmail($recipientEmail, $emailBody, "Validate Email");
+                $emailBody = getValidationEmailBody($UserID, $HashToken, $return['FirstName'], $return['LastName']);
+                //$emailBody =   "<html> Please validate your email.<a href='http://localhost/FresnoStateBuyNSell/php/index.php?option=validate-email&user-id=$UserID&hash-token=$HashToken'>Click here.</a></html>";
+                $this->sendEmail($recipientEmail, $emailBody, "Validate Email");
                 return true; //change this later to if email was able to be sent
             }
         }
@@ -115,7 +114,7 @@
             $userID = $_GET["user-id"];
             $hashToken = $_GET["hash-token"];
             //search for match in the db -> $sql
-            $sql = "SELECT * FROM users WHERE UserID = $userID and HashToken = $hashToken;";
+            $sql = "SELECT * FROM users WHERE UserID = $userID and HashToken = '$hashToken';";
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             if(!$return){
                 //no match found, either userID dne or hash token is wrong

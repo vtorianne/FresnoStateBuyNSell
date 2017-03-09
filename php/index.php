@@ -58,7 +58,7 @@
                 if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password'])){
                     if($user->register()){ //if success creating user
                         //display splash page for registration
-                        echo "registered";
+                        echo "registered, email needs to be validated";
                         //include "../html/registered.html";
                         //splash page with "account created and email has been sent message", button will say "resend email"
                     }
