@@ -56,7 +56,8 @@
 
         public function sendEmail($recipient, $emailbody, $emailsubject){
             $mail             = new PHPMailer();
-            $body             = eregi_replace("[\]",'',$emailbody); //replace use of deprecated function
+            $body = $emailbody;
+            //$body             = eregi_replace("[\]",'',$emailbody); //replace use of deprecated function
             $mail->IsSMTP(); // telling the class to use SMTP
             $mail->Host       = "smtp.gmail.com"; // SMTP server
             $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
