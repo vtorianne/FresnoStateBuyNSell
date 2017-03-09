@@ -1,7 +1,7 @@
 <?php /*this section will be moved elsewhere later on,
         I just have it here to help for making/testing this. */
     $buttonText = "Buy/Sell";
-    $buttonLink = "#";
+    $buttonLink = "/FresnoStateBuyNSell/php/index.php";
     $buttonIcon = "fa fa-fw fa-money";
 
 ?>
