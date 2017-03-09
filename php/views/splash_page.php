@@ -8,13 +8,13 @@
 <html>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
-    <link href="../../css/main.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="../https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
 <body>
 <!-- Navigation -->
@@ -59,7 +59,7 @@
                 <div class="col-lg-12">
                     <div class="intro-message">
                         <h1>
-                              <img style=" width: 50%; " ;="" src="../../img/buynsell.png">
+                              <img style=" width: 50%; " ;="" src="../img/buynsell.png">
                             </h1>
                         <h1>Email has been verified:
                           <div>Start Buying/Selling</div>
