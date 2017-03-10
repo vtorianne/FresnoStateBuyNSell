@@ -60,7 +60,7 @@
             //$body             = eregi_replace("[\]",'',$emailbody); //replace use of deprecated function
             $mail->IsSMTP(); // telling the class to use SMTP
             $mail->Host       = "smtp.gmail.com"; // SMTP server
-            $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+            $mail->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
             $mail->SMTPAuth   = true;                  // enable SMTP authentication
             $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
             $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server

@@ -104,7 +104,12 @@
         }
         else if((!isset($_SESSION["Email_Validated"]) || $_SESSION["Email_Validated"] == false)){
             //header('Location: ');  //redirect to splash page saying user needs to validate email w/ button for resend
-            echo "Email needs to be validated.";
+            //echo "Email needs to be validated.";
+            $message = "Email needs to be validated.";
+            $buttonText = "Resend Email";
+            $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
+            $buttonIcon = "";
+            include "views/splash_page.php";
             //splash page saying "email needs to be validated", with button for "resend" email
         }
         else{
