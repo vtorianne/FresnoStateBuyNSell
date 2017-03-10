@@ -78,7 +78,7 @@
                       <td class='container' style='font-family:sans-serif;font-size:14px;vertical-align:top;display:block;max-width:580px;padding:10px;width:580px;Margin:0 auto !important;'>
                         <div class='content' style='box-sizing:border-box;display:block;Margin:0 auto;max-width:580px;padding:10px;'>
                           <!-- START CENTERED WHITE CONTAINER -->
-                          <span class='preheader' style='color:transparent;display:none;height:0;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;visibility:hidden;width:0;'>This is preheader text. Some clients will show this text as a preview.</span>
+                          <span class='preheader' style='color:transparent;display:none;height:0;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;visibility:hidden;width:0;'>Please Validate Your FresnoStateBuyNSell Email.</span>
                           <table class='main' style='border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;background:#fff;border-radius:3px;width:100%;'>
                             <!-- START MAIN CONTENT AREA -->
                             <tbody>
@@ -90,9 +90,9 @@
                                     <tbody>
                                       <tr>
                                         <td style='font-family:sans-serif;font-size:14px;vertical-align:top;'>
-                                          <p style='font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;'>Hello '$FirstName' '$LastName'</p>
+                                          <p style='font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;'>Hello $FirstName $LastName</p>
                                           <p style='font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;'>Thank you for creating a Fresno State Buy N' Sell account. You are almost
-                                            ready to go, all you have to to is validate your email to ensure you are
+                                            ready to go, all you have to do is validate your email to ensure you are
                                             indeed a human.</p>
                                           <table border='0' cellpadding='0' cellspacing='0' class='btn btn-primary' style='border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;box-sizing:border-box;width:100%;'>
                                             <tbody>
@@ -102,7 +102,7 @@
                                                     <tbody>
                                                       <tr>
                                                         <td style='font-family:sans-serif;font-size:14px;vertical-align:top;background-color:#ffffff;border-radius:5px;text-align:center;background-color:#3498db;'>
-                                                          <a href='http://localhost/FresnoStateBuyNSell/php/index.php?option=validate-email&user-id='$UserID'&hash-token='$HashToken'' target='_blank' style='text-decoration:underline;background-color:#ffffff;border:solid 1px #3498db;border-radius:5px;box-sizing:border-box;color:#3498db;cursor:pointer;display:inline-block;font-size:14px;font-weight:bold;margin:0;padding:12px 25px;text-decoration:none;text-transform:capitalize;background-color:#3498db;border-color:#3498db;color:#ffffff;'>Verify Account</a>
+                                                          <a href='http://localhost/FresnoStateBuyNSell/php/index.php?option=validate-email&user-id=$UserID&hash-token=$HashToken' target='_blank' style='text-decoration:underline;background-color:#ffffff;border:solid 1px #3498db;border-radius:5px;box-sizing:border-box;color:#3498db;cursor:pointer;display:inline-block;font-size:14px;font-weight:bold;margin:0;padding:12px 25px;text-decoration:none;text-transform:capitalize;background-color:#3498db;border-color:#3498db;color:#ffffff;'>Verify Account</a>
                                                         </td>
                                                       </tr>
                                                     </tbody>
