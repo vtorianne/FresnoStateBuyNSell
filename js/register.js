@@ -54,18 +54,18 @@
             return true;
         }
         }
-        
-        
+
+
 //-----------------PASSWORD STRENGTH STARTS HERE------------------------//
         div('#pass1').focus();
         div('#pass1').addEventListener('keyup', main, false);
-    
-        
+
+
         //Main function that is called like in c/c++..basically our driver for pass strength
         function main() {
         display_strength("pass1","passwordStrength","status");
         }
-        
+
      //To make x an iterator through password entry
      function div(x){
         return document.getElementById(x);
@@ -84,9 +84,9 @@
             var stats = div(z);
             var color = ["red","gold","green","lime"];
             var value = ["Weak","Good","Strong","Very Strong"];
-        
+
         score = check_score(psswd.value);
-        
+
             if(score >= 9)
             {
                 stren.style.width = "100%";
@@ -105,7 +105,7 @@
                 stren.style.background = color[1];
                 stats.innerHTML = value[1];
             }
-            else if(score >= 0 && score <= 3)
+            else if(score >= 1 && score <= 3)
             {
                 stren.style.width = "25%";
                 stren.style.background = color[0];
@@ -113,9 +113,9 @@
             }
             return false;
     }
-    
+
     function check_score(x){
-         
+
          var total = 0;
 
         //Give score 3 points if password is bigger than 6 characters
