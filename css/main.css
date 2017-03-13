@@ -140,12 +140,12 @@ footer {
             margin-left: 0px;
             margin-top: 5px;
         }
-        
+
         #passwordBox{
             padding: 5px 5px;
             max-width: 390px;
         }
-        
+
         #passwordStrengthContainer {
             padding: 0px;
             border: 1px solid #141414;
@@ -174,4 +174,8 @@ footer {
             left: 0px;
             top: 0px;
             width: 0%;
+        }
+
+        #status {
+          margin-bottom: 10px;
         }
