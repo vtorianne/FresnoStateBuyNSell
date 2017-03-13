@@ -105,7 +105,7 @@
                 stren.style.background = color[1];
                 stats.innerHTML = value[1];
             }
-            else if(score >= 1 && score <= 3)
+            else if(score >= 0 && score <= 3)
             {
                 stren.style.width = "25%";
                 stren.style.background = color[0];
