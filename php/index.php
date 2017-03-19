@@ -11,11 +11,13 @@
         switch($option) {
             case 'send-validation-email':
                 if($user->sendValidationEmail()){
-                    //echo "validation email sent";
                     $message = "A validation email has been sent.";
                     $buttonText = "Resend Email";
                     $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
-                    $buttonIcon = "";
+                    if(isset($_GET["user-id"])){
+                        $buttonLink .= "&user-id=".$_GET['user-id'];
+                    }
+                    $buttonIcon = "fa fa-fw fa-envelope-open-o";
                     include "views/splash_page.php";
                 }
                 else{
@@ -28,13 +30,16 @@
                 }
                 else if($user->validateEmail()){
                     //splash page saying "email validated" w/ button for "continue to site"
-                    //if logged in, button link is to index
-                    //else button link is to login
-                    //echo "email validated";
+                    //if logged in, button link is to index, else button link is to login
                     $message = "Email has been validated. ";
                     $buttonText = "Buy/Sell";
-                    $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php";
-                    $buttonIcon = "";
+                    if(isset($_SESSION["Current_User"])){
+                        $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php";
+                    }
+                    else{
+                        $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=login";
+                    }
+                    $buttonIcon = "fa fa-fw fa-money";
                     include "views/splash_page.php";
                 }
                 else{
@@ -43,7 +48,10 @@
                     $message = "Error validating email.";
                     $buttonText = "Resend Email";
                     $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
-                    $buttonIcon = "";
+                    if(isset($_GET["user-id"])){
+                        $buttonLink .= "&user-id=".$_GET['user-id'];
+                    }
+                    $buttonIcon = "fa fa-fw fa-envelope-open-o";
                     include "views/splash_page.php";
                 }
                 break;
@@ -76,11 +84,8 @@
                         $message = "Account has been created and a validation email has been sent.";
                         $buttonText = "Resend Email";
                         $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
-                        $buttonIcon = "";
+                        $buttonIcon = "fa fa-fw fa-envelope-open-o";
                         include "views/splash_page.php";
-                        //echo "registered, email needs to be validated";
-                        //include "../html/registered.html";
-                        //splash page with "account created and email has been sent message", button will say "resend email"
                     }
                     else{
                         //error creating user or user email already exists
@@ -103,14 +108,12 @@
             header('Location: index.php');
         }
         else if((!isset($_SESSION["Email_Validated"]) || $_SESSION["Email_Validated"] == false)){
-            //header('Location: ');  //redirect to splash page saying user needs to validate email w/ button for resend
-            //echo "Email needs to be validated.";
+            //splash page saying "email needs to be validated", with button for "resend" email
             $message = "Email needs to be validated.";
             $buttonText = "Resend Email";
             $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
-            $buttonIcon = "";
+            $buttonIcon = "fa fa-fw fa-envelope-open-o";
             include "views/splash_page.php";
-            //splash page saying "email needs to be validated", with button for "resend" email
         }
         else{
             switch($option){
