@@ -149,7 +149,7 @@
 
             require_once "../html/header_style2.html"; //header
             require_once "views/userprofile.php";
-            require_once "../html/footer.html"; //footer
+            require_once "../html/footer2.html"; //footer
         }
 
         public function review(){
