@@ -22,6 +22,8 @@ echo <<<EOD
                 <h3>Seller: {$userReturn["FirstName"]} {$userReturn["LastName"]}</h3></a>
                 <h4>Item Description</h4>
                 <p>{$postReturn["Description"]}</p>
+                <h4>Item Condition</h4>
+                <p>{$conditionReturn["ConditionName"]}</p>
             </div>
             <div class="col-md-4">
                 <h3>\${$postReturn["Price"]}</h3>
