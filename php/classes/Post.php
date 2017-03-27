@@ -34,7 +34,7 @@
             $categories = $this->getPostCategories();
             require_once "../html/header_style2.html"; //header
             require_once "views/listings.php";
-            require_once "../html/footer.html"; //footer
+            require_once "../html/footer2.html"; //footer
         }
 
         public function getPostDetails(){
@@ -48,7 +48,7 @@
             $comments = $this->getComments($postID);
             require_once "../html/header_style2.html"; //header
             require_once "views/listing.php";
-            require_once "../html/footer.html"; //footer
+            require_once "../html/footer2.html"; //footer
         }
 
         public function getFilteredQuery($filters){
@@ -120,10 +120,11 @@
             $userID = $_SESSION["Current_User"];
             $productname = $_POST["title"];
             $categoryID = $_POST["category"];
+            $conditionID = $_POST["condition"];
             $price = $_POST["price"];
             $description = (isset($_POST["desc"]) ? $_POST["desc"] : "");
             $picturepath = $target_file;
-            $sql = "INSERT INTO products (UserID, ProductName, CategoryID, Price, Description, PicturePath) VALUES ($userID, '$productname', $categoryID, $price, '$description', '$picturepath'); "; //insert new posts
+            $sql = "INSERT INTO products (UserID, ProductName, CategoryID, ConditionID, Price, Description, PicturePath) VALUES ($userID, '$productname', $categoryID, $conditionID, $price, '$description', '$picturepath'); "; //insert new posts
             $db->execute($sql);
         }
 

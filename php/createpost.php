@@ -83,11 +83,22 @@
                         echo "<option value='".$row["CategoryID"]."'>".$row["CategoryName"]."</option>'";
                     }
                   ?>
-                </optgroup>
               </select>
             </div>
             <div class="form-group">
               <textarea class="form-control" placeholder="Description" name="desc"></textarea>
+            </div>
+            <div class="form-group">
+              <select name="condition" required>
+                  <option value="">Select Condition</option>
+                  <?php
+                    $sql = "SELECT * FROM conditions;";
+                    $return = $db->execute($sql);
+                    while($row = $return->fetch(PDO::FETCH_ASSOC)){
+                        echo "<option value='".$row["ConditionID"]."'>".$row["ConditionName"]."</option>'";
+                    }
+                  ?>
+              </select>
             </div>
             <div class="form-group">
               <input class="form-control" type="number" min="0.00" name="price" placeholder="Price $0.00">
