@@ -101,7 +101,7 @@
               </select>
             </div>
             <div class="form-group">
-              <input class="form-control" type="number" min="0.00" name="price" placeholder="Price $0.00">
+              <input class="form-control" type="number" step="0.01" min="0.00" name="price" placeholder="Price $0.00">
             </div>
             <div class="form-group">
              <input type="file" name="pic" accept="image/*" required>

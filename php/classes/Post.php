@@ -43,9 +43,12 @@
             $sql = "SELECT * FROM products WHERE ProductID = $postID;"; //get all post fields
             $postReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             $userID = $postReturn["UserID"];
+            $conditionID = $postReturn["ConditionID"];
             $sql = "SELECT UserID, FirstName, LastName FROM users WHERE UserID = $userID;"; //get User details (probably just name fields and id)
             $userReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             $comments = $this->getComments($postID);
+            $sql = "SELECT ConditionName FROM conditions WHERE ConditionID = $conditionID;";
+            $conditionReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             require_once "../html/header_style2.html"; //header
             require_once "views/listing.php";
             require_once "../html/footer2.html"; //footer
