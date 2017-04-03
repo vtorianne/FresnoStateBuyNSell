@@ -28,14 +28,19 @@
 
         function validateEmailDisplay() {
         var email = document.forms["registration"]["email"].value;
+        var btn =  document.getElementById("subBtn");
         if (email == null || email.substring(email.indexOf("@")) != "@mail.fresnostate.edu") {
             $("#divcheckemail").html("Invalid email: must be a Fresno State email.");
             document.getElementById("divcheckemail").style.color = "red";
+            $(btn).addClass('disabled');
+            $(btn).attr("disabled", true);
             return false;
         }
         else{
             $("#divcheckemail").html("Email is valid.");
             document.getElementById("divcheckemail").style.color = "green";
+            $(btn).removeClass('disabled');
+            $(btn).attr("disabled", false);
             return true;
         }
         }
@@ -63,7 +68,7 @@
 
         //Main function that is called like in c/c++..basically our driver for pass strength
         function main() {
-        display_strength("pass1","passwordStrength","status");
+        display_strength("pass1","passwordStrength","status","subBtn");
         }
 
      //To make x an iterator through password entry
@@ -71,7 +76,7 @@
         return document.getElementById(x);
      }
     // Function to display password strength
-    function display_strength(x,y,z)
+    function display_strength(x,y,z,s)
         {
             if(!x || div(x).value === "")
             {
@@ -82,6 +87,7 @@
             var psswd = div(x);
             var stren = div(y);
             var stats = div(z);
+            var btn = div(s);
             var color = ["red","gold","green","lime"];
             var value = ["Weak","Good","Strong","Very Strong"];
 
@@ -92,24 +98,33 @@
                 stren.style.width = "100%";
                 stren.style.background = color[3];
                 stats.innerHTML = value[3];
+                $(btn).removeClass('disabled');
+                $(btn).attr("disabled", false);
             }
             else if(score >= 5 && score < 8)
             {
                 stren.style.width = "75%";
                 stren.style.background = color[2];
                 stats.innerHTML = value[2];
+                $(btn).removeClass('disabled');
+                $(btn).attr("disabled", false);
             }
             else if(score >= 4  && score < 5)
             {
                 stren.style.width = "50%";
                 stren.style.background = color[1];
                 stats.innerHTML = value[1];
+                $(btn).removeClass('disabled');
+                $(btn).attr("disabled", false);
             }
             else if(score >= 0 && score <= 3)
             {
                 stren.style.width = "25%";
                 stren.style.background = color[0];
                 stats.innerHTML = value[0];
+                // $(btn).hide();
+                $(btn).addClass('disabled');
+                $(btn).attr("disabled", true);
             }
             return false;
     }

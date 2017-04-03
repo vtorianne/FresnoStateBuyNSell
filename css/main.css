@@ -179,3 +179,5 @@ footer {
         #status {
           margin-bottom: 10px;
         }
+
+        .disabled {opacity:.2;}
