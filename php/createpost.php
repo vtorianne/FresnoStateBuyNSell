@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <span class="navbar-brand topnav">Fresno State Buy N' Sell</span>
+            <span class="navbar-brand topnav"><a href="/FresnoStateBuyNSell/php/index.php">Fresno State Buy N' Sell</a></span>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
