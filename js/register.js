@@ -19,7 +19,6 @@
             else{
                 return true;
             }
-
         }
 
 
@@ -32,31 +31,24 @@
         if (email == null || email.substring(email.indexOf("@")) != "@mail.fresnostate.edu") {
             $("#divcheckemail").html("Invalid email: must be a Fresno State email.");
             document.getElementById("divcheckemail").style.color = "red";
-            $(btn).addClass('disabled');
-            $(btn).attr("disabled", true);
-            return false;
         }
         else{
             $("#divcheckemail").html("Email is valid.");
             document.getElementById("divcheckemail").style.color = "green";
-            $(btn).removeClass('disabled');
-            $(btn).attr("disabled", false);
-            return true;
         }
         }
 
         function passwordMatchDisplay() {
         var password = document.forms["registration"]["password"];
         var password_confirmation = document.forms["registration"]["password_confirmation"];
+        displayBtn();
         if (password.value != password_confirmation.value) {
             $("#divCheckPasswordMatch").html("Passwords do not match!");
             document.getElementById("divCheckPasswordMatch").style.color = "red";
-            return false;
         }
         if(password.value != "" && password.value == password_confirmation.value) {
             $("#divCheckPasswordMatch").html("Passwords match.");
             document.getElementById("divCheckPasswordMatch").style.color = "green";
-            return true;
         }
         }
 
@@ -68,7 +60,8 @@
 
         //Main function that is called like in c/c++..basically our driver for pass strength
         function main() {
-        display_strength("pass1","passwordStrength","status","subBtn");
+        display_strength("pass1","passwordStrength","status");
+        displayBtn();
         }
 
      //To make x an iterator through password entry
@@ -76,7 +69,7 @@
         return document.getElementById(x);
      }
     // Function to display password strength
-    function display_strength(x,y,z,s)
+    function display_strength(x,y,z)
         {
             if(!x || div(x).value === "")
             {
@@ -87,44 +80,35 @@
             var psswd = div(x);
             var stren = div(y);
             var stats = div(z);
-            var btn = div(s);
             var color = ["red","gold","green","lime"];
             var value = ["Weak","Good","Strong","Very Strong"];
+            var btn =  document.getElementById("subBtn");
 
-        score = check_score(psswd.value);
+            score = check_score(psswd.value);
 
             if(score >= 9)
             {
                 stren.style.width = "100%";
                 stren.style.background = color[3];
                 stats.innerHTML = value[3];
-                $(btn).removeClass('disabled');
-                $(btn).attr("disabled", false);
             }
             else if(score >= 5 && score < 8)
             {
                 stren.style.width = "75%";
                 stren.style.background = color[2];
                 stats.innerHTML = value[2];
-                $(btn).removeClass('disabled');
-                $(btn).attr("disabled", false);
             }
             else if(score >= 4  && score < 5)
             {
                 stren.style.width = "50%";
                 stren.style.background = color[1];
                 stats.innerHTML = value[1];
-                $(btn).removeClass('disabled');
-                $(btn).attr("disabled", false);
             }
             else if(score >= 0 && score <= 3)
             {
                 stren.style.width = "25%";
                 stren.style.background = color[0];
                 stats.innerHTML = value[0];
-                // $(btn).hide();
-                $(btn).addClass('disabled');
-                $(btn).attr("disabled", true);
             }
             return false;
     }
@@ -170,4 +154,24 @@
             total = total + 5;
         }
         return total;
+    }
+
+
+    function displayBtn(){
+      console.log('displayBtn called');
+      var email = document.forms["registration"]["email"].value;
+      var btn =  document.getElementById("subBtn");
+      var password = document.forms["registration"]["password"];
+      var password_confirmation = document.forms["registration"]["password_confirmation"];
+      var score = check_score(password.value);
+      console.log(score);
+      console.log(email + btn + password + password_confirmation + score);
+      if (email == null || email.substring(email.indexOf("@")) != "@mail.fresnostate.edu" || password.value != password_confirmation.value || (score >= 0 && score <= 3)) {
+          $(btn).addClass('disabled');
+          $(btn).attr("disabled", true);
+      }
+      else {
+        $(btn).removeClass('disabled');
+        $(btn).attr("disabled", false);
+      }
     }
