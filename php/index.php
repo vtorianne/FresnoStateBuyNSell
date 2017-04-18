@@ -69,7 +69,7 @@
                         header('Location: index.php'); //redirect to home page if success
                     }
                     else{
-                        //include "../html/signinerror.html";  //display login form with wrong username/password message
+                        include "../html/signinerror.html";  //display login form with wrong username/password message
                     }
                 }
                 else{
