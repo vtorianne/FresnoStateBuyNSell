@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <span class="navbar-brand topnav">Fresno State Buy N' Sell</span>
+            <span class="navbar-brand topnav"><a href="/FresnoStateBuyNSell/php/index.php">Fresno State Buy N' Sell</a></span>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -83,14 +83,25 @@
                         echo "<option value='".$row["CategoryID"]."'>".$row["CategoryName"]."</option>'";
                     }
                   ?>
-                </optgroup>
               </select>
             </div>
             <div class="form-group">
               <textarea class="form-control" placeholder="Description" name="desc"></textarea>
             </div>
             <div class="form-group">
-              <input class="form-control" type="number" min="0.00" name="price" placeholder="Price $0.00">
+              <select name="condition" required>
+                  <option value="">Select Condition</option>
+                  <?php
+                    $sql = "SELECT * FROM conditions;";
+                    $return = $db->execute($sql);
+                    while($row = $return->fetch(PDO::FETCH_ASSOC)){
+                        echo "<option value='".$row["ConditionID"]."'>".$row["ConditionName"]."</option>'";
+                    }
+                  ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="number" step="0.01" min="0.00" name="price" placeholder="Price $0.00">
             </div>
             <div class="form-group">
              <input type="file" name="pic" accept="image/*" required>

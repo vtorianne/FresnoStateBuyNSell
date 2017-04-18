@@ -123,7 +123,6 @@
                 $sql = "UPDATE users SET HashToken='$HashToken' WHERE UserID = $UserID;";
                 $db->execute($sql);
                 $emailBody = getValidationEmailBody($UserID, $HashToken, $return['FirstName'], $return['LastName']);
-                //$emailBody =   "<html> Please validate your email.<a href='http://localhost/FresnoStateBuyNSell/php/index.php?option=validate-email&user-id=$UserID&hash-token=$HashToken'>Click here.</a></html>";
                 $this->sendEmail($recipientEmail, $emailBody, "Validate Email");
                 return true; //change this later to if email was able to be sent
             }
@@ -168,7 +167,7 @@
 
             require_once "../html/header_style2.html"; //header
             require_once "views/userprofile.php";
-            require_once "../html/footer.html"; //footer
+            require_once "../html/footer2.html"; //footer
         }
 
         public function review(){

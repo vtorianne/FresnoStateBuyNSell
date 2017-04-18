@@ -34,7 +34,7 @@
             $categories = $this->getPostCategories();
             require_once "../html/header_style2.html"; //header
             require_once "views/listings.php";
-            require_once "../html/footer.html"; //footer
+            require_once "../html/footer2.html"; //footer
         }
 
         public function getPostDetails(){
@@ -43,12 +43,15 @@
             $sql = "SELECT * FROM products WHERE ProductID = $postID;"; //get all post fields
             $postReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             $userID = $postReturn["UserID"];
+            $conditionID = $postReturn["ConditionID"];
             $sql = "SELECT UserID, FirstName, LastName FROM users WHERE UserID = $userID;"; //get User details (probably just name fields and id)
             $userReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             $comments = $this->getComments($postID);
+            $sql = "SELECT ConditionName FROM conditions WHERE ConditionID = $conditionID;";
+            $conditionReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             require_once "../html/header_style2.html"; //header
             require_once "views/listing.php";
-            require_once "../html/footer.html"; //footer
+            require_once "../html/footer2.html"; //footer
         }
 
         public function getFilteredQuery($filters){
@@ -120,10 +123,11 @@
             $userID = $_SESSION["Current_User"];
             $productname = $_POST["title"];
             $categoryID = $_POST["category"];
+            $conditionID = $_POST["condition"];
             $price = $_POST["price"];
             $description = (isset($_POST["desc"]) ? $_POST["desc"] : "");
             $picturepath = $target_file;
-            $sql = "INSERT INTO products (UserID, ProductName, CategoryID, Price, Description, PicturePath) VALUES ($userID, '$productname', $categoryID, $price, '$description', '$picturepath'); "; //insert new posts
+            $sql = "INSERT INTO products (UserID, ProductName, CategoryID, ConditionID, Price, Description, PicturePath) VALUES ($userID, '$productname', $categoryID, $conditionID, $price, '$description', '$picturepath'); "; //insert new posts
             $db->execute($sql);
         }
 
