@@ -5,19 +5,7 @@
     class Post{
 
         public function getPosts(){
-            if(isset($_POST['searchSubmit'])){
-                $filters = array();
-                if(isset($_POST["priceSort"]))
-                    $filters["priceSort"] = $_POST["priceSort"];
-                if(isset($_POST["keywords"]))
-                    $filters["keywords"] = $_POST["keywords"];
-                if(isset($_POST["category"]))
-                    $filters["categoryID"] = $_POST["category"];
-            }
-            else{
-                $filters = null;
-            }
-            $sql = $this->getFilteredQuery($filters);
+            $sql = isset($_POST['searchSubmit']) ? $this->getFilteredQuery() : "SELECT * FROM products ORDER BY PostTime DESC;";
             $db = new DB();
             $return = $db->query($sql);
             $posts = array();
@@ -54,49 +42,95 @@
             require_once "../html/footer2.html"; //footer
         }
 
-        public function getFilteredQuery($filters){
-            if($filters == NULL) {
-                $sql = "SELECT * FROM products ORDER BY PostTime DESC;";
+        public function getFilteredQuery(){
+            $sql = "SELECT * FROM products";
+            $filters = false; //for SQL generation
+            $conditionFilters = false;
+            if(isset($_POST["Min"]) && $_POST["Min"] != ""){
+                echo "MIN PRICE: ".$_POST["Min"]."<br>";
+                if(!$filters){
+                    $sql .= " WHERE ";
+                    $filters = true;
+                }
+                $sql .= "Price >= ".$_POST["Min"];
             }
-            else{
-                $sql = "SELECT * FROM products WHERE ";
-                $searchfilterscount=0;
-                if(array_key_exists("keywords", $filters) && $filters["keywords"] != ""){
-                    $keywords = explode(" ", $filters["keywords"]);
-                    $search_term = "%";
-                    foreach($keywords as $keyword){
-                        $search_term .= $keyword."%";
-                    }
-                    if ($searchfilterscount == 0 ){
-                        $sql .= "'$search_term' LIKE ProductName OR '$search_term' LIKE Description";
+            if(isset($_POST["Max"]) && $_POST["Max"] != ""){
+                if(!$filters){
+                    $sql .= " WHERE ";
+                    $filters = true;
+                }
+                else{
+                    $sql .= " AND ";
+                }
+                $sql .= "Price <= ".$_POST["Max"];
+            }
+            if(isset($_POST["New"])){
+                if(!$filters){
+                    $sql .= " WHERE ";
+                    $filters = true;
+                    $conditionFilters = true;
+                }
+                else{
+                    if(!$conditionFilters){
+                        $sql .= " AND ";
+                        $conditionFilters = true;
                     }
                     else{
-                        $sql .= " AND '$search_term' LIKE ProductName OR '$search_term' LIKE Description";
+                        $sql .= " OR ";
                     }
-                    $searchfilterscount++;
                 }
-                if(array_key_exists("categoryID", $filters) && $filters["categoryID"] != ""){
-                    $categoryID = $filters["categoryID"];
-                    if ($searchfilterscount==0){
-                        $sql .= "'$categoryID' = CategoryID";
-                    }
-                    else {
-                        $sql .= " AND '$categoryID' = CategoryID";
-                    }
-                    $searchfilterscount++;
-                }
-
-                if($searchfilterscount == 0)
-                    $sql.= " 1";
-
-                if(array_key_exists("priceSort", $filters)){
-                    $sql .= " ORDER BY Price ASC, PostTime DESC";
-                }
-                else {
-                    $sql .= " ORDER BY PostTime DESC";
-                }
-                $sql .= ";";
+                $sql .= "ConditionID = ".$_POST["New"];
             }
+            if(isset($_POST["Used"])){
+                if(!$filters){
+                    $sql .= " WHERE ";
+                    $filters = true;
+                    $conditionFilters = true;
+                }
+                else{
+                    if(!$conditionFilters){
+                        $sql .= " AND ";
+                        $conditionFilters = true;
+                    }
+                    else{
+                        $sql .= " OR ";
+                    }
+                }
+                $sql .= "ConditionID = ".$_POST["Used"];
+            }
+            if(isset($_POST["category"]) && $_POST["category"] != ""){
+                if(!$filters){
+                    $sql .= " WHERE ";
+                    $filters = true;
+                }
+                else{
+                    $sql .= " AND ";
+                }
+                $sql .= "CategoryID = ".$_POST["category"];
+            }
+            if(isset($_POST["keywords"]) && $_POST["keywords"] != ""){
+                if(!$filters){
+                    $sql .= " WHERE ";
+                    $filters = true;
+                }
+                else{
+                    $sql .= " AND ";
+                }
+                $keywords = explode(" ", $filters["keywords"]);
+                //to be finished
+            }
+            switch($_POST["Filter"]){ //sortBy
+                case "Most Recent":
+                    $sql .= " ORDER BY PostTime DESC";
+                    break;
+                case "Price low to high":
+                    $sql .= " ORDER BY Price ASC";
+                    break;
+                /*case "Best User rating":
+                    break;*/
+            }
+            echo $sql;
+            $sql .= ";";
             return $sql;
         }
 
