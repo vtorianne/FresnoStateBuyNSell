@@ -149,6 +149,21 @@
             return $categories;
         }
 
+        public function getPostConditions(){
+            $db = new DB();
+            $sql = "SELECT * FROM conditions;";
+            $return = $db->execute($sql);
+            $conditions = array();
+            while($row = $return->fetch(PDO::FETCH_ASSOC)){
+                $condition = array(
+                    "ConditionID" => $row["ConditionID"],
+                    "ConditionName" => $row["ConditionName"]
+                );
+                array_push($conditions, $condition);
+            }
+            return $conditions;
+        }
+
         public function createPost(){
             $db = new DB();
             $target_file = "/uploads/listing_pics/".basename($_FILES["pic"]["name"]);
