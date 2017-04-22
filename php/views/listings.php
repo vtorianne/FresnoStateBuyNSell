@@ -69,10 +69,7 @@ echo <<<EOD
     <!-------END filtercategory------>
     
     <br />              
-                                        <input type="checkbox" name="priceSort" value="lowtohigh">  Sort by price low to high
                                         
-                                        </br>
-                                        </br>
                                     <!------END PRICE LOW TO HIGH FORM GROUP----->
                                     </div>
                                 </div>
