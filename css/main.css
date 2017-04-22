@@ -181,3 +181,28 @@ footer {
         }
 
         .disabled {opacity:.2;}
+        
+        div.filter-formbuy {
+            display:inline-block;
+        }
+        div.filtercategory select {
+            float: none;
+            margin-left: 50px;
+        }
+        div.filter-formbuy input {
+            width: 28%;
+            height: auto;
+        }
+        div.new{
+            display:inline-block;
+            margin-right:70px;
+            font-size: 20px;
+        }
+        
+        div.used {
+            display: inline-block;
+            font-size: 20px;
+        }
+.searchbar {
+            
+}
