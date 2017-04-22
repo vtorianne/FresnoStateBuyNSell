@@ -53,6 +53,7 @@ body {
 .dropdown.dropdown-lg .dropdown-menu {
     margin-top: -1px;
     padding: 6px 20px;
+    width: 330px;
 }
 
 .input-group-btn .btn-group {
@@ -114,4 +115,17 @@ body {
     height: auto;
     margin: 0 auto -60px;
     padding: 0 0 60px;
+}
+
+form.form-horizontal.filter-formbuy {
+    display:inline-block;
+}
+form.form-horizontal.filter-formbuy input {
+    width: 30px;
+}
+div.filtercategory select {
+    display:inline-block;
+}
+.searchbar {
+            
 }
