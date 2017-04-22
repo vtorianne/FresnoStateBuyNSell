@@ -11,7 +11,7 @@ echo <<<EOD
                                 <div class="dropdown dropdown-lg">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-    <form class="form-horizontal" role="form" action="search.php" method="post">
+    <form class="form-horizontal" role="form" action="/FresnoStateBuyNSell/php/index.php" method="post">
                                           
      <!------START FILTER BY FORM GROUP----->
         
@@ -27,12 +27,12 @@ echo <<<EOD
     <br />
     
     <div class="new">
-    <input type="checkbox" name="New" value=""/> New
+    <input type="checkbox" name="New" value="1"/> New
     </div>
     <!-------END new-------->
     
     <div class="used">
-    <input type="checkbox" name="Used" value=""/> Used
+    <input type="checkbox" name="Used" value="2"/> Used
     </div>
 
     
@@ -44,11 +44,12 @@ echo <<<EOD
     <span>Categories:</span>
     <select class="" name="category">
     <optgroup label="Categories">
-        <option selected>---</option>
-        <option value="All Categories">All Categories</option>
-        <option value="Textbooks">Textbooks</option>
-        <option value="Clothing">Clothing</option>
-        <option value="Other">Other</option>
+        <option selected value="">---</option>
+EOD;
+        foreach($categories as $category){
+            echo "<option value='".$category['CategoryID']."'>".$category['CategoryName']."</option>";
+        }
+echo <<<EOD
     </optgroup>
     </select>
     </div>
@@ -68,18 +69,14 @@ echo <<<EOD
     <!-------END filtercategory------>
     
     <br />              
-                                        <input type="checkbox" name="priceSort" value="lowtohigh">  Sort by price low to high
                                         
-                                        </br>
-                                        </br>
                                     <!------END PRICE LOW TO HIGH FORM GROUP----->
-                                    <!-- <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> </form> -->
-                                    <!---------------END FORM------------->
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                             </div>
                             </form>
+                            <!---------END FORM--------->
                             
                             
                            <!-----------DIV ABOVE THIS LINE ENDS CLASS BTN GROUP role="group"---------------->
