@@ -27,12 +27,12 @@ echo <<<EOD
     <br />
     
     <div class="new">
-    <input type="checkbox" name="New" value=""/> New
+    <input type="checkbox" name="New" value="1"/> New
     </div>
     <!-------END new-------->
     
     <div class="used">
-    <input type="checkbox" name="Used" value=""/> Used
+    <input type="checkbox" name="Used" value="2"/> Used
     </div>
 
     
@@ -44,11 +44,12 @@ echo <<<EOD
     <span>Categories:</span>
     <select class="" name="category">
     <optgroup label="Categories">
-        <option selected>---</option>
-        <option value="All Categories">All Categories</option>
-        <option value="Textbooks">Textbooks</option>
-        <option value="Clothing">Clothing</option>
-        <option value="Other">Other</option>
+        <option selected value="">---</option>
+EOD;
+        foreach($categories as $category){
+            echo "<option value='".$category['CategoryID']."'>".$category['CategoryName']."</option>";
+        }
+echo <<<EOD
     </optgroup>
     </select>
     </div>
