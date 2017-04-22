@@ -11,7 +11,7 @@ echo <<<EOD
                                 <div class="dropdown dropdown-lg">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-    <form class="form-horizontal" role="form" action="search.php" method="post">
+    <form class="form-horizontal" role="form" action="/FresnoStateBuyNSell/php/index.php" method="post">
                                           
      <!------START FILTER BY FORM GROUP----->
         
@@ -73,13 +73,12 @@ echo <<<EOD
                                         </br>
                                         </br>
                                     <!------END PRICE LOW TO HIGH FORM GROUP----->
-                                    <!-- <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> </form> -->
-                                    <!---------------END FORM------------->
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                             </div>
                             </form>
+                            <!---------END FORM--------->
                             
                             
                            <!-----------DIV ABOVE THIS LINE ENDS CLASS BTN GROUP role="group"---------------->
