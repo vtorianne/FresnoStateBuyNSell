@@ -11,47 +11,77 @@ echo <<<EOD
                                 <div class="dropdown dropdown-lg">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                     <form class="form-horizontal" role="form" action="/FresnoStateBuyNSell/php/index.php" method="post">
+    <form class="form-horizontal" role="form" action="search.php" method="post">
                                           
-                                     <!------START FILTER BY FORM GROUP----->
-                                     
-                                     <!------START CATEGORY GROUP----->
-                                        <div class="form-group">
-                                            <label for="Categories">Categories</label>
-                                                    <select class="form-control" name="category">
-                                                    <optgroup label="Categories">
-                                                    <option value="">All Categories</option>
-EOD;
-            foreach($categories as $category){
-                echo "<option value='".$category["CategoryID"]."'>".$category["CategoryName"]."</option>'";
-            }
-            echo <<<EOD
-                                                    </optgroup>
-                                            </select>
-                                        </div>
-                                    <!------END CATEGORY FORM GROUP----->
-                                     
+     <!------START FILTER BY FORM GROUP----->
+        
+    <div class="filter-formbuy">
+        <label for="minprice">Min Price: </label>
+        <input class="" type="" name="Min"/>
+    
+        <label for="maxprice">Max Price: </label>
+        <input class="" type="" name="Max" />
+    </div>
+    
+    <br />
+    <br />
+    
+    <div class="new">
+    <input type="checkbox" name="New" value=""/> New
+    </div>
+    <!-------END new-------->
+    
+    <div class="used">
+    <input type="checkbox" name="Used" value=""/> Used
+    </div>
+
+    
+    <br />
+    <br />
+    
+    <div class="filtercategory">
+    <div class="category">
+    <span>Categories:</span>
+    <select class="" name="category">
+    <optgroup label="Categories">
+        <option selected>---</option>
+        <option value="All Categories">All Categories</option>
+        <option value="Textbooks">Textbooks</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Other">Other</option>
+    </optgroup>
+    </select>
+    </div>
+    
+    <div class="sortby">
+    <span>Sort By:</span>
+    <select class="" name="Filter">
+    <optgroup label="Filters">
+    <option value="Most Recent" selected>Most Recent</option>
+    <option value="Price low to high">Price Low to High</option>
+    <option value="Best User rating">Best User Rating</option>
+    </optgroup>
+    </select>
+    </div>
+    <!-------END sortby--------->
+    </div>
+    <!-------END filtercategory------>
+    
+    <br />              
                                         <input type="checkbox" name="priceSort" value="lowtohigh">  Sort by price low to high
                                         
                                         </br>
                                         </br>
                                     <!------END PRICE LOW TO HIGH FORM GROUP----->
-                
-                
-                                    <!-------START CONTAINS WORDS FORM GROUP---->
-                                          <div class="form-group">
-                                            <label for="contain">Contains the words</label>
-                                            <input class="form-control" type="text" name="keywords"/>
-                                          </div> 
-                                    <!-------END CONTAINS WORDS FORM GROUP----->
-                                          
-                                          <button type="submit" class="btn btn-primary" name="searchSubmit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                       
-                                        </form>
+                                    <!-- <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> </form> -->
+                                    <!---------------END FORM------------->
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                             </div>
+                            </form>
+                            
+                            
                            <!-----------DIV ABOVE THIS LINE ENDS CLASS BTN GROUP role="group"---------------->
                         </div>
                     <!-----------DIV ABOVE THIS LINE ENDS CLASS "input-group-btn"---------------->
