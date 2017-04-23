@@ -127,7 +127,14 @@
                     $post->getPostDetails();
                     break;
                 case "my-listing":
-                    $post->getCurrUserPostDetails();
+                    if(isset($_POST["editSubmit"])){
+                        $postID = $_GET["post-id"];
+                        $post->editPost();
+                        header("Location: index.php?option=my-listing&post-id=$postID");
+                    }
+                    else{
+                        $post->getCurrUserPostDetails();
+                    }
                     break;
                 case "create-post":
                     if(isset($_POST["createSubmit"])){
