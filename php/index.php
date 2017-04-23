@@ -145,10 +145,10 @@
                         header("Location: createpost.php");
                     }
                     break;
-                case "mark-sold":
+                case "mark-if-sold":
                     $postID = $_GET["post-id"];
-                    if($post->markSold())
-                        header("Location: index.php?option=listing&post-id=$postID"); //redirect back to same page
+                    if($post->markIfSold())
+                        header("Location: index.php?option=my-listing&post-id=$postID"); //redirect back to same page
                     else
                         header("Location: index.php?option=forbidden");
                     break;
