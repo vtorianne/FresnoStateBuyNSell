@@ -231,8 +231,9 @@
             $db->execute($sql);
         }
 
-        public function markSold(){
+        public function markIfSold(){
             $postID = $_GET["post-id"];
+            $sold = $_GET["sold"];
             $currUserID = $_SESSION["Current_User"];
             $db = new DB();
             $sql = "SELECT UserID FROM products WHERE ProductID = $postID;"; //get Post's userID
@@ -241,7 +242,7 @@
                 return false;
             }
             else{
-                $sql = "UPDATE products SET Sold=1 WHERE ProductID = $postID;"; //update "Sold" to true
+                $sql = "UPDATE products SET Sold=$sold WHERE ProductID = $postID;"; //update "Sold" to true
                 $db->execute($sql);
                 return true;
             }

@@ -57,29 +57,34 @@ EOD;
 if($postReturn["Sold"] == 1){
     //display Sold icon
     echo '<strong class="text-success">SOLD </strong><small> </small><i class="glyphicon glyphicon-check"></i>';
+    echo <<<EOD
+         <form action="/FresnoStateBuyNSell/php/index.php?option=mark-if-sold&post-id={$postID}&sold=0" method="post">
+            <button type="submit">
+                <strong class="text-success">MARK AS UNSOLD </strong> <small></small><i class="glyphicon glyphicon-unchecked"></i>
+            </button>
+        </form>
+EOD;
+
 }
 else{
     //display mark as sold form
     echo <<<EOD
-                <form action="/FresnoStateBuyNSell/php/index.php?option=mark-sold&post-id={$postID}" method="post">
+                <form action="/FresnoStateBuyNSell/php/index.php?option=mark-if-sold&post-id={$postID}&sold=1" method="post">
                     <button type="submit">
-                        <strong class="text-success">MARK AS SOLD/UNSOLD </strong> <small></small><i class="glyphicon glyphicon-unchecked"></i>
+                        <strong class="text-success">MARK AS SOLD </strong> <small></small><i class="glyphicon glyphicon-unchecked"></i>
                     </button>
-                    
-                    
                 </form>
-                
-                <button type="submit">
-                    <strong>Delete Post</strong>
-                </button>
-                 <p>Update Listing Picture:</p> 
-                    <form method="post" action="/FresnoStateBuyNSell/php/index.php?option=add-profile-pic" enctype="multipart/form-data">
-                        <input type="file" name="pic" accept="image/*">
-                        <button style="margin-top: 10px;" type="submit" class="btn btn-primary btn-sm">Upload</button>
-                    </form>
 EOD;
 }
 echo <<<EOD
+            <button type="submit">
+                    <strong>Delete Post</strong>
+                </button>
+             <p>Update Listing Picture:</p> 
+            <form method="post" action="/FresnoStateBuyNSell/php/index.php?option=add-profile-pic" enctype="multipart/form-data">
+                <input type="file" name="pic" accept="image/*">
+                <button style="margin-top: 10px;" type="submit" class="btn btn-primary btn-sm">Upload</button>
+            </form>
             </div>
         </div>
         <!-- /.row -->
