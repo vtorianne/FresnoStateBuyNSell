@@ -77,9 +77,11 @@ else{
 EOD;
 }
 echo <<<EOD
-            <button type="submit">
+            <form action="/FresnoStateBuyNSell/php/index.php?option=delete-listing&post-id={$postID}" method="post">
+                <button type="submit">
                     <strong>Delete Post</strong>
                 </button>
+             </form>
              <p>Update Listing Picture:</p> 
             <form method="post" action="/FresnoStateBuyNSell/php/index.php?option=add-profile-pic" enctype="multipart/form-data">
                 <input type="file" name="pic" accept="image/*">
