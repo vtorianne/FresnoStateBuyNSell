@@ -264,6 +264,16 @@
             }
         }
 
+        public function updateListingPic(){
+            $postID = $_GET["post-id"];
+            $db = new DB();
+            $target_file = "/uploads/listing_pics/".basename($_FILES["pic"]["name"]);
+            $target_dir =  $_SERVER['DOCUMENT_ROOT'].$target_file;
+            move_uploaded_file($_FILES["pic"]["tmp_name"], $target_dir);
+            $sql = "UPDATE products SET PicturePath = '$target_file' where ProductID = $postID;";
+            $db->execute($sql);
+        }
+
         public function addComment(){
             $db = new DB();
             $currUserID = $_SESSION["Current_User"];

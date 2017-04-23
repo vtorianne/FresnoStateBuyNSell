@@ -165,6 +165,10 @@
                         header("Location: index.php?option=forbidden");
                     }
                     break;
+                case "update-listing-pic":
+                    $postID = $_GET["post-id"];
+                    $post->updateListingPic();
+                    header("Location: index.php?option=my-listing&post-id=$postID");
                 case "user-profile":
                     $user->getUserProfile();
                     break;

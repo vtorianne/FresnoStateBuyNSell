@@ -83,7 +83,7 @@ echo <<<EOD
                 </button>
              </form>
              <p>Update Listing Picture:</p> 
-            <form method="post" action="/FresnoStateBuyNSell/php/index.php?option=add-profile-pic" enctype="multipart/form-data">
+            <form method="post" action="/FresnoStateBuyNSell/php/index.php?option=update-listing-pic&post-id={$postID}" enctype="multipart/form-data">
                 <input type="file" name="pic" accept="image/*">
                 <button style="margin-top: 10px;" type="submit" class="btn btn-primary btn-sm">Upload</button>
             </form>
