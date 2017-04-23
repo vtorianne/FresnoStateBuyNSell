@@ -25,6 +25,28 @@
             require_once "../html/footer2.html"; //footer
         }
 
+        public function getCurrUserPosts(){
+            $currUserID = $_SESSION["Current_User"];
+            $sql = "SELECT * FROM products WHERE UserID = $currUserID;";
+            $db = new DB();
+            $return = $db->query($sql);
+            $posts = array();
+            while($row = $return->fetch(PDO::FETCH_ASSOC)){
+                $post = array (
+                    "Sold" => $row["Sold"],
+                    "ProductID" => $row["ProductID"],
+                    "ProductName" => $row["ProductName"],
+                    "PicturePath" => $row["PicturePath"],
+                    "Price" => $row["Price"]
+                );
+                array_push($posts, $post);
+            }
+            require_once "../html/header_style2.html"; //header
+            //require_once "views/NAME_OF_FILE.php"; //template
+            require_once "../html/footer2.html"; //footer
+
+        }
+
         public function getPostDetails(){
             $db = new DB();
             $postID = $_GET["post-id"];
@@ -42,12 +64,29 @@
             require_once "../html/footer2.html"; //footer
         }
 
+        public function getCurrUserPostDetails(){
+            $db = new DB();
+            $postID = $_GET["post-id"];
+            $currUserID = $_SESSION["Current_User"];
+            $sql = "SELECT * FROM products WHERE ProductID = $postID AND UserID = $currUserID;"; //get all post fields
+            $postReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+            if($postReturn){
+                $categories = $this->getPostCategories();
+                $conditions = $this->getPostConditions();
+                require_once "../html/header_style2.html"; //header
+                //require_once "views/NAME_OF_FILE.php"; //template
+                require_once "../html/footer2.html"; //footer
+            }
+            else{
+                header("Location: index.php?option=forbidden");
+            }
+        }
+
         public function getFilteredQuery(){
             $sql = "SELECT * FROM products";
             $filters = false; //for SQL generation
             $conditionFilters = false;
             if(isset($_POST["Min"]) && $_POST["Min"] != ""){
-                echo "MIN PRICE: ".$_POST["Min"]."<br>";
                 if(!$filters){
                     $sql .= " WHERE ";
                     $filters = true;
@@ -191,6 +230,22 @@
             }
             else{
                 $sql = "UPDATE products SET Sold=1 WHERE ProductID = $postID;"; //update "Sold" to true
+                $db->execute($sql);
+                return true;
+            }
+        }
+
+        public function deletePost(){
+            $postID = $_GET["post-id"];
+            $currUserID = $_SESSION["Current_User"];
+            $db = new DB();
+            $sql = "SELECT UserID FROM products WHERE ProductID = $postID;"; //get Post's userID
+            $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+            if($return["UserID"] != $currUserID ){ //check if the current userID matches the post creator's ID
+                return false;
+            }
+            else{
+                $sql = "DELETE FROM products WHERE ProductID = $postID;";
                 $db->execute($sql);
                 return true;
             }
