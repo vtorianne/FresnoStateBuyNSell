@@ -5,19 +5,7 @@
     class Post{
 
         public function getPosts(){
-            if(isset($_POST['searchSubmit'])){
-                $filters = array();
-                if(isset($_POST["priceSort"]))
-                    $filters["priceSort"] = $_POST["priceSort"];
-                if(isset($_POST["keywords"]))
-                    $filters["keywords"] = $_POST["keywords"];
-                if(isset($_POST["category"]))
-                    $filters["categoryID"] = $_POST["category"];
-            }
-            else{
-                $filters = null;
-            }
-            $sql = $this->getFilteredQuery($filters);
+            $sql = isset($_POST['searchSubmit']) ? $this->getFilteredQuery() : "SELECT * FROM products ORDER BY PostTime DESC;";
             $db = new DB();
             $return = $db->query($sql);
             $posts = array();
@@ -37,6 +25,28 @@
             require_once "../html/footer2.html"; //footer
         }
 
+        public function getCurrUserPosts(){
+            $currUserID = $_SESSION["Current_User"];
+            $sql = "SELECT * FROM products WHERE UserID = $currUserID;";
+            $db = new DB();
+            $return = $db->query($sql);
+            $posts = array();
+            while($row = $return->fetch(PDO::FETCH_ASSOC)){
+                $post = array (
+                    "Sold" => $row["Sold"],
+                    "ProductID" => $row["ProductID"],
+                    "ProductName" => $row["ProductName"],
+                    "PicturePath" => $row["PicturePath"],
+                    "Price" => $row["Price"]
+                );
+                array_push($posts, $post);
+            }
+            require_once "../html/header_style2.html"; //header
+            //require_once "views/NAME_OF_FILE.php"; //template
+            require_once "../html/footer2.html"; //footer
+
+        }
+
         public function getPostDetails(){
             $db = new DB();
             $postID = $_GET["post-id"];
@@ -54,49 +64,112 @@
             require_once "../html/footer2.html"; //footer
         }
 
-        public function getFilteredQuery($filters){
-            if($filters == NULL) {
-                $sql = "SELECT * FROM products ORDER BY PostTime DESC;";
+        public function getCurrUserPostDetails(){
+            $db = new DB();
+            $postID = $_GET["post-id"];
+            $currUserID = $_SESSION["Current_User"];
+            $sql = "SELECT * FROM products WHERE ProductID = $postID AND UserID = $currUserID;"; //get all post fields
+            $postReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+            if($postReturn){
+                $categories = $this->getPostCategories();
+                $conditions = $this->getPostConditions();
+                require_once "../html/header_style2.html"; //header
+                //require_once "views/NAME_OF_FILE.php"; //template
+                require_once "../html/footer2.html"; //footer
             }
             else{
-                $sql = "SELECT * FROM products WHERE ";
-                $searchfilterscount=0;
-                if(array_key_exists("keywords", $filters) && $filters["keywords"] != ""){
-                    $keywords = explode(" ", $filters["keywords"]);
-                    $search_term = "%";
-                    foreach($keywords as $keyword){
-                        $search_term .= $keyword."%";
-                    }
-                    if ($searchfilterscount == 0 ){
-                        $sql .= "'$search_term' LIKE ProductName OR '$search_term' LIKE Description";
+                header("Location: index.php?option=forbidden");
+            }
+        }
+
+        public function getFilteredQuery(){
+            $sql = "SELECT * FROM products";
+            $filters = false; //for SQL generation
+            $conditionFilters = false;
+            if(isset($_POST["Min"]) && $_POST["Min"] != ""){
+                if(!$filters){
+                    $sql .= " WHERE ";
+                    $filters = true;
+                }
+                $sql .= "Price >= ".$_POST["Min"];
+            }
+            if(isset($_POST["Max"]) && $_POST["Max"] != ""){
+                if(!$filters){
+                    $sql .= " WHERE ";
+                    $filters = true;
+                }
+                else{
+                    $sql .= " AND ";
+                }
+                $sql .= "Price <= ".$_POST["Max"];
+            }
+            if(isset($_POST["New"])){
+                if(!$filters){
+                    $sql .= " WHERE ";
+                    $filters = true;
+                    $conditionFilters = true;
+                }
+                else{
+                    if(!$conditionFilters){
+                        $sql .= " AND ";
+                        $conditionFilters = true;
                     }
                     else{
-                        $sql .= " AND '$search_term' LIKE ProductName OR '$search_term' LIKE Description";
+                        $sql .= " OR ";
                     }
-                    $searchfilterscount++;
                 }
-                if(array_key_exists("categoryID", $filters) && $filters["categoryID"] != ""){
-                    $categoryID = $filters["categoryID"];
-                    if ($searchfilterscount==0){
-                        $sql .= "'$categoryID' = CategoryID";
-                    }
-                    else {
-                        $sql .= " AND '$categoryID' = CategoryID";
-                    }
-                    $searchfilterscount++;
-                }
-
-                if($searchfilterscount == 0)
-                    $sql.= " 1";
-
-                if(array_key_exists("priceSort", $filters)){
-                    $sql .= " ORDER BY Price ASC, PostTime DESC";
-                }
-                else {
-                    $sql .= " ORDER BY PostTime DESC";
-                }
-                $sql .= ";";
+                $sql .= "ConditionID = ".$_POST["New"];
             }
+            if(isset($_POST["Used"])){
+                if(!$filters){
+                    $sql .= " WHERE ";
+                    $filters = true;
+                    $conditionFilters = true;
+                }
+                else{
+                    if(!$conditionFilters){
+                        $sql .= " AND ";
+                        $conditionFilters = true;
+                    }
+                    else{
+                        $sql .= " OR ";
+                    }
+                }
+                $sql .= "ConditionID = ".$_POST["Used"];
+            }
+            if(isset($_POST["category"]) && $_POST["category"] != ""){
+                if(!$filters){
+                    $sql .= " WHERE ";
+                    $filters = true;
+                }
+                else{
+                    $sql .= " AND ";
+                }
+                $sql .= "CategoryID = ".$_POST["category"];
+            }
+            if(isset($_POST["keywords"]) && $_POST["keywords"] != ""){
+                if(!$filters){
+                    $sql .= " WHERE ";
+                    $filters = true;
+                }
+                else{
+                    $sql .= " AND ";
+                }
+                $keywords = explode(" ", $filters["keywords"]);
+                //to be finished
+            }
+            switch($_POST["Filter"]){ //sortBy
+                case "Most Recent":
+                    $sql .= " ORDER BY PostTime DESC";
+                    break;
+                case "Price low to high":
+                    $sql .= " ORDER BY Price ASC";
+                    break;
+                /*case "Best User rating":
+                    break;*/
+            }
+            echo $sql;
+            $sql .= ";";
             return $sql;
         }
 
@@ -113,6 +186,21 @@
                array_push($categories, $category);
             }
             return $categories;
+        }
+
+        public function getPostConditions(){
+            $db = new DB();
+            $sql = "SELECT * FROM conditions;";
+            $return = $db->execute($sql);
+            $conditions = array();
+            while($row = $return->fetch(PDO::FETCH_ASSOC)){
+                $condition = array(
+                    "ConditionID" => $row["ConditionID"],
+                    "ConditionName" => $row["ConditionName"]
+                );
+                array_push($conditions, $condition);
+            }
+            return $conditions;
         }
 
         public function createPost(){
@@ -142,6 +230,22 @@
             }
             else{
                 $sql = "UPDATE products SET Sold=1 WHERE ProductID = $postID;"; //update "Sold" to true
+                $db->execute($sql);
+                return true;
+            }
+        }
+
+        public function deletePost(){
+            $postID = $_GET["post-id"];
+            $currUserID = $_SESSION["Current_User"];
+            $db = new DB();
+            $sql = "SELECT UserID FROM products WHERE ProductID = $postID;"; //get Post's userID
+            $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+            if($return["UserID"] != $currUserID ){ //check if the current userID matches the post creator's ID
+                return false;
+            }
+            else{
+                $sql = "DELETE FROM products WHERE ProductID = $postID;";
                 $db->execute($sql);
                 return true;
             }

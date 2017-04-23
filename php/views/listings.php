@@ -73,7 +73,7 @@ echo <<<EOD
                                     <!------END PRICE LOW TO HIGH FORM GROUP----->
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                <button type="submit" name="searchSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                             </div>
                             </form>
                             <!---------END FORM--------->

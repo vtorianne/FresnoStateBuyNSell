@@ -120,8 +120,14 @@
                 case null:
                     $post->getPosts();
                     break;
+                case "my-listings":
+                    $post->getCurrUserPosts();
+                    break;
                 case "listing":
                     $post->getPostDetails();
+                    break;
+                case "my-listing":
+                    $post->getCurrUserPostDetails();
                     break;
                 case "create-post":
                     if(isset($_POST["createSubmit"])){
@@ -144,6 +150,14 @@
                     $post->addComment();
                     header("Location: index.php?option=listing&post-id=$postID"); //redirect back to same page
                     break;
+                case "delete-listing":
+                    if($post->deletePost()){
+                        header("Location: index.php?option=my-listings");
+                    }
+                    else{
+                        header("Location: index.php?option=forbidden");
+                    }
+                    break;
                 case "user-profile":
                     $user->getUserProfile();
                     break;
@@ -157,7 +171,7 @@
                     header("Location: index.php?option=user-profile");
                     break;
                 default:
-                    echo "Forbidden Access/Already Logged In.";
+                    echo "Forbidden Access";
                     break;
             }
         }
