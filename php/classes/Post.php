@@ -74,7 +74,7 @@
                 $categories = $this->getPostCategories();
                 $conditions = $this->getPostConditions();
                 require_once "../html/header_style2.html"; //header
-                //require_once "views/NAME_OF_FILE.php"; //template
+                require_once "views/dashboard.php"; //template
                 require_once "../html/footer2.html"; //footer
             }
             else{
@@ -168,7 +168,6 @@
                 /*case "Best User rating":
                     break;*/
             }
-            echo $sql;
             $sql .= ";";
             return $sql;
         }
@@ -216,6 +215,19 @@
             $description = (isset($_POST["desc"]) ? $_POST["desc"] : "");
             $picturepath = $target_file;
             $sql = "INSERT INTO products (UserID, ProductName, CategoryID, ConditionID, Price, Description, PicturePath) VALUES ($userID, '$productname', $categoryID, $conditionID, $price, '$description', '$picturepath'); "; //insert new posts
+            $db->execute($sql);
+        }
+
+        public function editPost(){
+            $db = new DB();
+            $postID = $_GET["post-id"];
+            $productname = $_POST["title"];
+            $categoryID = $_POST["category"];
+            $conditionID = $_POST["condition"];
+            $price = $_POST["price"];
+            $description = (isset($_POST["desc"]) ? $_POST["desc"] : "");
+            $sql = "UPDATE products SET ProductName = '$productname', CategoryID = $categoryID, ConditionID = $conditionID, Price = $price, Description = '$description', ModifiedTime = NOW() WHERE ProductID = $postID;";
+            echo $sql;
             $db->execute($sql);
         }
 
