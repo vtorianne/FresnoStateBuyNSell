@@ -129,7 +129,9 @@ EOD;
                                     <a href="/FresnoStateBuyNSell/php/index.php?option=listing&post-id={$post["ProductID"]}">
                                         <img style="padding-top: 10px;" class="img-responsive" src="{$post["PicturePath"]}" alt="">
                                     </a>
+                                    <a href="/FresnoStateBuyNSell/php/index.php?option=listing&post-id={$post["ProductID"]}">
                                     <h4>{$post["ProductName"]}<small> - \${$post["Price"]} {$sold}</small></h4>
+                                    </a>
                                 </div>
                                 </div>
 EOD;
