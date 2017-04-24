@@ -3,15 +3,15 @@ echo <<<EOD
             <div id="wrap">
             <div class="container">
             <div style="float:right; margin-top: 20px;" class="row">
+                <form class="form-horizontal" role="form" action="/FresnoStateBuyNSell/php/index.php" method="post">
                 <div class="col-md-12">
                     <div class="input-group" id="adv-search">
-                        <input type="disabled" class="form-control" placeholder="Search for listings"/>
+                        <input name="keywords" class="form-control" placeholder="Search for listings"/>
                         <div class="input-group-btn">
                             <div class="btn-group" role="group">
                                 <div class="dropdown dropdown-lg">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-    <form class="form-horizontal" role="form" action="/FresnoStateBuyNSell/php/index.php" method="post">
                                           
      <!------START FILTER BY FORM GROUP----->
         
@@ -61,6 +61,7 @@ echo <<<EOD
     <option value="Most Recent" selected>Most Recent</option>
     <option value="Price low to high">Price Low to High</option>
     <option value="Best User rating">Best User Rating</option>
+    <option value="Last Updated">Last Updated</option>
     </optgroup>
     </select>
     </div>
@@ -129,7 +130,9 @@ EOD;
                                     <a href="/FresnoStateBuyNSell/php/index.php?option=listing&post-id={$post["ProductID"]}">
                                         <img style="padding-top: 10px;" class="img-responsive" src="{$post["PicturePath"]}" alt="">
                                     </a>
+                                    <a href="/FresnoStateBuyNSell/php/index.php?option=listing&post-id={$post["ProductID"]}">
                                     <h4>{$post["ProductName"]}<small> - \${$post["Price"]} {$sold}</small></h4>
+                                    </a>
                                 </div>
                                 </div>
 EOD;
