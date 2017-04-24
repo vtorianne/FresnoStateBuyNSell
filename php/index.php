@@ -99,25 +99,44 @@
                 break;
             case "send-password-reset":
                 if($user->sendPasswordResetEmail()){
-                    echo "password reset email sent/show link to try again";
+                    //echo "password reset email sent/show link to try again";
+                    $message = "A password email has been sent.";
+                    $buttonText = "Resend Email";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
+                    $buttonIcon = "";
+                    include "views/splash_page.php";
                 }
                 else{
-                    echo "email not found/try again";
+                   // echo "email not found/try again";
+                    $message = "No account was found for that email.";
+                    $buttonText = "Try Again";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
+                    $buttonIcon = "";
+                    include "views/splash_page.php";
                 }
                 break;
             case "password-reset":
                 if(isset($_POST["resetSubmit"])){
                     $user->resetPassword();
-                    echo "password reset";
+                    $message = "Your password has been reset.";
+                    $buttonText = "Buy/Sell";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=login";
+                    $buttonIcon = "fa fa-fw fa-money";
+                    include "views/splash_page.php";
                 }
                 else{
-                    if($user->checkHashToken()){
+                    if($user->checkHashToken()){ //or userID/hashToken GET parameters not set
                         //display form
                         require_once "../html/passreset.html";
                     }
                     else{
                         //display error/link to password reset
-                        echo "error/try again";
+                        //echo "error/try again";
+                        $message = "There was an issue processing the password reset request.";
+                        $buttonText = "Try Again";
+                        $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
+                        $buttonIcon = "";
+                        include "views/splash_page.php";
                     }
                 }
                 break;
