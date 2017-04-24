@@ -165,6 +165,8 @@
                 case "Price low to high":
                     $sql .= " ORDER BY Price ASC";
                     break;
+                case "Last Updated":
+                    $sql .= " ORDER BY ModifiedTime DESC";
                 /*case "Best User rating":
                     break;*/
             }

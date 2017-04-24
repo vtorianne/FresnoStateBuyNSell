@@ -61,6 +61,7 @@ echo <<<EOD
     <option value="Most Recent" selected>Most Recent</option>
     <option value="Price low to high">Price Low to High</option>
     <option value="Best User rating">Best User Rating</option>
+    <option value="Last Updated">Last Updated</option>
     </optgroup>
     </select>
     </div>
