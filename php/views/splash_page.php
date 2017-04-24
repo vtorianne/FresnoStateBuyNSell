@@ -12,9 +12,8 @@
                         <ul class="list-inline intro-social-buttons">
                             <center>
                               <a href="<?php echo $buttonLink;?>"
-                                 class="btn btn-default btn-lg"><i style="padding-right:30px;"
+                                 class="btn btn-default btn-lg"><i style="padding-right:10px;"
                                       class="<?php echo $buttonIcon;?>"></i><?php echo $buttonText;?></a>
-                          </li>
                             </center>
 
                         </ul>

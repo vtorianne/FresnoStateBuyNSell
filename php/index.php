@@ -135,11 +135,11 @@
                 break;
             case "send-password-reset":
                 if($user->sendPasswordResetEmail()){
-                    //echo "password reset email sent/show link to try again";
-                    $message = "A password email has been sent.";
-                    $buttonText = "Resend Email";
-                    $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
-                    $buttonIcon = "";
+                        $message = "Password request has been created and a validation email has been sent.";
+                        $buttonText = "Resend Email";
+                        $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-password-reset";
+                        $buttonIcon = "fa fa-key";
+                        include "views/splash_page.php";
                     if(isset($_SESSION["Current_User"])){
                         include "../html/header_style1.html";
                         include "views/splash_page.php";
@@ -172,10 +172,11 @@
             case "password-reset":
                 if(isset($_POST["resetSubmit"])){
                     $user->resetPassword();
-                    $message = "Your password has been reset.";
-                    $buttonText = "Buy/Sell";
+                    $message = "Password has been reset. Start buying/selling.";
+                    $buttonText = "Log in";
                     $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=login";
-                    $buttonIcon = "fa fa-fw fa-money";
+                    $buttonIcon = "fa fa-sign-in";
+                    include "views/splash_page.php";
                     if(isset($_SESSION["Current_User"])){
                         include "../html/header_style1.html";
                         include "views/splash_page.php";
@@ -293,7 +294,6 @@
                     $postID = $_GET["post-id"];
                     $post->updateListingPic();
                     header("Location: index.php?option=my-listing&post-id=$postID");
-                    break;
                 case "user-profile":
                     $user->getUserProfile();
                     break;
