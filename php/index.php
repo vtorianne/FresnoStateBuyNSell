@@ -193,6 +193,7 @@
                     $postID = $_GET["post-id"];
                     $post->updateListingPic();
                     header("Location: index.php?option=my-listing&post-id=$postID");
+                    break;
                 case "user-profile":
                     $user->getUserProfile();
                     break;
