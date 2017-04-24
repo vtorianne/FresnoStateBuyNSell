@@ -18,7 +18,16 @@
                         $buttonLink .= "&user-id=".$_GET['user-id'];
                     }
                     $buttonIcon = "fa fa-fw fa-envelope-open-o";
-                    include "views/splash_page.php";
+                    if(isset($_SESSION["Current_User"])){
+                        include "../html/header_style1.html";
+                        include "views/splash_page.php";
+                        include "../html/footer2.html";
+                    }
+                    else{
+                        include "../html/logged_out_header.html";
+                        include "views/splash_page.php";
+                        include "../html/footer.html";
+                    }
                 }
                 else{
                     echo "Forbidden Access";
@@ -40,7 +49,16 @@
                         $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=login";
                     }
                     $buttonIcon = "fa fa-fw fa-money";
-                    include "views/splash_page.php";
+                    if(isset($_SESSION["Current_User"])){
+                        include "../html/header_style1.html";
+                        include "views/splash_page.php";
+                        include "../html/footer2.html";
+                    }
+                    else{
+                        include "../html/logged_out_header.html";
+                        include "views/splash_page.php";
+                        include "../html/footer.html";
+                    }
                 }
                 else{
                     //splash page with error message, should button be displayed?
@@ -52,7 +70,16 @@
                         $buttonLink .= "&user-id=".$_GET['user-id'];
                     }
                     $buttonIcon = "fa fa-fw fa-envelope-open-o";
-                    include "views/splash_page.php";
+                    if(isset($_SESSION["Current_User"])){
+                        include "../html/header_style1.html";
+                        include "views/splash_page.php";
+                        include "../html/footer2.html";
+                    }
+                    else{
+                        include "../html/logged_out_header.html";
+                        include "views/splash_page.php";
+                        include "../html/footer.html";
+                    }
                 }
                 break;
         }
@@ -85,7 +112,16 @@
                         $buttonText = "Resend Email";
                         $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
                         $buttonIcon = "fa fa-fw fa-envelope-open-o";
-                        include "views/splash_page.php";
+                        if(isset($_SESSION["Current_User"])){
+                            include "../html/header_style1.html";
+                            include "views/splash_page.php";
+                            include "../html/footer2.html";
+                        }
+                        else{
+                            include "../html/logged_out_header.html";
+                            include "views/splash_page.php";
+                            include "../html/footer.html";
+                        }
                     }
                     else{
                         //error creating user or user email already exists
@@ -104,7 +140,16 @@
                     $buttonText = "Resend Email";
                     $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
                     $buttonIcon = "";
-                    include "views/splash_page.php";
+                    if(isset($_SESSION["Current_User"])){
+                        include "../html/header_style1.html";
+                        include "views/splash_page.php";
+                        include "../html/footer2.html";
+                    }
+                    else{
+                        include "../html/logged_out_header.html";
+                        include "views/splash_page.php";
+                        include "../html/footer.html";
+                    }
                 }
                 else{
                    // echo "email not found/try again";
@@ -112,7 +157,16 @@
                     $buttonText = "Try Again";
                     $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
                     $buttonIcon = "";
-                    include "views/splash_page.php";
+                    if(isset($_SESSION["Current_User"])){
+                        include "../html/header_style1.html";
+                        include "views/splash_page.php";
+                        include "../html/footer2.html";
+                    }
+                    else{
+                        include "../html/logged_out_header.html";
+                        include "views/splash_page.php";
+                        include "../html/footer.html";
+                    }
                 }
                 break;
             case "password-reset":
@@ -122,7 +176,16 @@
                     $buttonText = "Buy/Sell";
                     $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=login";
                     $buttonIcon = "fa fa-fw fa-money";
-                    include "views/splash_page.php";
+                    if(isset($_SESSION["Current_User"])){
+                        include "../html/header_style1.html";
+                        include "views/splash_page.php";
+                        include "../html/footer2.html";
+                    }
+                    else{
+                        include "../html/logged_out_header.html";
+                        include "views/splash_page.php";
+                        include "../html/footer.html";
+                    }
                 }
                 else{
                     if($user->checkHashToken()){ //or userID/hashToken GET parameters not set
@@ -136,7 +199,16 @@
                         $buttonText = "Try Again";
                         $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
                         $buttonIcon = "";
-                        include "views/splash_page.php";
+                        if(isset($_SESSION["Current_User"])){
+                            include "../html/header_style1.html";
+                            include "views/splash_page.php";
+                            include "../html/footer2.html";
+                        }
+                        else{
+                            include "../html/logged_out_header.html";
+                            include "views/splash_page.php";
+                            include "../html/footer.html";
+                        }
                     }
                 }
                 break;
@@ -156,7 +228,16 @@
             $buttonText = "Resend Email";
             $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
             $buttonIcon = "fa fa-fw fa-envelope-open-o";
-            include "views/splash_page.php";
+            if(isset($_SESSION["Current_User"])){
+                include "../html/header_style1.html";
+                include "views/splash_page.php";
+                include "../html/footer2.html";
+            }
+            else{
+                include "../html/logged_out_header.html";
+                include "views/splash_page.php";
+                include "../html/footer.html";
+            }
         }
         else{
             switch($option){
