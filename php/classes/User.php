@@ -37,11 +37,30 @@
             $db = new DB();
             $sql = "SELECT UserID, EmailValidated FROM users WHERE Email = '$email' AND Password = MD5('$password');";  //query User record where email and password match those given
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+            $curtime = time();
             if(!$return){
                 //wrong username and or password
+                $sqlinsert = "UPDATE users SET LastFailedLogin = '$curtime', NumFailedLogins = NumFailedLogins +1 WHERE Email = '$email';";  //insert new time stamp into failed LastFailedLogin
+                $db->execute($sqlinsert);
                 return false;
             }
             else{
+            $timest = "SELECT LastFailedLogin FROM users WHERE Email = '$email';";
+            $returnedquery = $db->query($timest)->fetch(PDO::FETCH_ASSOC);
+            $singletimestamp = $returnedquery['LastFailedLogin'];
+            $numfailedloginsarray = "SELECT NumFailedLogins FROM users WHERE Email = '$email';";
+            $returnedquery = $db->query($numfailedloginsarray)->fetch(PDO::FETCH_ASSOC);
+            $numfailedlogins = $returnedquery['NumFailedLogins'];
+//curtime - singletimestamp = seconds since login failure. This requires a 5 minute waiting period.
+                if (($curtime-$singletimestamp) < 300 && $numfailedlogins > 2)
+                    {
+                    echo "You have exceeded failed password attempt count. Please wait 5 minutes and login again.";
+                    exit;
+                    }
+                    else {
+                    $sqlinsert = "UPDATE users SET NumFailedLogins = 0 WHERE Email = '$email';";  //insert new failed login count
+                $db->execute($sqlinsert);
+                    }
                 $_SESSION["Current_User"] = $return["UserID"];
                 $_SESSION["Logged_In"] = true;
                 $_SESSION["Email_Validated"] = $return["EmailValidated"];
