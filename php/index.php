@@ -120,8 +120,21 @@
                 case null:
                     $post->getPosts();
                     break;
+                case "my-listings":
+                    $post->getCurrUserPosts();
+                    break;
                 case "listing":
                     $post->getPostDetails();
+                    break;
+                case "my-listing":
+                    if(isset($_POST["editSubmit"])){
+                        $postID = $_GET["post-id"];
+                        $post->editPost();
+                        header("Location: index.php?option=my-listing&post-id=$postID");
+                    }
+                    else{
+                        $post->getCurrUserPostDetails();
+                    }
                     break;
                 case "create-post":
                     if(isset($_POST["createSubmit"])){
@@ -132,10 +145,10 @@
                         header("Location: createpost.php");
                     }
                     break;
-                case "mark-sold":
+                case "mark-if-sold":
                     $postID = $_GET["post-id"];
-                    if($post->markSold())
-                        header("Location: index.php?option=listing&post-id=$postID"); //redirect back to same page
+                    if($post->markIfSold())
+                        header("Location: index.php?option=my-listing&post-id=$postID"); //redirect back to same page
                     else
                         header("Location: index.php?option=forbidden");
                     break;
@@ -144,6 +157,18 @@
                     $post->addComment();
                     header("Location: index.php?option=listing&post-id=$postID"); //redirect back to same page
                     break;
+                case "delete-listing":
+                    if($post->deletePost()){
+                        header("Location: index.php?option=my-listings");
+                    }
+                    else{
+                        header("Location: index.php?option=forbidden");
+                    }
+                    break;
+                case "update-listing-pic":
+                    $postID = $_GET["post-id"];
+                    $post->updateListingPic();
+                    header("Location: index.php?option=my-listing&post-id=$postID");
                 case "user-profile":
                     $user->getUserProfile();
                     break;
@@ -157,7 +182,7 @@
                     header("Location: index.php?option=user-profile");
                     break;
                 default:
-                    echo "Forbidden Access/Already Logged In.";
+                    echo "Forbidden Access";
                     break;
             }
         }
