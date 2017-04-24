@@ -18,7 +18,16 @@
                         $buttonLink .= "&user-id=".$_GET['user-id'];
                     }
                     $buttonIcon = "fa fa-fw fa-envelope-open-o";
-                    include "views/splash_page.php";
+                    if(isset($_SESSION["Current_User"])){
+                        include "../html/header_style1.html";
+                        include "views/splash_page.php";
+                        include "../html/footer2.html";
+                    }
+                    else{
+                        include "../html/logged_out_header.html";
+                        include "views/splash_page.php";
+                        include "../html/footer.html";
+                    }
                 }
                 else{
                     echo "Forbidden Access";
@@ -40,7 +49,16 @@
                         $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=login";
                     }
                     $buttonIcon = "fa fa-fw fa-money";
-                    include "views/splash_page.php";
+                    if(isset($_SESSION["Current_User"])){
+                        include "../html/header_style1.html";
+                        include "views/splash_page.php";
+                        include "../html/footer2.html";
+                    }
+                    else{
+                        include "../html/logged_out_header.html";
+                        include "views/splash_page.php";
+                        include "../html/footer.html";
+                    }
                 }
                 else{
                     //splash page with error message, should button be displayed?
@@ -52,7 +70,16 @@
                         $buttonLink .= "&user-id=".$_GET['user-id'];
                     }
                     $buttonIcon = "fa fa-fw fa-envelope-open-o";
-                    include "views/splash_page.php";
+                    if(isset($_SESSION["Current_User"])){
+                        include "../html/header_style1.html";
+                        include "views/splash_page.php";
+                        include "../html/footer2.html";
+                    }
+                    else{
+                        include "../html/logged_out_header.html";
+                        include "views/splash_page.php";
+                        include "../html/footer.html";
+                    }
                 }
                 break;
         }
@@ -85,7 +112,16 @@
                         $buttonText = "Resend Email";
                         $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
                         $buttonIcon = "fa fa-fw fa-envelope-open-o";
-                        include "views/splash_page.php";
+                        if(isset($_SESSION["Current_User"])){
+                            include "../html/header_style1.html";
+                            include "views/splash_page.php";
+                            include "../html/footer2.html";
+                        }
+                        else{
+                            include "../html/logged_out_header.html";
+                            include "views/splash_page.php";
+                            include "../html/footer.html";
+                        }
                     }
                     else{
                         //error creating user or user email already exists
@@ -99,25 +135,80 @@
                 break;
             case "send-password-reset":
                 if($user->sendPasswordResetEmail()){
-                    echo "password reset email sent/show link to try again";
+                    //echo "password reset email sent/show link to try again";
+                    $message = "A password email has been sent.";
+                    $buttonText = "Resend Email";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
+                    $buttonIcon = "";
+                    if(isset($_SESSION["Current_User"])){
+                        include "../html/header_style1.html";
+                        include "views/splash_page.php";
+                        include "../html/footer2.html";
+                    }
+                    else{
+                        include "../html/logged_out_header.html";
+                        include "views/splash_page.php";
+                        include "../html/footer.html";
+                    }
                 }
                 else{
-                    echo "email not found/try again";
+                   // echo "email not found/try again";
+                    $message = "No account was found for that email.";
+                    $buttonText = "Try Again";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
+                    $buttonIcon = "";
+                    if(isset($_SESSION["Current_User"])){
+                        include "../html/header_style1.html";
+                        include "views/splash_page.php";
+                        include "../html/footer2.html";
+                    }
+                    else{
+                        include "../html/logged_out_header.html";
+                        include "views/splash_page.php";
+                        include "../html/footer.html";
+                    }
                 }
                 break;
             case "password-reset":
                 if(isset($_POST["resetSubmit"])){
                     $user->resetPassword();
-                    echo "password reset";
+                    $message = "Your password has been reset.";
+                    $buttonText = "Buy/Sell";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=login";
+                    $buttonIcon = "fa fa-fw fa-money";
+                    if(isset($_SESSION["Current_User"])){
+                        include "../html/header_style1.html";
+                        include "views/splash_page.php";
+                        include "../html/footer2.html";
+                    }
+                    else{
+                        include "../html/logged_out_header.html";
+                        include "views/splash_page.php";
+                        include "../html/footer.html";
+                    }
                 }
                 else{
-                    if($user->checkHashToken()){
+                    if($user->checkHashToken()){ //or userID/hashToken GET parameters not set
                         //display form
                         require_once "../html/passreset.html";
                     }
                     else{
                         //display error/link to password reset
-                        echo "error/try again";
+                        //echo "error/try again";
+                        $message = "There was an issue processing the password reset request.";
+                        $buttonText = "Try Again";
+                        $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
+                        $buttonIcon = "";
+                        if(isset($_SESSION["Current_User"])){
+                            include "../html/header_style1.html";
+                            include "views/splash_page.php";
+                            include "../html/footer2.html";
+                        }
+                        else{
+                            include "../html/logged_out_header.html";
+                            include "views/splash_page.php";
+                            include "../html/footer.html";
+                        }
                     }
                 }
                 break;
@@ -137,7 +228,16 @@
             $buttonText = "Resend Email";
             $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
             $buttonIcon = "fa fa-fw fa-envelope-open-o";
-            include "views/splash_page.php";
+            if(isset($_SESSION["Current_User"])){
+                include "../html/header_style1.html";
+                include "views/splash_page.php";
+                include "../html/footer2.html";
+            }
+            else{
+                include "../html/logged_out_header.html";
+                include "views/splash_page.php";
+                include "../html/footer.html";
+            }
         }
         else{
             switch($option){
