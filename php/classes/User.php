@@ -132,7 +132,7 @@
         public function sendPasswordResetEmail(){
             $db = new DB();
             $email = $_POST["email"];
-            $sql = "SELECT * FROM users WHERE Email = $email;";
+            $sql = "SELECT * FROM users WHERE Email = '$email';";
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             if(!$return){ //email does not exist
                 return false;
