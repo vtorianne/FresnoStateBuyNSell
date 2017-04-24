@@ -5,6 +5,7 @@
     require_once "../../PHPMailer-master/PHPMailerAutoload.php";
     require_once "../../EmailPassword.php";
     require_once "views/email.php";
+    require_once "views/passresetemail.php";
     class User{
         public function register(){
             $firstName = $_POST['firstName'];
@@ -51,7 +52,7 @@
             $numfailedloginsarray = "SELECT NumFailedLogins FROM users WHERE Email = '$email';";
             $returnedquery = $db->query($numfailedloginsarray)->fetch(PDO::FETCH_ASSOC);
             $numfailedlogins = $returnedquery['NumFailedLogins'];
-//curtime - singletimestamp = seconds since login failure. This requires a 5 minute waiting period.
+            //curtime - singletimestamp = seconds since login failure. This requires a 5 minute waiting period.
                 if (($curtime-$singletimestamp) < 300 && $numfailedlogins > 2)
                     {
                     echo "You have exceeded failed password attempt count. Please wait 5 minutes and login again.";
@@ -128,7 +129,27 @@
             }
         }
 
-        public function validateEmail(){
+        public function sendPasswordResetEmail(){
+            $db = new DB();
+            $email = $_POST["email"];
+            $sql = "SELECT * FROM users WHERE Email = $email;";
+            $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+            if(!$return){ //email does not exist
+                return false;
+            }
+            else{
+                $UserID = $return["UserID"];
+                $HashToken=  md5( rand(0,1000) );
+                //store in database
+                $sql = "UPDATE users SET HashToken='$HashToken' WHERE UserID = $UserID;";
+                $db->execute($sql);
+                $emailBody = getPassResetEmailBody($UserID, $HashToken, $return['FirstName'], $return['LastName']);
+                $this->sendEmail($email, $emailBody, "Reset Password");
+                return true;
+            }
+        }
+
+        public function checkHashToken(){
             $db = new DB();
             //get user ID and hash token from GET
             $userID = $_GET["user-id"];
@@ -136,7 +157,13 @@
             //search for match in the db -> $sql
             $sql = "SELECT * FROM users WHERE UserID = $userID and HashToken = '$hashToken';";
             $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
-            if(!$return){
+            return $return ? true : false;
+        }
+
+        public function validateEmail(){
+            $db = new DB();
+            $userID = $_GET["user-id"];
+            if(!$this->checkHashToken()){
                 //no match found, either userID dne or hash token is wrong
                 return false;
             }
@@ -147,6 +174,14 @@
                 $_SESSION["Email_Validated"] = true;
                 return true;
             }
+        }
+
+        public function resetPassword(){
+            $db = new DB();
+            $userID = $_GET["user-id"];
+            $password = $_POST["password"];
+            $sql = "UPDATE users SET Password=MD5('$password') WHERE UserID = $userID;";
+            $db->execute($sql);
         }
 
         public function getUserProfile(){
