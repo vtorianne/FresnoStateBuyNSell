@@ -23,7 +23,6 @@
             require_once "../html/header_style2.html"; //header
             require_once "views/listings.php";
             require_once "../html/footer2.html"; //footer
-            //var_dump($posts); //checks sql return directly
         }
 
         public function getCurrUserPosts(){
