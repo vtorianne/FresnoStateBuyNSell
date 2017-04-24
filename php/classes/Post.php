@@ -155,8 +155,10 @@
                 else{
                     $sql .= " AND ";
                 }
-                $keywords = explode(" ", $filters["keywords"]);
-                //to be finished
+                $keywords = explode(" ", $_POST["keywords"]);
+                $searchTerm = implode("%", $keywords);
+                $searchTerm = "%".$searchTerm."%";
+                $sql .= "ProductName LIKE '$searchTerm' OR Description LIKE '$searchTerm'";
             }
             switch($_POST["Filter"]){ //sortBy
                 case "Most Recent":

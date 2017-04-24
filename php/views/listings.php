@@ -3,15 +3,15 @@ echo <<<EOD
             <div id="wrap">
             <div class="container">
             <div style="float:right; margin-top: 20px;" class="row">
+                <form class="form-horizontal" role="form" action="/FresnoStateBuyNSell/php/index.php" method="post">
                 <div class="col-md-12">
                     <div class="input-group" id="adv-search">
-                        <input type="disabled" class="form-control" placeholder="Search for listings"/>
+                        <input name="keywords" class="form-control" placeholder="Search for listings"/>
                         <div class="input-group-btn">
                             <div class="btn-group" role="group">
                                 <div class="dropdown dropdown-lg">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-    <form class="form-horizontal" role="form" action="/FresnoStateBuyNSell/php/index.php" method="post">
                                           
      <!------START FILTER BY FORM GROUP----->
         
