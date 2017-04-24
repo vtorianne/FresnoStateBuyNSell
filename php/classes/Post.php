@@ -42,7 +42,7 @@
                 array_push($posts, $post);
             }
             require_once "../html/header_style2.html"; //header
-            //require_once "views/NAME_OF_FILE.php"; //template
+            require_once "views/mylistings.php"; //template
             require_once "../html/footer2.html"; //footer
 
         }
