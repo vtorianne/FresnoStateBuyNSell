@@ -99,7 +99,12 @@
                 break;
             case "send-password-reset":
                 if($user->sendPasswordResetEmail()){
-                    echo "password reset email sent/show link to try again";
+                        $message = "Password request has been created and a validation email has been sent.";
+                        $buttonText = "Resend Email";
+                        $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-password-reset";
+                        $buttonIcon = "fa fa-key";
+                        include "views/splash_page.php";
+//                    echo "password reset email sent/show link to try again";
                 }
                 else{
                     echo "email not found/try again";
@@ -108,7 +113,12 @@
             case "password-reset":
                 if(isset($_POST["resetSubmit"])){
                     $user->resetPassword();
-                    echo "password reset";
+                    $message = "Password has been reset. Start buying/selling.";
+                    $buttonText = "Log in";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=login";
+                    $buttonIcon = "fa fa-sign-in";
+                    include "views/splash_page.php";
+//                    echo "password reset";
                 }
                 else{
                     if($user->checkHashToken()){
@@ -193,7 +203,6 @@
                     $postID = $_GET["post-id"];
                     $post->updateListingPic();
                     header("Location: index.php?option=my-listing&post-id=$postID");
-                    break;
                 case "user-profile":
                     $user->getUserProfile();
                     break;
