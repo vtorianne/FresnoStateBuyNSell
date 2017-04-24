@@ -40,6 +40,10 @@ form {
     color: #207cca;
 }
 
+select.mySelect {
+    float: none;
+}
+
 select {
     float: right;
 }

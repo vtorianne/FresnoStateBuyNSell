@@ -25,14 +25,14 @@ echo <<<EOD
                 <textarea name="desc" type="text" value="{$postReturn["Description"]}">Description
                 </textarea>
                 <h4>Item Condition</h4>
-                <select class="" name="condition">
+                <select class="mySelect" name="condition">
                     <optgroup label="Condition">
                         <option value="1">New</option>
                         <option value="2">Used</option>
                     </optgroup>
                 </select>
                 <h4>Item Category</h4>
-                <select class="" name="category">
+                <select class="mySelect" name="category">
                     <optgroup label="Categories">]
 EOD;
 foreach($categories as $category){
@@ -46,7 +46,7 @@ echo <<<EOD
                 \$<input type="text" name="price" value="{$postReturn["Price"]}">
                 </input></h3>
                 
-                <button type="submit" name="editSubmit">
+                <button style="margin" type="submit" name="editSubmit">
                     <strong>Add/Edit Changes</strong>
                 </button>
                 </form>
@@ -82,8 +82,8 @@ echo <<<EOD
                     <strong>Delete Post</strong>
                 </button>
              </form>
-             <p>Update Listing Picture:</p> 
-            <form method="post" action="/FresnoStateBuyNSell/php/index.php?option=update-listing-pic&post-id={$postID}" enctype="multipart/form-data">
+             <p style="margin-top: 10px;">Update Listing Picture:</p> 
+            <form style="margin-top: 5px" method="post" action="/FresnoStateBuyNSell/php/index.php?option=update-listing-pic&post-id={$postID}" enctype="multipart/form-data">
                 <input type="file" name="pic" accept="image/*">
                 <button style="margin-top: 10px;" type="submit" class="btn btn-primary btn-sm">Upload</button>
             </form>
