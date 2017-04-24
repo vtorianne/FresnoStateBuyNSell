@@ -97,6 +97,30 @@
                     include "../html/register.html";
                 }
                 break;
+            case "send-password-reset":
+                if($user->sendPasswordResetEmail()){
+                    echo "password reset email sent/show link to try again";
+                }
+                else{
+                    echo "email not found/try again";
+                }
+                break;
+            case "password-reset":
+                if(isset($_POST["resetSubmit"])){
+                    $user->resetPassword();
+                    echo "password reset";
+                }
+                else{
+                    if($user->checkHashToken()){
+                        //display form
+                        require_once "../html/passreset.html";
+                    }
+                    else{
+                        //display error/link to password reset
+                        echo "error/try again";
+                    }
+                }
+                break;
             default:
                 echo "Forbidden Access";
                break;
