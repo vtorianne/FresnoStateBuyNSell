@@ -70,7 +70,7 @@
                 <h1 class="text-center">Password Reset</h1>
             </div>
             <div class="modal-body">
-                <form name="registration" onsubmit="return !!(validateEmail() && Validate())" class="form col-md-12 center-block" action="index.php?option=register" method="post">
+                <form name="registration" onsubmit="return !!(validateEmail() && Validate())" class="form col-md-12 center-block" action="#" method="post">
                     <div class="form-group">
                         <input type="email" class="form-control input-lg" name="email" placeholder="Email" onpaste="validateEmailDisplay()" onChange="validateEmailDisplay();" required>
                         <div id="divcheckemail"></div>
@@ -87,7 +87,7 @@
                         <div id="divCheckPasswordMatch"></div>
                     </div>
                     <div class="form-group">
-                        <button id="subBtn" type="submit" class="btn btn-primary btn-lg btn-block">Change Password</button>
+                        <button id="subBtn" name="resetSubmit" type="submit" class="btn btn-primary btn-lg btn-block">Change Password</button>
                     </div>
                 </form>
             </div>
