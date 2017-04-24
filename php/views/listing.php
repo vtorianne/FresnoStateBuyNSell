@@ -32,16 +32,12 @@ EOD;
                 //display Sold icon
                 echo '<strong class="text-success">SOLD </strong><small> </small><i class="glyphicon glyphicon-check"></i>';
                 }
-                /*else if($userID == $_SESSION["Current_User"]){
+                else if($userID == $_SESSION["Current_User"]){
                 //display mark as sold form
                 echo <<<EOD
-                <form action="/FresnoStateBuyNSell/php/index.php?option=mark-if-sold&post-id={$postID}" method="post">
-                    <button type="submit">
-                        <strong class="text-success">MARK AS SOLD </strong> <small></small><i class="glyphicon glyphicon-unchecked"></i>
-                    </button>
-                </form>
+                    <a href="/FresnoStateBuyNSell/php/index.php?option=my-listing&post-id={$postID}" class="btn btn-default btn-sml active" role="button">Edit</a>
 EOD;
-                }*/
+                }
                 echo <<<EOD
             </div>
         </div>
