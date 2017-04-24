@@ -165,8 +165,9 @@
                 case "Price low to high":
                     $sql .= " ORDER BY Price ASC";
                     break;
-                /*case "Best User rating":
-                    break;*/
+                case "Best User rating":
+                    $sql .= " INNER JOIN (SELECT ProfileID, AVG(StarRating) as AVGRating FROM reviews GROUP BY ProfileID) ReviewsAverage on ProfileID = products.userID ORDER BY AVGRating DESC";
+                    break;
             }
             $sql .= ";";
             return $sql;
