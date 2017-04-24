@@ -23,11 +23,10 @@
 
 
     addEventListener('keyup', validateEmailDisplay, false);
-    addEventListener('keyup', passwordMatchDisplay, false);
 
         function validateEmailDisplay() {
         var email = document.forms["registration"]["email"].value;
-        var btn =  document.getElementById("subBtn");
+        emailBtn();
         if (email == null || email.substring(email.indexOf("@")) != "@mail.fresnostate.edu") {
             $("#divcheckemail").html("Invalid email: must be a Fresno State email.");
             document.getElementById("divcheckemail").style.color = "red";
@@ -37,7 +36,8 @@
             document.getElementById("divcheckemail").style.color = "green";
         }
         }
-
+    
+    addEventListener('keyup', passwordMatchDisplay, false);
         function passwordMatchDisplay() {
         var password = document.forms["registration"]["password"];
         var password_confirmation = document.forms["registration"]["password_confirmation"];
@@ -155,7 +155,20 @@
         }
         return total;
     }
+    
 
+    function emailBtn(){
+        var email = document.forms["registration"]["email"].value;
+        var btn =  document.getElementById("subBtn");
+    if (email == null || email.substring(email.indexOf("@")) != "@mail.fresnostate.edu") {
+          $(btn).addClass('disabled');
+          $(btn).attr("disabled", true);
+      }
+      else {
+        $(btn).removeClass('disabled');
+        $(btn).attr("disabled", false);
+      }
+    }
 
     function displayBtn(){
       console.log('displayBtn called');

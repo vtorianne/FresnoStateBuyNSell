@@ -42,7 +42,7 @@
                 array_push($posts, $post);
             }
             require_once "../html/header_style2.html"; //header
-            //require_once "views/NAME_OF_FILE.php"; //template
+            require_once "views/mylistings.php"; //template
             require_once "../html/footer2.html"; //footer
 
         }
@@ -74,7 +74,7 @@
                 $categories = $this->getPostCategories();
                 $conditions = $this->getPostConditions();
                 require_once "../html/header_style2.html"; //header
-                //require_once "views/NAME_OF_FILE.php"; //template
+                require_once "views/dashboard.php"; //template
                 require_once "../html/footer2.html"; //footer
             }
             else{
@@ -168,7 +168,6 @@
                 /*case "Best User rating":
                     break;*/
             }
-            echo $sql;
             $sql .= ";";
             return $sql;
         }
@@ -219,8 +218,22 @@
             $db->execute($sql);
         }
 
-        public function markSold(){
+        public function editPost(){
+            $db = new DB();
             $postID = $_GET["post-id"];
+            $productname = $_POST["title"];
+            $categoryID = $_POST["category"];
+            $conditionID = $_POST["condition"];
+            $price = $_POST["price"];
+            $description = (isset($_POST["desc"]) ? $_POST["desc"] : "");
+            $sql = "UPDATE products SET ProductName = '$productname', CategoryID = $categoryID, ConditionID = $conditionID, Price = $price, Description = '$description', ModifiedTime = NOW() WHERE ProductID = $postID;";
+            echo $sql;
+            $db->execute($sql);
+        }
+
+        public function markIfSold(){
+            $postID = $_GET["post-id"];
+            $sold = $_GET["sold"];
             $currUserID = $_SESSION["Current_User"];
             $db = new DB();
             $sql = "SELECT UserID FROM products WHERE ProductID = $postID;"; //get Post's userID
@@ -229,7 +242,7 @@
                 return false;
             }
             else{
-                $sql = "UPDATE products SET Sold=1 WHERE ProductID = $postID;"; //update "Sold" to true
+                $sql = "UPDATE products SET Sold=$sold WHERE ProductID = $postID;"; //update "Sold" to true
                 $db->execute($sql);
                 return true;
             }
@@ -249,6 +262,16 @@
                 $db->execute($sql);
                 return true;
             }
+        }
+
+        public function updateListingPic(){
+            $postID = $_GET["post-id"];
+            $db = new DB();
+            $target_file = "/uploads/listing_pics/".basename($_FILES["pic"]["name"]);
+            $target_dir =  $_SERVER['DOCUMENT_ROOT'].$target_file;
+            move_uploaded_file($_FILES["pic"]["tmp_name"], $target_dir);
+            $sql = "UPDATE products SET PicturePath = '$target_file' where ProductID = $postID;";
+            $db->execute($sql);
         }
 
         public function addComment(){
