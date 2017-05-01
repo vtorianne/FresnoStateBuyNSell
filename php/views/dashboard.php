@@ -50,9 +50,6 @@ echo <<<EOD
                     <strong>Add/Edit Changes</strong>
                 </button>
                 </form>
-            </div>
-            
-            <div class="col-md-4">
 EOD;
 if($postReturn["Sold"] == 1){
     //display Sold icon
