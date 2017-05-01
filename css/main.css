@@ -186,8 +186,9 @@ footer {
             display:inline-block;
         }
         div.filtercategory select {
+            margin-top: 5px;
             float: none;
-            margin-left: 50px;
+            margin-left: 5px;
         }
         div.filter-formbuy input {
             width: 28%;

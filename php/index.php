@@ -156,7 +156,7 @@
                     $message = "No account was found for that email.";
                     $buttonText = "Try Again";
                     $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
-                    $buttonIcon = "";
+                    $buttonIcon = "fa fa-refresh";
                     if(isset($_SESSION["Current_User"])){
                         include "../html/header_style1.html";
                         include "views/splash_page.php";
@@ -199,7 +199,7 @@
                         $message = "There was an issue processing the password reset request.";
                         $buttonText = "Try Again";
                         $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
-                        $buttonIcon = "";
+                        $buttonIcon = "fa fa-refresh";
                         if(isset($_SESSION["Current_User"])){
                             include "../html/header_style1.html";
                             include "views/splash_page.php";
@@ -294,6 +294,7 @@
                     $postID = $_GET["post-id"];
                     $post->updateListingPic();
                     header("Location: index.php?option=my-listing&post-id=$postID");
+                    break;
                 case "user-profile":
                     $user->getUserProfile();
                     break;
