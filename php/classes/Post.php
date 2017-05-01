@@ -155,8 +155,10 @@
                 else{
                     $sql .= " AND ";
                 }
-                $keywords = explode(" ", $filters["keywords"]);
-                //to be finished
+                $keywords = explode(" ", $_POST["keywords"]);
+                $searchTerm = implode("%", $keywords);
+                $searchTerm = "%".$searchTerm."%";
+                $sql .= "ProductName LIKE '$searchTerm' OR Description LIKE '$searchTerm'";
             }
             switch($_POST["Filter"]){ //sortBy
                 case "Most Recent":
@@ -165,8 +167,12 @@
                 case "Price low to high":
                     $sql .= " ORDER BY Price ASC";
                     break;
-                /*case "Best User rating":
-                    break;*/
+                case "Best User rating":
+                    $sql .= " INNER JOIN (SELECT ProfileID, AVG(StarRating) AS AVGRating FROM reviews GROUP BY ProfileID) ReviewsAverage on ProfileID = products.userID ORDER BY AVGRating DESC";
+                    break;
+                case "Last Updated":
+                    $sql .= " ORDER BY ModifiedTime DESC";
+                    break;
             }
             $sql .= ";";
             return $sql;
