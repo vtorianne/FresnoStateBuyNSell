@@ -3,18 +3,18 @@ echo <<<EOD
             <div id="wrap">
             <div class="container">
             <div style="float:right; margin-top: 20px;" class="row">
-                <form class="form-horizontal" role="form" action="/FresnoStateBuyNSell/php/index.php" method="post">
                 <div class="col-md-12">
                     <div class="input-group" id="adv-search">
-                        <input name="keywords" class="form-control" placeholder="Search for listings"/>
+                        <input type="disabled" name="keywords" form="searchform" class="form-control" placeholder="Search for listings"/>
                         <div class="input-group-btn">
                             <div class="btn-group" role="group">
                                 <div class="dropdown dropdown-lg">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded=""><span class="caret"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    
+                                    <form id="searchform" class="form-horizontal" role="form" action="/FresnoStateBuyNSell/php/index.php" method="post">
                                           
-     <!------START FILTER BY FORM GROUP----->
-        
+    <!------START FILTER BY FORM GROUP----->  
     <div class="filter-formbuy">
         <label for="minprice">Min Price: </label>
         <input class="" type="" name="Min"/>
@@ -42,21 +42,21 @@ echo <<<EOD
     <div class="filtercategory">
     <div class="category">
     <span>Categories:</span>
-    <select class="" name="category">
+    <select class="category" name="category">
     <optgroup label="Categories">
         <option selected value="">---</option>
 EOD;
         foreach($categories as $category){
             echo "<option value='".$category['CategoryID']."'>".$category['CategoryName']."</option>";
         }
-echo <<<EOD
+echo<<<EOD
     </optgroup>
     </select>
     </div>
     
     <div class="sortby">
     <span>Sort By:</span>
-    <select class="" name="Filter">
+    <select class="filter" name="Filter">
     <optgroup label="Filters">
     <option value="Most Recent" selected>Most Recent</option>
     <option value="Price low to high">Price Low to High</option>
