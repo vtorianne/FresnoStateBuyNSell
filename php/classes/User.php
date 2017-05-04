@@ -6,6 +6,7 @@
     require_once "../../EmailPassword.php";
     require_once "views/email.php";
     require_once "views/passresetemail.php";
+    require_once "views/acclocked.php";
     class User{
         public function register(){
             $firstName = $_POST['firstName'];
@@ -173,6 +174,26 @@
                 $db->execute($sql);
                 $emailBody = getPassResetEmailBody($UserID, $HashToken, $return['FirstName'], $return['LastName']);
                 $this->sendEmail($email, $emailBody, "Reset Password");
+                return true;
+            }
+        }
+        
+        public function sendAccUnlockEmail(){
+            $db = new DB();
+            $email = $_POST["email"];
+            $sql = "SELECT * FROM users WHERE Email = '$email';";
+            $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+            if(!$return){ //email does not exist
+                return false;
+            }
+            else{
+                $UserID = $return["UserID"];
+                $HashToken=  md5( rand(0,1000) );
+                //store in database
+                $sql = "UPDATE users SET HashToken='$HashToken', Locked=1 WHERE UserID = $UserID;";
+                $db->execute($sql);
+                $emailBody = getPassResetEmailBody($UserID, $HashToken, $return['FirstName'], $return['LastName']);
+                $this->sendEmail($email, $emailBody, "Unlock Account");
                 return true;
             }
         }

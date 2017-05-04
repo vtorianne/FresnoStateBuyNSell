@@ -27,7 +27,7 @@ echo <<<EOD
                 <h4>Item Condition</h4>
                 <select class="mySelect" name="condition">
                     <optgroup label="Condition">
-                        <option value="1">New</option>
+                        <option value="1">New </option>
                         <option value="2">Used</option>
                     </optgroup>
                 </select>
@@ -46,13 +46,11 @@ echo <<<EOD
                 \$<input type="text" name="price" value="{$postReturn["Price"]}">
                 </input></h3>
                 
+                
                 <button style="margin" type="submit" name="editSubmit">
                     <strong>Add/Edit Changes</strong>
                 </button>
                 </form>
-            </div>
-            
-            <div class="col-md-4">
 EOD;
 if($postReturn["Sold"] == 1){
     //display Sold icon
