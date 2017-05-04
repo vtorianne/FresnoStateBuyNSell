@@ -1,5 +1,5 @@
 <?php
-    function getValidationEmailBody($UserID, $HashToken, $FirstName, $LastName) {
+    function getAcccountUnlockEmailBody($UserID, $HashToken, $FirstName, $LastName) {
         return "
             <HTML>
             <head>
