@@ -24,8 +24,7 @@ echo <<<EOD
                 <p>{$postReturn["Description"]}</p>
                 <h4>Item Condition</h4>
                 <p>{$conditionReturn["ConditionName"]}</p>
-            </div>
-            <div class="col-md-4">
+
                 <h3>\${$postReturn["Price"]}</h3>
 EOD;
                 if($postReturn["Sold"] == 1){
