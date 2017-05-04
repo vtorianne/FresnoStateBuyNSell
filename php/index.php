@@ -92,12 +92,13 @@
                 break;
             case "login":
                 if(isset($_POST['email']) && isset($_POST['password'])){
-                    if($user->login()){
+                    /*if($user->login()){
                         header('Location: index.php'); //redirect to home page if success
                     }
                     else{
                         include "../html/signinerror.html";  //display login form with wrong username/password message
-                    }
+                    }*/
+                    $user->login();
                 }
                 else{
                     //display login form
