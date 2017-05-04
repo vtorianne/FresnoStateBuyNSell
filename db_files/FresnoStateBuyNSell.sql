@@ -57,8 +57,9 @@ CREATE TABLE `users` (
   `PicturePath` varchar(200) NOT NULL,
   `EmailValidated` bit(1) NOT NULL DEFAULT b'0',
   `HashToken` varchar(500) NOT NULL,
-  `LastFailedLogin` varchar(50) DEFAULT NULL,
-  `NumFailedLogins` int(11) DEFAULT NULL
+  `LastFailedLogin` varchar(50) DEFAULT '0',
+  `NumFailedLogins` int(11) DEFAULT NULL,
+  `Locked` bit(1) DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -92,9 +93,9 @@ ALTER TABLE `comments`
 ALTER TABLE `conditions`
   MODIFY `ConditionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 ALTER TABLE `products`
-  MODIFY `ProductID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ProductID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 ALTER TABLE `reviews`
-  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 ALTER TABLE `users`
   MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
