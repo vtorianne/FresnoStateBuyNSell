@@ -22,8 +22,7 @@ echo <<<EOD
             </div>
             <div class="col-md-4">
                 <h4>Item Description</h4>
-                <textarea name="desc" type="text" value="{$postReturn["Description"]}">Description
-                </textarea>
+                <textarea name="desc" type="text">{$postReturn["Description"]}</textarea>
                 <h4>Item Condition</h4>
                 <select class="mySelect" name="condition">
                     <optgroup label="Condition">
