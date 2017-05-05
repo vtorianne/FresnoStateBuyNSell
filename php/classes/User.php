@@ -87,13 +87,13 @@
                     $sqlinsert = "UPDATE users SET NumFailedLogins = 0 WHERE Email = '$email';";  //insert new failed login count
                     $db->execute($sqlinsert);
                     //login successful
+                    $_SESSION["Current_User"] = $return["UserID"];
+                    $_SESSION["Logged_In"] = true;
+                    $_SESSION["Email_Validated"] = $return["EmailValidated"];
+
                     echo "Login successful";
-                    exit;
                     }
                 }
-                $_SESSION["Current_User"] = $return["UserID"];
-                $_SESSION["Logged_In"] = true;
-                $_SESSION["Email_Validated"] = $return["EmailValidated"];
                 return true;
             }
 
