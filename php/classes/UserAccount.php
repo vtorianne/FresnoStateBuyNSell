@@ -40,13 +40,12 @@
             $sql = "SELECT UserID, Locked FROM users WHERE Email = '$email';";  //query User record where email match given
             $returnLock = $this->db->query($sql)->fetch(PDO::FETCH_ASSOC);
             if(!$returnLock){
-                /*account does not exist.*/ echo "account does not exist";
+                /*account does not exist.*/
                 return "wrong_email_or_password";
             }
-            if ($returnLock['Locked'] == 1){
+            else if ($returnLock['Locked'] == 1){
                 //return account locked (prior to login attempt)
-                echo "Account locked prior to login attempt";
-                exit;
+                return "account_locked";
             }
             else {
                 $sql = "SELECT UserID, EmailValidated FROM users WHERE Email = '$email' AND Password = MD5('$password');";  //query User record where email and password match those given
@@ -63,12 +62,11 @@
 
                     if (($curtime-$singletimestamp) < 300 && $numfailedlogins > 2){
                         $this->lockaccount($email);
-                        //return locked account page
-                        echo "Login locked after login attempt";
-                        exit;
+                        $this->sendAccUnlockEmail($email);
+                        return "account_locked";
                     }
                     //wrong email/password
-                    echo "Incorrect password";
+                    return "wrong_email_or_password";
                 }
                 else {
                     $sqlinsert = "UPDATE users SET NumFailedLogins = 0 WHERE Email = '$email';";  //insert new failed login count
@@ -77,11 +75,9 @@
                     $_SESSION["Current_User"] = $return["UserID"];
                     $_SESSION["Logged_In"] = true;
                     $_SESSION["Email_Validated"] = $return["EmailValidated"];
-
-                    echo "Login successful";
+                    return "success";
                 }
             }
-            return true;
         }
 
         public function logout(){
@@ -155,23 +151,16 @@
             }
         }
         
-        public function sendAccUnlockEmail(){
-            $email = $_POST["email"];
+        public function sendAccUnlockEmail($email){
             $sql = "SELECT * FROM users WHERE Email = '$email';";
             $return = $this->db->query($sql)->fetch(PDO::FETCH_ASSOC);
-            if(!$return){ //email does not exist
-                return false;
-            }
-            else{
-                $UserID = $return["UserID"];
-                $HashToken=  md5( rand(0,1000) );
-                //store in database
-                $sql = "UPDATE users SET HashToken='$HashToken', Locked=1 WHERE UserID = $UserID;";
-                $this->db->execute($sql);
-                $emailBody = getPassResetEmailBody($UserID, $HashToken, $return['FirstName'], $return['LastName']);
-                $this->sendEmail($email, $emailBody, "Unlock Account");
-                return true;
-            }
+            $UserID = $return["UserID"];
+            $HashToken=  md5( rand(0,1000) );
+            //store in database
+            $sql = "UPDATE users SET HashToken='$HashToken' WHERE UserID = $UserID;";
+            $this->db->execute($sql);
+            $emailBody = getAcccountUnlockEmailBody($UserID, $HashToken, $return['FirstName'], $return['LastName']);
+            $this->sendEmail($email, $emailBody, "Unlock Account");
         }
 
         public function checkHashToken(){
@@ -211,8 +200,8 @@
             $this->db->execute($sqlinsert);
         }
 
-        public function unlockaccount($email){
-            $sqlinsert = "UPDATE users SET Locked = 0, SET LastFailedLogin = 0, NumFailedLogins = 0 WHERE Email = '$email';";  //Account unlocked
+        public function unlockaccount($userID){
+            $sqlinsert = "UPDATE users SET Locked = 0, LastFailedLogin = 0, NumFailedLogins = 0 WHERE UserID = $userID;";  //Account unlocked
             $this->db->execute($sqlinsert);
         }
 

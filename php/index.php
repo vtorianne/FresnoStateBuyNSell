@@ -102,12 +102,6 @@
                 break;
             case "login":
                 if(isset($_POST['email']) && isset($_POST['password'])){
-                    /*if($user->login()){
-                        header('Location: index.php'); //redirect to home page if success
-                    }
-                    else{
-                        include "../html/signinerror.html";  //display login form with wrong username/password message
-                    }*/
                     switch($userAccount->login()){
                         case "success":
                             header('Location: index.php');
@@ -116,7 +110,13 @@
                             include "../html/signinerror.html";
                             break;
                         case "account_locked":
-                            echo "splash page will go here";
+                            $message = "This account has been locked. Please check your email to unlock it.";
+                            $buttonText = "Go Back";
+                            $buttonLink = "../html/index.html";
+                            $buttonIcon = "fa fa-arrow-left ";
+                            include "../html/logged_out_header.html";
+                            include "views/splash_page.php";
+                            include "../html/footer.html";
                             break;
                     }
                 }
@@ -232,6 +232,27 @@
                             include "../html/footer.html";
                         }
                     }
+                }
+                break;
+            case "unlock-account":
+                if($userAccount->checkHashToken()){
+                    $userAccount->unlockaccount($_GET["user-id"]);
+                    $message = "Your account has been unlocked.";
+                    $buttonText = "Log In";
+                    $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=login";
+                    $buttonIcon = "fa fa-user-circle fa-fw";
+                    include "../html/logged_out_header.html";
+                    include "views/splash_page.php";
+                    include "../html/footer.html";
+                }
+                else{
+                    $message = "There was something wrong with unlocking the account.";
+                    $buttonText = "Go Back";
+                    $buttonLink = "../html/index.html";
+                    $buttonIcon = "fa fa-arrow-left ";
+                    include "../html/logged_out_header.html";
+                    include "views/splash_page.php";
+                    include "../html/footer.html";
                 }
                 break;
             default:
