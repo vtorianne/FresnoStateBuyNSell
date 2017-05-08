@@ -156,39 +156,20 @@
                 break;
             case "send-password-reset":
                 if($userAccount->sendPasswordResetEmail()){
-                        $message = "Password request has been created and a validation email has been sent.";
-                        $buttonText = "Resend Email";
-                        $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-password-reset";
-                        $buttonIcon = "fa fa-key";
-                        include "views/splash_page.php";
-                    if(isset($_SESSION["Current_User"])){
-                        include "../html/header_style1.html";
-                        include "views/splash_page.php";
-                        include "../html/footer2.html";
-                    }
-                    else{
-                        include "../html/logged_out_header.html";
-                        include "views/splash_page.php";
-                        include "../html/footer.html";
-                    }
+                    $message = "Password request has been created and a validation email has been sent.";
+                    $buttonText = "Go Back";
+                    $buttonLink = "../html/index.html";
+                    $buttonIcon = "fa fa-arrow-left ";
                 }
                 else{
-                   // echo "email not found/try again";
                     $message = "No account was found for that email.";
                     $buttonText = "Try Again";
                     $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
                     $buttonIcon = "fa fa-refresh";
-                    if(isset($_SESSION["Current_User"])){
-                        include "../html/header_style1.html";
-                        include "views/splash_page.php";
-                        include "../html/footer2.html";
-                    }
-                    else{
-                        include "../html/logged_out_header.html";
-                        include "views/splash_page.php";
-                        include "../html/footer.html";
-                    }
                 }
+                include "../html/logged_out_header.html";
+                include "views/splash_page.php";
+                include "../html/footer.html";
                 break;
             case "password-reset":
                 if(isset($_POST["resetSubmit"])){
@@ -197,17 +178,9 @@
                     $buttonText = "Log in";
                     $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=login";
                     $buttonIcon = "fa fa-sign-in";
+                    include "../html/logged_out_header.html";
                     include "views/splash_page.php";
-                    if(isset($_SESSION["Current_User"])){
-                        include "../html/header_style1.html";
-                        include "views/splash_page.php";
-                        include "../html/footer2.html";
-                    }
-                    else{
-                        include "../html/logged_out_header.html";
-                        include "views/splash_page.php";
-                        include "../html/footer.html";
-                    }
+                    include "../html/footer.html";
                 }
                 else{
                     if($userAccount->checkHashToken()){ //or userID/hashToken GET parameters not set
@@ -216,7 +189,6 @@
                     }
                     else{
                         //display error/link to password reset
-                        //echo "error/try again";
                         $message = "There was an issue processing the password reset request.";
                         $buttonText = "Try Again";
                         $buttonLink = "http://localhost/FresnoStateBuyNSell/html/psemail.html";
