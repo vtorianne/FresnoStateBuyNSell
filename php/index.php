@@ -288,7 +288,7 @@
                         header("Location: index.php");
                     }
                     else{
-                        header("Location: createpost.php");
+                        header("Location: views/createpost.php");
                     }
                     break;
                 case "mark-if-sold":
