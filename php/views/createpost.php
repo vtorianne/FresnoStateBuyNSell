@@ -11,13 +11,13 @@
     <title></title>
 
 
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
 
     <!-- Custom Fonts -->
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
   </head>
   <body>
@@ -67,7 +67,7 @@
           <h1 class="text-center">Create a Listing</h1>
       </div>
       <div class="modal-body">
-          <form class="form col-md-12 center-block" action="index.php?option=create-post" method="post" enctype="multipart/form-data">
+          <form class="form col-md-12 center-block" action="../index.php?option=create-post" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <input class="form-control" type="text" placeholder="Title" name="title" required>
             </div>
@@ -75,12 +75,11 @@
               <select name="category" required>
                   <option value="">Select Category</option>
                   <?php
-                    require_once("classes/DB.php");
-                    $db = new DB();
-                    $sql = "SELECT * FROM categories;";
-                    $return = $db->execute($sql);
-                    while($row = $return->fetch(PDO::FETCH_ASSOC)){
-                        echo "<option value='".$row["CategoryID"]."'>".$row["CategoryName"]."</option>'";
+                    require_once "../classes/PostRetrieval.php";
+                    $postRetrieval = new PostRetrieval();
+                    $categories = $postRetrieval->getPostCategories();
+                    foreach($categories as $category){
+                        echo "<option value='".$category["CategoryID"]."'>".$category["CategoryName"]."</option>'";
                     }
                   ?>
               </select>
@@ -92,10 +91,9 @@
               <select name="condition" required>
                   <option value="">Select Condition</option>
                   <?php
-                    $sql = "SELECT * FROM conditions;";
-                    $return = $db->execute($sql);
-                    while($row = $return->fetch(PDO::FETCH_ASSOC)){
-                        echo "<option value='".$row["ConditionID"]."'>".$row["ConditionName"]."</option>'";
+                    $conditions = $postRetrieval->getPostConditions();
+                    foreach($conditions as $condition){
+                        echo "<option value='".$condition["ConditionID"]."'>".$condition["ConditionName"]."</option>'";
                     }
                   ?>
               </select>
@@ -150,10 +148,10 @@
 
 
  <!-- jQuery -->
-    <script src="../js/jquery.js"></script>
+    <script src="../../js/jquery.js"></script>
 
 
   <!-- script references -->
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
   </body>
 </html>
