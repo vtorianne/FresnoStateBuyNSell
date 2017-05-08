@@ -2,11 +2,6 @@
     ini_set('display_errors',1);
     error_reporting(E_ALL);
     require_once "DB.php";
-    require_once "../../PHPMailer-master/PHPMailerAutoload.php";
-    require_once "../../EmailPassword.php";
-    require_once "views/email.php";
-    require_once "views/passresetemail.php";
-    require_once "views/acclocked.php";
     class User{
         public function register(){
             $firstName = $_POST['firstName'];
@@ -51,36 +46,35 @@
             $db = new DB();
             $sql = "SELECT UserID, Locked FROM users WHERE Email = '$email';";  //query User record where email match given
             $returnLock = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
-            if(!$returnLock){/*account does not exist.*/ echo "account does not exist";
-            exit;}
+            if(!$returnLock){
+                /*account does not exist.*/ echo "account does not exist";
+                return "wrong_email_or_password";
+            }
             if ($returnLock['Locked'] == 1){
-                //return account locked (prior to login attempt)
+            //return account locked (prior to login attempt)
                 echo "Account locked prior to login attempt";
                 exit;
-                }
+            }
             else {
-                
                 $sql = "SELECT UserID, EmailValidated FROM users WHERE Email = '$email' AND Password = MD5('$password');";  //query User record where email and password match those given
                 $return = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
                 if (!$return){
                     $curtime = time(); // Gets current time
-                    
-                     $sqlinsert = "UPDATE users SET LastFailedLogin = '$curtime', NumFailedLogins = NumFailedLogins +1 WHERE Email = '$email';";  //insert new time stamp into failed LastFailedLogin
-                        $db->execute($sqlinsert);
-                    
+                    $sqlinsert = "UPDATE users SET LastFailedLogin = '$curtime', NumFailedLogins = NumFailedLogins +1 WHERE Email = '$email';";  //insert new time stamp into failed LastFailedLogin
+                    $db->execute($sqlinsert);
                     $timest = "SELECT LastFailedLogin, NumFailedLogins FROM users WHERE Email = '$email';"; //last failed login and num failed logins sql
                     $returnedquery = $db->query($timest)->fetch(PDO::FETCH_ASSOC); //last failed login and num failed logins in associative array
                     $singletimestamp = $returnedquery['LastFailedLogin']; //grab lastfailedlogin from array
                     $numfailedlogins = $returnedquery['NumFailedLogins']; //grab numfailedlogins from array
                     //curtime - singletimestamp = seconds since login failure. This requires a 5 minute waiting period.
                     
-                    
                     if (($curtime-$singletimestamp) < 300 && $numfailedlogins > 2){
                          $this->lockaccount($email);
                         //return locked account page
                         echo "Login locked after login attempt";
+                        exit;
                     }
-                    
+                    //wrong email/password
                     echo "Incorrect password";
                     }
                 else {
@@ -96,8 +90,6 @@
                 }
                 return true;
             }
-
-        
 
         public function logout(){
             session_destroy();
