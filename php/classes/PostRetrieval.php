@@ -150,9 +150,9 @@
                 array_push($posts, $post);
             }
             $categories = $this->getPostCategories();
-            require_once "../html/header_style2.html"; //header
-            require_once "views/listings.php";
-            require_once "../html/footer2.html"; //footer
+            include_once "../html/header_style2.html"; //header
+            include_once "views/listings.php";
+            include_once "../html/footer2.html"; //footer
         }
 
         public function getCurrUserPosts(){
@@ -170,9 +170,9 @@
                 );
                 array_push($posts, $post);
             }
-            require_once "../html/header_style2.html"; //header
-            require_once "views/mylistings.php"; //template
-            require_once "../html/footer2.html"; //footer
+            include_once "../html/header_style2.html"; //header
+            include_once "views/mylistings.php"; //template
+            include_once "../html/footer2.html"; //footer
 
         }
 
@@ -187,9 +187,9 @@
             $comments = $this->getComments($postID);
             $sql = "SELECT ConditionName FROM conditions WHERE ConditionID = $conditionID;";
             $conditionReturn = $this->db->query($sql)->fetch(PDO::FETCH_ASSOC);
-            require_once "../html/header_style2.html"; //header
-            require_once "views/listing.php";
-            require_once "../html/footer2.html"; //footer
+            include_once "../html/header_style2.html"; //header
+            include_once "views/listing.php";
+            include_once "../html/footer2.html"; //footer
         }
 
         public function getComments($postID){
@@ -219,9 +219,9 @@
             if($postReturn){
                 $categories = $this->getPostCategories();
                 $conditions = $this->getPostConditions();
-                require_once "../html/header_style2.html"; //header
-                require_once "views/dashboard.php"; //template
-                require_once "../html/footer2.html"; //footer
+                include_once "../html/header_style2.html"; //header
+                include_once "views/dashboard.php"; //template
+                include_once "../html/footer2.html"; //footer
             }
             else{
                 header("Location: index.php?option=forbidden");
