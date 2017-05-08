@@ -1,9 +1,13 @@
 <?php
     ini_set('display_errors',1);
     error_reporting(E_ALL);
-    session_start();
     require_once "classes/User.php";
     require_once "classes/Post.php";
+    require_once "../../PHPMailer-master/PHPMailerAutoload.php";
+    require_once "../../EmailPassword.php";
+    require_once "views/email.php";
+    require_once "views/passresetemail.php";
+    require_once "views/acclocked.php";
     $user = new User();
     $post = new Post();
     $option = (isset($_GET['option']) ? $_GET['option'] : null);
@@ -98,7 +102,17 @@
                     else{
                         include "../html/signinerror.html";  //display login form with wrong username/password message
                     }*/
-                    $user->login();
+                    switch($user->login()){
+                        case "success":
+                            header('Location: index.php');
+                            break;
+                        case "wrong_email_or_password":
+                            include "../html/signinerror.html";
+                            break;
+                        case "account_locked":
+                            echo "splash page will go here";
+                            break;
+                    }
                 }
                 else{
                     //display login form
