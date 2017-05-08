@@ -3,20 +3,24 @@
     error_reporting(E_ALL);
     if(!isset($_SESSION))
         session_start();
-    require_once "classes/User.php";
-    require_once "classes/Post.php";
+    require_once "classes/UserAccount.php";
+    require_once "classes/UserProfile.php";
+    require_once "classes/PostRetrieval.php";
+    require_once "classes/PostManagement.php";
     require_once "../../PHPMailer-master/PHPMailerAutoload.php";
     require_once "../../EmailPassword.php";
     require_once "views/email.php";
     require_once "views/passresetemail.php";
     require_once "views/acclocked.php";
-    $user = new User();
-    $post = new Post();
+    $userAccount = new UserAccount();
+    $userProfile = new UserProfile();
+    $postRetrieval = new PostRetrieval();
+    $postManagement = new PostManagement();
     $option = (isset($_GET['option']) ? $_GET['option'] : null);
     if($option == 'send-validation-email' || $option == 'validate-email'){
         switch($option) {
             case 'send-validation-email':
-                if($user->sendValidationEmail()){
+                if($userAccount->sendValidationEmail()){
                     $message = "A validation email has been sent.";
                     $buttonText = "Resend Email";
                     $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-validation-email";
@@ -43,7 +47,7 @@
                 if(isset($_SESSION["Email_Validated"]) && $_SESSION["Email_Validated"] == true){
                     echo "Forbidden access. Email already validated";
                 }
-                else if($user->validateEmail()){
+                else if($userAccount->validateEmail()){
                     //splash page saying "email validated" w/ button for "continue to site"
                     //if logged in, button link is to index, else button link is to login
                     $message = "Email has been validated. ";
@@ -104,7 +108,7 @@
                     else{
                         include "../html/signinerror.html";  //display login form with wrong username/password message
                     }*/
-                    switch($user->login()){
+                    switch($userAccount->login()){
                         case "success":
                             header('Location: index.php');
                             break;
@@ -123,7 +127,7 @@
                 break;
             case "register":
                 if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password'])){
-                    if($user->register()){ //if success creating user
+                    if($userAccount->register()){ //if success creating user
                         //display splash page for registration
                         $message = "Account has been created and a validation email has been sent.";
                         $buttonText = "Resend Email";
@@ -151,7 +155,7 @@
                 }
                 break;
             case "send-password-reset":
-                if($user->sendPasswordResetEmail()){
+                if($userAccount->sendPasswordResetEmail()){
                         $message = "Password request has been created and a validation email has been sent.";
                         $buttonText = "Resend Email";
                         $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=send-password-reset";
@@ -188,7 +192,7 @@
                 break;
             case "password-reset":
                 if(isset($_POST["resetSubmit"])){
-                    $user->resetPassword();
+                    $userAccount->resetPassword();
                     $message = "Password has been reset. Start buying/selling.";
                     $buttonText = "Log in";
                     $buttonLink = "http://localhost/FresnoStateBuyNSell/php/index.php?option=login";
@@ -206,7 +210,7 @@
                     }
                 }
                 else{
-                    if($user->checkHashToken()){ //or userID/hashToken GET parameters not set
+                    if($userAccount->checkHashToken()){ //or userID/hashToken GET parameters not set
                         //display form
                         require_once "../html/passreset.html";
                     }
@@ -237,7 +241,7 @@
     }
     else{
         if($option == "logout"){
-            $user->logout();
+            $userAccount->logout();
             header('Location: index.php');
         }
         else if((!isset($_SESSION["Email_Validated"]) || $_SESSION["Email_Validated"] == false)){
@@ -260,27 +264,27 @@
         else{
             switch($option){
                 case null:
-                    $post->getPosts();
+                    $postRetrieval->getPosts();
                     break;
                 case "my-listings":
-                    $post->getCurrUserPosts();
+                    $postRetrieval->getCurrUserPosts();
                     break;
                 case "listing":
-                    $post->getPostDetails();
+                    $postRetrieval->getPostDetails();
                     break;
                 case "my-listing":
                     if(isset($_POST["editSubmit"])){
                         $postID = $_GET["post-id"];
-                        $post->editPost();
+                        $postManagement->editPost();
                         header("Location: index.php?option=my-listing&post-id=$postID");
                     }
                     else{
-                        $post->getCurrUserPostDetails();
+                        $postRetrieval->getCurrUserPostDetails();
                     }
                     break;
                 case "create-post":
                     if(isset($_POST["createSubmit"])){
-                        $post->createPost();
+                        $postManagement->createPost();
                         header("Location: index.php");
                     }
                     else{
@@ -289,18 +293,18 @@
                     break;
                 case "mark-if-sold":
                     $postID = $_GET["post-id"];
-                    if($post->markIfSold())
+                    if($postManagement->markIfSold())
                         header("Location: index.php?option=my-listing&post-id=$postID"); //redirect back to same page
                     else
                         header("Location: index.php?option=forbidden");
                     break;
                 case "add-comment":
                     $postID = $_GET["post-id"];
-                    $post->addComment();
+                    $postManagement->addComment();
                     header("Location: index.php?option=listing&post-id=$postID"); //redirect back to same page
                     break;
                 case "delete-listing":
-                    if($post->deletePost()){
+                    if($postManagement->deletePost()){
                         header("Location: index.php?option=my-listings");
                     }
                     else{
@@ -309,19 +313,19 @@
                     break;
                 case "update-listing-pic":
                     $postID = $_GET["post-id"];
-                    $post->updateListingPic();
+                    $postManagement->updateListingPic();
                     header("Location: index.php?option=my-listing&post-id=$postID");
                     break;
                 case "user-profile":
-                    $user->getUserProfile();
+                    $userProfile->getUserProfile();
                     break;
                 case "add-review":
-                    $user->review();
+                    $userProfile->review();
                     $profileID = $_GET["user-id"];
                     header("Location: index.php?option=user-profile&user-id=$profileID");
                     break;
                 case "add-profile-pic":
-                    $user->addProfilePic();
+                    $userProfile->addProfilePic();
                     header("Location: index.php?option=user-profile");
                     break;
                 default:
