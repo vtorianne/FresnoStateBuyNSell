@@ -1,6 +1,8 @@
 <?php
     ini_set('display_errors',1);
     error_reporting(E_ALL);
+    if(!isset($_SESSION))
+        session_start();
     require_once "classes/User.php";
     require_once "classes/Post.php";
     require_once "../../PHPMailer-master/PHPMailerAutoload.php";
