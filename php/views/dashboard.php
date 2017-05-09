@@ -48,14 +48,14 @@ echo <<<EOD
                 </input></h3>
                 
                 
-                <button style="margin" type="submit" name="editSubmit">
+                <button style="margin" class="btn btn-primary" type="submit" name="editSubmit">
                     <strong>Add/Edit Changes</strong>
                 </button>
                 </form>
 EOD;
 if($postReturn["Sold"] == 1){
     //display Sold icon
-    echo '<strong class="text-success">SOLD </strong><small> </small><i class="glyphicon glyphicon-check"></i>';
+    echo '<div style="margin-top: 15px;"><strong class="text-success">SOLD </strong><small> </small><i class="glyphicon glyphicon-check"></i></div>';
     echo <<<EOD
          <form action="/FresnoStateBuyNSell/php/index.php?option=mark-if-sold&post-id={$postID}&sold=0" method="post">
             <button type="submit">

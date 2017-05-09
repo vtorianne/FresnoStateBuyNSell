@@ -20,9 +20,7 @@ echo <<<EOD
             <div class="col-md-4">
                 <a href="/FresnoStateBuyNSell/php/index.php?option=user-profile&user-id={$userReturn["UserID"]}">
                 <h3>Seller: {$userReturn["FirstName"]} {$userReturn["LastName"]}</h3></a>
-                <h4>Item Description</h4>
                 <p>{$postReturn["Description"]}</p>
-                <h4>Item Condition</h4>
                 <p>{$conditionReturn["ConditionName"]}</p>
 
                 <h3>\${$postReturn["Price"]}</h3>
@@ -34,7 +32,7 @@ EOD;
                 else if($userID == $_SESSION["Current_User"]){
                 //display mark as sold form
                 echo <<<EOD
-                    <a href="/FresnoStateBuyNSell/php/index.php?option=my-listing&post-id={$postID}" class="btn btn-default btn-sml active" role="button">Edit</a>
+                    <a href="/FresnoStateBuyNSell/php/index.php?option=my-listing&post-id={$postID}" class="btn btn-default btn-sml btn-primary" role="button">Edit</a>
 EOD;
                 }
                 echo <<<EOD
