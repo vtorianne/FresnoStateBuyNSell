@@ -9,15 +9,15 @@
             $this->postRetrieval = new PostRetrieval();
         }
 
-        public function testGetPostCategories(){
+        function testGetPostCategories(){
             $this->postRetrieval->getPostCategories();
         }
 
-        public function testGetPostConditions(){
+        function testGetPostConditions(){
             $this->postRetrieval->getPostConditions();
         }
 
-        public function testGetFilteredQuery(){
+        function testGetFilteredQuery(){
             $_POST["Min"] = 1;
             $_POST["Max"] = 50;
             $_POST["New"] = true;
@@ -28,19 +28,19 @@
             $this->postRetrieval->getFilteredQuery();
         }
 
-        public function testGetPosts(){
+        function testGetPosts(){
             $this->postRetrieval->getPosts();
             $_POST["searchSubmit"] = true;
             $_POST["Filter"] = "Price low to high";
             $this->postRetrieval->getPosts();
         }
 
-        public function testGetCurrUserPosts(){
+        function testGetCurrUserPosts(){
             $_SESSION["Current_User"] = 8;
             $this->postRetrieval->getCurrUserPosts();
         }
 
-        public function testGetPostDetails(){
+        function testGetPostDetails(){
             $_GET["post-id"] = 12;
             $this->postRetrieval->getPostDetails();
         }
@@ -50,7 +50,7 @@
             $this->postRetrieval->getComments($postID);
         }
 
-        public function testGetCurrUserPostDetails(){
+        function testGetCurrUserPostDetails(){
             $_SESSION["Current_User"] = 8;
             $_GET["post-id"] = 12;
             $this->postRetrieval->getCurrUserPostDetails();
