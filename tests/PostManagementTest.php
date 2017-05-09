@@ -33,7 +33,7 @@
             $_SESSION["Current_User"] = 8;
             $_GET["post-id"] = 12;
             $this->postManagement->deletePost();
-            $_GET["post-id"] = 36;
+            $_GET["post-id"] = 35;
             $this->postManagement->deletePost();
         }
 
