@@ -64,8 +64,7 @@ EOD;
                 <div>
                     <form action="/FresnoStateBuyNSell/php/index.php?option=add-comment&post-id={$postID}" method="post">
                         <div>
-                            <textarea name="comment" id="comment" style="font-family:sans-serif;font-size:15px; width: 100%; margin-top: 20px;">Write a Comment
-                            </textarea>
+                            <textarea name="comment" id="comment" style="font-family:sans-serif;font-size:15px; width: 100%; margin-top: 20px;" placeholder="Write A Comment"></textarea>
                         </div>
                         <input type="submit" value="Submit Comment">
                     </form>
