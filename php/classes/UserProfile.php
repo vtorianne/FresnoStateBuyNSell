@@ -25,9 +25,9 @@
             }
             $userImg = ($return["PicturePath"] != null ? $return["PicturePath"] : "/FresnoStateBuyNSell/img/default_user.png");
 
-            require_once "../html/header_style2.html"; //header
-            require_once "views/userprofile.php";
-            require_once "../html/footer2.html"; //footer
+            include_once "../html/header_style2.html"; //header
+            include_once "views/userprofile.php";
+            include_once "../html/footer2.html"; //footer
         }
 
         public function getReviews($userID){
