@@ -4,7 +4,7 @@
     class PostManagementTest extends PHPUnit_Framework_TestCase{
         private $postManagement;
 
-        public function setUp(){
+        function setUp(){
             @session_start();
             $this->postManagement = new PostManagement();
         }
@@ -20,7 +20,7 @@
             $this->postManagement->editPost();
         }
 
-        public function testMarkIfSold(){
+        function testMarkIfSold(){
             $_SESSION["Current_User"] = 8;
             $_GET["post-id"] = 12;
             $_GET["sold"] = 1;
@@ -29,7 +29,7 @@
             $this->postManagement->markIfSold();
         }
 
-        public function testDeletePost(){
+        function testDeletePost(){
             $_SESSION["Current_User"] = 8;
             $_GET["post-id"] = 12;
             $this->postManagement->deletePost();
@@ -37,7 +37,7 @@
             $this->postManagement->deletePost();
         }
 
-        public function testAddComment(){
+        function testAddComment(){
             $_SESSION["Current_User"] = 8;
             $_GET["post-id"] = 12;
             $_POST["comment"] = "Nice!!!";
