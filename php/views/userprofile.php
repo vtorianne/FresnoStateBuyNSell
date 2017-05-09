@@ -77,8 +77,7 @@ EOD;
                     <h4>Review User:</h4>
                     <form action="index.php?option=add-review&user-id={$userID}" method="post">
                         <div>
-                            <textarea name="comment" id="comment" style="font-family:sans-serif;font-size:15px; width: 100%; margin-top: 20px;">Write a Review
-                            </textarea>
+                            <textarea name="comment" id="comment" style="font-family:sans-serif;font-size:15px; width: 100%; margin-top: 20px;" placeholder="Write A Review"></textarea>
                             <fieldset>
                                 <span class="star-cb-group">
                                   <input type="radio" id="rating-5" name="rating" value="5" /><label for="rating-5">5</label>
