@@ -1,7 +1,26 @@
 # FresnoStateBuyNSell
 
+## About
+***
+
 ## Features
 ***
+### Register
+![](readme_images/screenshots/registration.JPG)
+![](readme_images/screenshots/email_validation.JPG)
+
+### Reset Password
+![](readme_images/screenshots/password_reset.JPG)
+![](readme_images/screenshots/password_reset_message.JPG)
+
+### Sell Items
+![](readme_images/screenshots/create_listing.JPG)
+![](readme_images/screenshots/edit_listing.JPG)
+
+### Buy Items
+![](readme_images/screenshots/listings.JPG)
+![](readme_images/screenshots/view_and_comment.JPG)
+![](readme_images/screenshots/review_other_users.JPG)
 
 ## Architecture
 ***
