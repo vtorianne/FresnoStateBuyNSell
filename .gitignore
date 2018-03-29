@@ -1,5 +1,6 @@
 # ignore .idea
 /.idea/
 /css/bootstrap-theme.css
+/css/bootstrap-theme.min.css
 /css/bootstrap.css
 /css/bootstrap.min.css
